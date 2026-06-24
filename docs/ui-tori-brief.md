@@ -1,8 +1,17 @@
-# Tori-Ready UI Brief: GEO Agent
+# Tauri + React UI Brief: GEO Agent
 
 ## Product Type
 
-A web application for running AI search visibility audits for a brand. The first UI should be a focused workflow app, not a broad dashboard.
+A desktop application for running AI search visibility audits for a brand. The first UI should be a focused workflow app, not a broad dashboard.
+
+## UI Stack Decision
+
+Use Tauri + React:
+
+- React renders the app shell and audit workflow UI.
+- Tauri provides the desktop shell and secure command boundary.
+- The existing Python audit engine remains the source of truth for domain logic during early V5.
+- Provider credentials are handled through a provider access layer and must not be written into audit artifacts.
 
 ## Primary User
 
@@ -12,8 +21,8 @@ A founder, marketer, SEO/GEO consultant, or growth operator who wants to know wh
 
 ```text
 As a user,
-I open GEO Agent,
-connect one or more providers,
+I open the GEO Agent desktop app,
+connect one or more providers by API key, OAuth, platform-managed access, or manual import,
 enter my brand profile and website,
 run an audit,
 and receive a report with evidence, failures, tasks, and retest plan.
@@ -169,9 +178,25 @@ Show evidence tabs:
 - Tasks
 - Report artifacts
 
+## Tauri Command Boundary
+
+Initial commands should be minimal and safe:
+
+```text
+list_providers()
+connect_api_key_provider(provider_id, api_key)
+start_oauth(provider_id)
+disconnect_provider(provider_id)
+validate_profile(profile)
+generate_queries(profile)
+run_fixture_audit(fixture_path, output_dir)
+```
+
+Commands must return redacted provider state only. No command may return raw credentials.
+
 ## Visual Direction
 
-- Clean technical SaaS.
+- Clean technical desktop app.
 - High trust, low noise.
 - Strong separation between setup, execution, and evidence review.
 - Prefer tables and cards over marketing visuals.
@@ -225,8 +250,9 @@ No audit report yet. Run an audit to generate visibility evidence.
 
 The first implementation should include:
 
+- Tauri + React app shell.
 - Providers page with provider matrix.
-- Brand profile form.
+- Brand profile form shell.
 - Query preview shell.
 - Audit run shell.
 - Report shell.
