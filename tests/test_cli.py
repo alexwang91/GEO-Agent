@@ -1,0 +1,76 @@
+import json
+import tempfile
+import unittest
+from pathlib import Path
+
+from geo_agent.cli import main
+
+
+def fixture():
+    return {
+        "profile": {
+            "brand": "Acme AI",
+            "aliases": ["Acme"],
+            "domain": "acme.ai",
+            "competitors": ["Globex"],
+            "target_regions": ["US"],
+            "target_languages": ["en"],
+            "target_customer": "marketing teams",
+            "main_product": "AI visibility platform",
+            "category": "GEO software",
+            "business_goal": "improve AI search visibility",
+        },
+        "pages": {
+            "https://acme.ai/": "<html><head><title>Acme</title><link rel='canonical' href='https://acme.ai/'></head><body><h1>Acme AI</h1></body></html>"
+        },
+        "audit": {"manual_urls": ["https://acme.ai/"], "sitemap_urls": [], "max_queries": 2},
+        "recorded_runs": {
+            "engine": "recorded",
+            "runs": {
+                "What is Acme AI for marketing teams?": {
+                    "timestamp": "2026-06-24T00:00:00Z",
+                    "raw_answer": "Acme AI is a GEO platform.",
+                    "citations": ["https://acme.ai/"],
+                    "mentions": ["Acme AI"],
+                    "recommendations": ["Acme AI"],
+                },
+                "Best GEO software tools for marketing teams in US": {
+                    "timestamp": "2026-06-24T00:01:00Z",
+                    "raw_answer": "Globex appears in category lists.",
+                    "citations": ["https://globex.com/"],
+                    "mentions": ["Globex"],
+                    "recommendations": ["Globex"],
+                },
+            },
+        },
+        "metadata": {"name": "cli-fixture"},
+    }
+
+
+class CliTests(unittest.TestCase):
+    def test_cli_writes_json_and_markdown_reports_without_network(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture_path = root / "fixture.json"
+            output_dir = root / "out"
+            fixture_path.write_text(json.dumps(fixture()), encoding="utf-8")
+
+            exit_code = main(["audit", str(fixture_path), "--out", str(output_dir)])
+
+            self.assertEqual(exit_code, 0)
+            report_json = json.loads((output_dir / "report.json").read_text(encoding="utf-8"))
+            report_md = (output_dir / "report.md").read_text(encoding="utf-8")
+
+        self.assertIn("score", report_json)
+        self.assertIn("missing_queries", report_json)
+        self.assertIn("competitor_map", report_json)
+        self.assertIn("cited_sources", report_json)
+        self.assertIn("failures", report_json)
+        self.assertIn("recommended_actions", report_json)
+        self.assertIn("retest_plan", report_json)
+        self.assertIn("# GEO Agent Operational Report", report_md)
+        self.assertIn("## Retest Plan", report_md)
+
+
+if __name__ == "__main__":
+    unittest.main()
