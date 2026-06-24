@@ -6,7 +6,7 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 
 ## Methodology Map
 
-- Superpowers: brainstorm before code, write plans, TDD/eval-first, review, and finish branches after verification.
+- Superpowers: evaluate before implementation, write plans, TDD/eval-first, review, and finish branches after verification.
 - Matt Pocock skills: alignment, shared language, ADR-worthy decisions, vertical slices, red-green-refactor, and architecture improvement.
 - GitHub Loop Runner: GitHub-only PR loop, progress as state, CI verification, feedback taxonomy, trace, repair, hypotheses, and stoppers.
 
@@ -32,41 +32,51 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 | V3-4 | Add Diagnosis V2 using run, page, and competitor evidence. | DONE |
 | V3-5 | Add CLI entry point for fixture-based audits. | DONE |
 
-## V3-0 Acceptance Criteria
+## Loop V4 Backlog
 
-- `docs/loop-v3.md` defines the demo-ready evidence loop.
-- `AGENTS.md` instructs future agents to read and follow Loop V3.
-- `docs/decision-log.md` records why the project is moving from seams to productized audit workflow.
+| Slice | Description | Status |
+| :--- | :--- | :--- |
+| V4-0 | Install V4 evaluation, loop, and reproducible audit package plan. | IN_PROGRESS |
+| V4-1 | Persist the full audit evidence graph during `AuditRunner.run`. | TODO |
+| V4-2 | Write reproducible audit package artifacts from CLI. | TODO |
+| V4-3 | Add canonical example fixture and usage docs. | TODO |
+| V4-4 | Publish recorded dataset schema documentation. | TODO |
+| V4-5 | Document live adapter boundary without implementing live calls. | TODO |
+
+## V4-0 Acceptance Criteria
+
+- `docs/project-evaluation-v4.md` evaluates the current project state.
+- `docs/loop-v4.md` defines the reproducible audit package loop.
+- `AGENTS.md` instructs future agents to read and follow Loop V4.
+- `docs/decision-log.md` records the move from report output to reproducible audit package output.
 - CI passes.
 
-## V3-1 Acceptance Criteria
+## V4-1 Acceptance Criteria
 
-- An `AuditRunner` or equivalent orchestrator accepts an `EntityProfile`, page evidence, and recorded or mock engine evidence.
-- The runner executes query planning, page inventory, engine sampling, evidence storage, scoring, diagnosis, tasks, and report rendering.
-- Tests prove a fixture-based audit produces a JSON or Markdown report with score, missing queries, competitor map, sources, failures, actions, and retest plan.
-- The runner does not claim live engine support.
+- `AuditRunner.run` persists query records, page inventory records, engine runs, diagnoses, tasks, and report artifacts.
+- Tests prove the store contains every evidence layer after a fixture audit.
+- Existing CLI and report behavior remain unchanged.
 
-## V3-2 Acceptance Criteria
+## V4-2 Acceptance Criteria
 
-- A recorded dataset schema exists for entity profile, pages, recorded engine runs, and expected audit metadata.
-- Loader tests accept a valid fixture and reject missing required sections, malformed URLs, and malformed recorded runs.
-- Dataset loading produces objects compatible with `AuditRunner` without changing scoring code.
+- CLI writes `manifest.json`, `audit.sqlite`, `report.json`, and `report.md`.
+- Manifest includes profile brand/domain, engine, query count, page count, run count, generated timestamp, and artifact names.
+- CLI tests verify package contents without network or live engine credentials.
 
-## V3-3 Acceptance Criteria
+## V4-3 Acceptance Criteria
 
-- EvidenceStore can persist query records, page inventory records, failure diagnoses, optimization tasks, and report artifacts.
-- Tests cover save/load/filter behavior for each new evidence type.
-- Existing engine-run persistence remains backward compatible.
+- Repository includes `examples/acme-fixture.json`.
+- Usage docs show a fixture audit command and expected outputs.
+- CI verifies the example fixture can run through the CLI.
 
-## V3-4 Acceptance Criteria
+## V4-4 Acceptance Criteria
 
-- Diagnosis V2 uses engine runs, page inventory, source domains, competitors, and query intent.
-- Tests cover attribution failure, retrieval failure, competitor-source dominance, entity parsing failure, and intent mismatch.
-- Diagnoses include evidence fields usable by reports and task generation.
+- Repository includes recorded dataset schema documentation.
+- Required sections and field types are documented.
+- Tests or docs checks cover the schema file presence and example alignment.
 
-## V3-5 Acceptance Criteria
+## V4-5 Acceptance Criteria
 
-- A CLI command can run a fixture-based audit.
-- CLI accepts input fixture path and output directory.
-- CLI writes stable JSON and Markdown report artifacts.
-- CLI tests run in CI without network or live engine credentials.
+- Live adapter boundary is documented without adding live calls.
+- Docs define required secrets, rate limits, provenance fields, and stopper rules.
+- CI remains fully fixture-based.
