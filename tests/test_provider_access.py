@@ -1,0 +1,51 @@
+import unittest
+
+from geo_agent.provider_access import (
+    ProviderAccessError,
+    default_provider_registry,
+    redact_credential_label,
+)
+
+
+class ProviderAccessTests(unittest.TestCase):
+    def test_default_registry_exposes_initial_provider_matrix(self):
+        registry = default_provider_registry()
+        definitions = {item.provider_id: item for item in registry.list_definitions()}
+
+        self.assertIn("openai_compatible", definitions)
+        self.assertIn("google_search_console", definitions)
+        self.assertIn("manual_import", definitions)
+        self.assertEqual(definitions["openai_compatible"].access_methods, ("api_key", "platform_managed"))
+        self.assertEqual(definitions["google_search_console"].access_methods, ("oauth",))
+        self.assertEqual(definitions["manual_import"].implementation_status, "implemented")
+
+    def test_registry_rejects_unsupported_access_method(self):
+        registry = default_provider_registry()
+
+        with self.assertRaisesRegex(ProviderAccessError, "does not support"):
+            registry.connect("manual_import", "oauth")
+
+    def test_connections_redact_credentials(self):
+        registry = default_provider_registry()
+
+        connection = registry.connect("manual_import", "manual_import", credential_label="sk-secret-value")
+
+        payload = connection.to_dict()
+        self.assertEqual(payload["redacted_label"], "sk…ue")
+        self.assertNotIn("sk-secret-value", str(payload))
+
+    def test_planned_provider_is_visible_but_not_connected(self):
+        registry = default_provider_registry()
+
+        connection = registry.connect("openai_compatible", "api_key", credential_label="sk-live-value")
+
+        self.assertEqual(connection.auth_status, "planned")
+        self.assertEqual(connection.redacted_label, "planned")
+
+    def test_redaction_for_short_or_empty_values(self):
+        self.assertEqual(redact_credential_label(""), "redacted")
+        self.assertEqual(redact_credential_label("abc"), "****")
+
+
+if __name__ == "__main__":
+    unittest.main()
