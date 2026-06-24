@@ -25,3 +25,11 @@ Durable product and architecture decisions are recorded here. Use short ADR-styl
 - Context: Agents can drift into broad or vague terms when continuing a partially built repo.
 - Decision: Public APIs and plans should use `docs/context.md` terminology.
 - Consequences: Reviews should flag ambiguous new names or duplicate concepts.
+
+## D-0004: Loop V3 productizes the audit path
+
+- Date: 2026-06-24
+- Status: accepted
+- Context: Loop V2 completed the main seams: persistence, crawler fetcher, engine adapter, weighted scoring, and report artifacts. The project now needs a user-observable workflow rather than more isolated modules.
+- Decision: Future work follows Loop V3. The first priority is an `AuditRunner` that creates a deterministic audit report from fixture evidence without claiming live engine support.
+- Consequences: New slices must move the end-to-end audit path forward and include an artifact or persisted evidence. Isolated helpers are deferred unless immediately consumed by the audit workflow.
