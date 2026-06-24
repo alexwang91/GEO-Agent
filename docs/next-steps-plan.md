@@ -19,7 +19,7 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 | V2-2 | Replace parser-only page inventory with fetch-capable crawler seam. | DONE |
 | V2-3 | Upgrade engine sampling adapter contract and recorded-run import path. | DONE |
 | V2-4 | Rework scoring into weighted metric components with stronger edge-case tests. | DONE |
-| V2-5 | Add evidence-backed operational report artifact and snapshot or JSON tests. | TODO |
+| V2-5 | Add evidence-backed operational report artifact and snapshot or JSON tests. | DONE |
 
 ## V2-0 Acceptance Criteria
 
