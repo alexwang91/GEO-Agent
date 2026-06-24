@@ -21,42 +21,52 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 | V2-4 | Rework scoring into weighted metric components with stronger edge-case tests. | DONE |
 | V2-5 | Add evidence-backed operational report artifact and snapshot or JSON tests. | DONE |
 
-## V2-0 Acceptance Criteria
+## Loop V3 Backlog
 
-- `docs/loop-v2.md` defines the new operating loop.
-- `docs/context.md` defines shared project language.
-- `docs/decision-log.md` records durable loop decisions.
-- `AGENTS.md` instructs future agents to read and follow Loop V2.
+| Slice | Description | Status |
+| :--- | :--- | :--- |
+| V3-0 | Install Loop V3 and productization plan. | IN_PROGRESS |
+| V3-1 | Add `AuditRunner` orchestrating existing modules over fixtures. | TODO |
+| V3-2 | Add recorded dataset schema and fixture loader. | TODO |
+| V3-3 | Expand EvidenceStore beyond engine runs. | TODO |
+| V3-4 | Add Diagnosis V2 using run, page, and competitor evidence. | TODO |
+| V3-5 | Add CLI entry point for fixture-based audits. | TODO |
+
+## V3-0 Acceptance Criteria
+
+- `docs/loop-v3.md` defines the demo-ready evidence loop.
+- `AGENTS.md` instructs future agents to read and follow Loop V3.
+- `docs/decision-log.md` records why the project is moving from seams to productized audit workflow.
 - CI passes.
 
-## V2-1 Acceptance Criteria
+## V3-1 Acceptance Criteria
 
-- A storage module persists raw `EngineRun` records with query, engine, region, language, timestamp, answer text, citations, mentions, recommendations, and source domains.
-- The store can save and load runs deterministically in CI.
-- Tests cover empty store, single run, multiple runs, and query/engine filtering.
-- The design keeps a seam for future page, diagnosis, task, and report persistence.
+- An `AuditRunner` or equivalent orchestrator accepts an `EntityProfile`, page evidence, and recorded or mock engine evidence.
+- The runner executes query planning, page inventory, engine sampling, evidence storage, scoring, diagnosis, tasks, and report rendering.
+- Tests prove a fixture-based audit produces a JSON or Markdown report with score, missing queries, competitor map, sources, failures, actions, and retest plan.
+- The runner does not claim live engine support.
 
-## V2-2 Acceptance Criteria
+## V3-2 Acceptance Criteria
 
-- Page inventory has a fetch-capable adapter interface separate from parser logic.
-- Sitemap index and URL sitemap inputs are supported through fixtures.
-- Canonical dedupe and malformed page handling are tested.
-- Network behavior remains mockable in CI.
+- A recorded dataset schema exists for entity profile, pages, recorded engine runs, and expected audit metadata.
+- Loader tests accept a valid fixture and reject missing required sections, malformed URLs, and malformed recorded runs.
+- Dataset loading produces objects compatible with `AuditRunner` without changing scoring code.
 
-## V2-3 Acceptance Criteria
+## V3-3 Acceptance Criteria
 
-- Engine adapters share a protocol that can support live, recorded, and mock modes.
-- Recorded-run import can turn saved answer fixtures into `EngineRun` records.
-- Tests prove real adapters can be added without changing scoring code.
+- EvidenceStore can persist query records, page inventory records, failure diagnoses, optimization tasks, and report artifacts.
+- Tests cover save/load/filter behavior for each new evidence type.
+- Existing engine-run persistence remains backward compatible.
 
-## V2-4 Acceptance Criteria
+## V3-4 Acceptance Criteria
 
-- Scoring exposes metric components before aggregate score.
-- Weighting is configurable and deterministic.
-- Tests cover brand mention without citation, citation without recommendation, competitor-only answer, empty answer, and source diversity.
+- Diagnosis V2 uses engine runs, page inventory, source domains, competitors, and query intent.
+- Tests cover attribution failure, retrieval failure, competitor-source dominance, entity parsing failure, and intent mismatch.
+- Diagnoses include evidence fields usable by reports and task generation.
 
-## V2-5 Acceptance Criteria
+## V3-5 Acceptance Criteria
 
-- Report generation produces a stable JSON or Markdown artifact.
-- Report includes score, missing queries, competitor map, cited sources, failures, recommended actions, and retest plan.
-- Snapshot or structured assertions verify the artifact shape.
+- A CLI command can run a fixture-based audit.
+- CLI accepts input fixture path and output directory.
+- CLI writes stable JSON and Markdown report artifacts.
+- CLI tests run in CI without network or live engine credentials.
