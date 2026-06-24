@@ -33,3 +33,11 @@ Durable product and architecture decisions are recorded here. Use short ADR-styl
 - Context: Loop V2 completed the main seams: persistence, crawler fetcher, engine adapter, weighted scoring, and report artifacts. The project now needs a user-observable workflow rather than more isolated modules.
 - Decision: Future work follows Loop V3. The first priority is an `AuditRunner` that creates a deterministic audit report from fixture evidence without claiming live engine support.
 - Consequences: New slices must move the end-to-end audit path forward and include an artifact or persisted evidence. Isolated helpers are deferred unless immediately consumed by the audit workflow.
+
+## D-0005: Loop V4 makes audits reproducible packages
+
+- Date: 2026-06-24
+- Status: accepted
+- Context: Loop V3 created a fixture audit CLI that writes reports, but reviewers still need a complete package containing evidence, metadata, and artifacts.
+- Decision: Future work follows Loop V4. Each audit should become a reproducible package with a manifest, report artifacts, and an inspectable evidence database.
+- Consequences: New slices must improve package reproducibility and evidence reviewability. Live engine work remains out of scope until the adapter boundary is documented.
