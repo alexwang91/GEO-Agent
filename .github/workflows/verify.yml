@@ -1,0 +1,27 @@
+name: verify
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify runner docs
+        run: |
+          test -f AGENTS.md
+          test -f docs/product-brief.md
+          test -f docs/autonomous-runner.md
+          test -f docs/progress.md
+          test -f docs/next-steps-plan.md
+          test -f docs/development-principles.md
+          test -f docs/feedback-taxonomy.md
+          test -f docs/feedback-log.md
+          test -f docs/loop-trace.md
+          test -f docs/review-and-renewal-loop.md
+          test -f docs/harness-repair-loop.md
+          test -f docs/loop-hypotheses.md
+          test -f docs/stopper-policy.md
+          test -f docs/loop-review.md
+          ! find . -maxdepth 4 -type f \( -name noop -o -name dummy -o -name x -o -name y \) | grep .
