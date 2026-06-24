@@ -50,7 +50,7 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 | V5-0 | Install V5 evaluation, Tauri + React UI brief, provider access architecture, and loop plan. | DONE |
 | V5-1 | Add provider access domain model and registry. | DONE |
 | V5-2 | Add Tauri + React app shell. | DONE |
-| V5-3 | Add BYOK API key session flow. | TODO |
+| V5-3 | Add BYOK API key session flow. | DONE |
 | V5-4 | Add OAuth framework with fake provider. | TODO |
 | V5-5 | Add first OpenAI-compatible answer provider behind explicit config. | TODO |
 | V5-6 | Add crawler provider abstraction and first crawler adapter. | TODO |

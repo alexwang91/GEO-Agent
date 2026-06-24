@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from secrets import token_urlsafe
 from typing import Literal
 
 ProviderType = Literal["answer", "search", "crawl", "model", "analytics"]
@@ -57,6 +58,60 @@ class ProviderConnection:
             "scopes": list(self.scopes),
             "expires_at": self.expires_at,
         }
+
+
+@dataclass(frozen=True)
+class ApiKeySession:
+    session_id: str
+    provider_id: str
+    redacted_label: str
+
+    def to_dict(self) -> dict[str, str]:
+        return {
+            "session_id": self.session_id,
+            "provider_id": self.provider_id,
+            "redacted_label": self.redacted_label,
+        }
+
+
+class ApiKeySessionStore:
+    """In-memory BYOK session boundary. Raw keys never leave this object."""
+
+    def __init__(self, registry: "ProviderRegistry | None" = None) -> None:
+        self.registry = registry or default_provider_registry()
+        self._keys: dict[str, str] = {}
+        self._sessions: dict[str, ApiKeySession] = {}
+
+    def create_session(self, provider_id: str, api_key: str, *, label: str | None = None) -> ApiKeySession:
+        if not api_key or not api_key.strip():
+            raise ProviderAccessError("API key is required for BYOK provider sessions.")
+        definition = self.registry.get(provider_id)
+        if not definition.supports("api_key"):
+            raise ProviderAccessError(f"Provider {provider_id} does not support API key access.")
+        if definition.implementation_status != "implemented":
+            raise ProviderAccessError(f"Provider {provider_id} is not implemented yet.")
+        session_id = token_urlsafe(16)
+        redacted = redact_credential_label(label or api_key)
+        session = ApiKeySession(session_id=session_id, provider_id=provider_id, redacted_label=redacted)
+        self._keys[session_id] = api_key
+        self._sessions[session_id] = session
+        return session
+
+    def get_key(self, session_id: str) -> str:
+        try:
+            return self._keys[session_id]
+        except KeyError as exc:
+            raise ProviderAccessError("Unknown provider session.") from exc
+
+    def get_session(self, session_id: str) -> ApiKeySession:
+        try:
+            return self._sessions[session_id]
+        except KeyError as exc:
+            raise ProviderAccessError("Unknown provider session.") from exc
+
+    def disconnect(self, session_id: str) -> None:
+        self._keys.pop(session_id, None)
+        self._sessions.pop(session_id, None)
 
 
 class ProviderRegistry:

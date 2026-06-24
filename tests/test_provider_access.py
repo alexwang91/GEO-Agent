@@ -1,7 +1,12 @@
+import json
 import unittest
 
+from geo_agent.evidence_store import EvidenceStore, ReportArtifact
 from geo_agent.provider_access import (
+    ApiKeySessionStore,
     ProviderAccessError,
+    ProviderDefinition,
+    ProviderRegistry,
     default_provider_registry,
     redact_credential_label,
 )
@@ -45,6 +50,62 @@ class ProviderAccessTests(unittest.TestCase):
     def test_redaction_for_short_or_empty_values(self):
         self.assertEqual(redact_credential_label(""), "redacted")
         self.assertEqual(redact_credential_label("abc"), "****")
+
+    def test_api_key_session_accepts_key_and_returns_only_redacted_state(self):
+        store = ApiKeySessionStore(fake_registry())
+
+        session = store.create_session("fake_answer", "pplx-secret-key", label="pplx-secret-key")
+
+        payload = session.to_dict()
+        self.assertEqual(payload["provider_id"], "fake_answer")
+        self.assertEqual(payload["redacted_label"], "pp…ey")
+        self.assertNotIn("pplx-secret-key", json.dumps(payload))
+        self.assertEqual(store.get_key(session.session_id), "pplx-secret-key")
+
+    def test_api_key_session_rejects_missing_key(self):
+        store = ApiKeySessionStore(fake_registry())
+
+        with self.assertRaisesRegex(ProviderAccessError, "API key is required"):
+            store.create_session("fake_answer", "")
+
+    def test_api_key_session_rejects_non_api_key_provider(self):
+        store = ApiKeySessionStore()
+
+        with self.assertRaisesRegex(ProviderAccessError, "does not support API key"):
+            store.create_session("google_search_console", "secret")
+
+    def test_api_key_session_rejects_planned_provider(self):
+        store = ApiKeySessionStore()
+
+        with self.assertRaisesRegex(ProviderAccessError, "not implemented"):
+            store.create_session("perplexity", "secret")
+
+    def test_api_key_does_not_enter_report_artifacts(self):
+        secret = "pplx-secret-key"
+        store = ApiKeySessionStore(fake_registry())
+        session = store.create_session("fake_answer", secret, label=secret)
+        with EvidenceStore() as evidence:
+            evidence.save_report_artifact(ReportArtifact("provider-state", "json", json.dumps(session.to_dict())))
+            artifact = evidence.list_report_artifacts()[0]
+
+        payload = json.loads(artifact.content)
+        self.assertNotIn(secret, artifact.content)
+        self.assertEqual(payload["redacted_label"], "pp…ey")
+
+
+def fake_registry():
+    return ProviderRegistry(
+        (
+            ProviderDefinition(
+                "fake_answer",
+                "Fake Answer Provider",
+                "answer",
+                ("answer",),
+                ("api_key",),
+                "implemented",
+            ),
+        )
+    )
 
 
 if __name__ == "__main__":
