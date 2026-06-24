@@ -177,4 +177,39 @@ entries:
     runner_decision:
       action: observe_ci
       reason: "Review passed, but CI remains the required verification channel."
+  - id: F-0006
+    timestamp: "2026-06-24T16:01:00Z"
+    source: ci
+    type: success
+    severity: info
+    milestone: M1
+    branch: m1-entity-profile-schema
+    pr: 2
+    summary: "GitHub Actions verify workflow completed successfully for M1."
+    evidence:
+      checks:
+        - "workflow_run: 28111747304"
+        - "job docs: success"
+        - "job python-tests: success"
+        - "step Run unit tests: success"
+      files:
+        - .github/workflows/verify.yml
+        - tests/test_entity_profile.py
+      review_comments: []
+      trace_ids:
+        - T-0012
+      hypothesis_ids: []
+    root_cause:
+      layer: verification
+      category: ci_verified
+      confidence: high
+      explanation: "Both required CI jobs passed for the M1 PR head that contained product code, tests, docs, progress, feedback, and trace evidence."
+    allowed_next_actions:
+      - update_pr_evidence
+      - merge_after_current_head_ci_green
+      - continue_to_m2_after_merge
+    forbidden_next_actions: []
+    runner_decision:
+      action: update_pr_evidence
+      reason: "CI evidence is available and can be linked before merge."
 ```
