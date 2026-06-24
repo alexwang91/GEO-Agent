@@ -14,8 +14,8 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 
 | Slice | Description | Status |
 | :--- | :--- | :--- |
-| V2-0 | Install Loop V2, shared context, and decision log. | IN_PROGRESS |
-| V2-1 | Add persistent evidence store for raw query-answer-citation history. | TODO |
+| V2-0 | Install Loop V2, shared context, and decision log. | DONE |
+| V2-1 | Add persistent evidence store for raw query-answer-citation history. | DONE |
 | V2-2 | Replace parser-only page inventory with fetch-capable crawler seam. | TODO |
 | V2-3 | Upgrade engine sampling adapter contract and recorded-run import path. | TODO |
 | V2-4 | Rework scoring into weighted metric components with stronger edge-case tests. | TODO |
