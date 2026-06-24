@@ -1,0 +1,45 @@
+{
+  "profile": {
+    "brand": "Acme AI",
+    "aliases": ["Acme"],
+    "domain": "acme.ai",
+    "competitors": ["Globex"],
+    "target_regions": ["US"],
+    "target_languages": ["en"],
+    "target_customer": "marketing teams",
+    "main_product": "AI visibility platform",
+    "category": "GEO software",
+    "business_goal": "improve AI search visibility"
+  },
+  "pages": {
+    "https://acme.ai/": "<html><head><title>Acme AI</title><link rel='canonical' href='https://acme.ai/'></head><body><h1>Acme AI evidence hub</h1><p>Acme AI helps marketing teams improve AI search visibility.</p></body></html>"
+  },
+  "audit": {
+    "manual_urls": ["https://acme.ai/"],
+    "sitemap_urls": [],
+    "max_queries": 2
+  },
+  "recorded_runs": {
+    "engine": "recorded",
+    "runs": {
+      "What is Acme AI for marketing teams?": {
+        "timestamp": "2026-06-24T00:00:00Z",
+        "raw_answer": "Acme AI is a GEO platform for marketing teams.",
+        "citations": ["https://acme.ai/"],
+        "mentions": ["Acme AI"],
+        "recommendations": ["Acme AI"]
+      },
+      "Best GEO software tools for marketing teams in US": {
+        "timestamp": "2026-06-24T00:01:00Z",
+        "raw_answer": "Globex appears in category lists for GEO software.",
+        "citations": ["https://globex.com/guide"],
+        "mentions": ["Globex"],
+        "recommendations": ["Globex"]
+      }
+    }
+  },
+  "metadata": {
+    "name": "acme-fixture",
+    "purpose": "Canonical fixture for CI-safe GEO audit demos."
+  }
+}
