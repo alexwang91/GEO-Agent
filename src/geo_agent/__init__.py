@@ -19,6 +19,12 @@ from .provider_access import (
     default_provider_registry,
     redact_credential_label,
 )
+from .provider_auth_flow import (
+    AuthorizationSessionStore,
+    AuthorizationStart,
+    FakeAuthorizationProvider,
+    TokenSession,
+)
 from .query_space import INTENT_TYPES, QueryRecord, build_query_space
 from .recorded_dataset import (
     RecordedAuditDataset,
@@ -46,6 +52,10 @@ __all__ = [
     "ProviderRegistry",
     "default_provider_registry",
     "redact_credential_label",
+    "AuthorizationSessionStore",
+    "AuthorizationStart",
+    "FakeAuthorizationProvider",
+    "TokenSession",
     "INTENT_TYPES",
     "QueryRecord",
     "build_query_space",
