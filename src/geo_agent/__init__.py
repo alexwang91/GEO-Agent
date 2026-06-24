@@ -6,6 +6,7 @@ from .entity_profile import (
     ValidationIssue,
     validate_entity_profile,
 )
+from .evidence_store import EvidenceStore
 from .query_space import INTENT_TYPES, QueryRecord, build_query_space
 
 __all__ = [
@@ -13,6 +14,7 @@ __all__ = [
     "EntityProfileValidationError",
     "ValidationIssue",
     "validate_entity_profile",
+    "EvidenceStore",
     "INTENT_TYPES",
     "QueryRecord",
     "build_query_space",
