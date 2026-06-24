@@ -8,7 +8,7 @@ from typing import Mapping
 from .engine_sampling import EngineAdapter, EngineRun, sample_with_adapter
 from .entity_profile import EntityProfile
 from .evidence_store import EvidenceStore
-from .failure_debugger import FailureDiagnosis, diagnose_citation_failure
+from .failure_debugger import FailureDiagnosis, diagnose_failure_v2
 from .optimization_tasks import OptimizationTaskBrief, generate_task_brief
 from .page_inventory import PageInventoryRecord, StaticPageFetcher, crawl_inventory
 from .query_space import QueryRecord, build_query_space
@@ -79,7 +79,14 @@ class AuditRunner:
             competitors=profile.competitors,
         )
         diagnoses = tuple(
-            diagnose_citation_failure(run, brand=profile.brand, brand_domain=profile.domain, query_intent=query.intent_type)
+            diagnose_failure_v2(
+                run,
+                query,
+                pages=page_records,
+                brand=profile.brand,
+                brand_domain=profile.domain,
+                competitors=profile.competitors,
+            )
             for run, query in zip(runs, queries)
         )
         target_page = _first_page_url(page_records, profile)
