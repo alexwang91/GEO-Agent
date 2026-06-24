@@ -21,18 +21,7 @@ class EngineRun:
     source_domains: tuple[str, ...]
 
     def to_dict(self) -> dict[str, object]:
-        return {
-            "engine": self.engine,
-            "query": self.query,
-            "timestamp": self.timestamp,
-            "region": self.region,
-            "language": self.language,
-            "raw_answer": self.raw_answer,
-            "citations": list(self.citations),
-            "mentions": list(self.mentions),
-            "recommendations": list(self.recommendations),
-            "source_domains": list(self.source_domains),
-        }
+        return dict(self.__dict__)
 
 
 class EngineAdapter(Protocol):
