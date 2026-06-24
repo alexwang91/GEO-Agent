@@ -88,8 +88,9 @@ class ProviderAccessTests(unittest.TestCase):
             evidence.save_report_artifact(ReportArtifact("provider-state", "json", json.dumps(session.to_dict())))
             artifact = evidence.list_report_artifacts()[0]
 
+        payload = json.loads(artifact.content)
         self.assertNotIn(secret, artifact.content)
-        self.assertIn("pp…ey", artifact.content)
+        self.assertEqual(payload["redacted_label"], "pp…ey")
 
 
 def fake_registry():
