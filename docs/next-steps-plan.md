@@ -47,8 +47,8 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 
 | Slice | Description | Status |
 | :--- | :--- | :--- |
-| V5-0 | Install V5 evaluation, Tauri + React UI brief, provider access architecture, and loop plan. | IN_PROGRESS |
-| V5-1 | Add provider access domain model and registry. | TODO |
+| V5-0 | Install V5 evaluation, Tauri + React UI brief, provider access architecture, and loop plan. | DONE |
+| V5-1 | Add provider access domain model and registry. | DONE |
 | V5-2 | Add Tauri + React app shell. | TODO |
 | V5-3 | Add BYOK API key session flow. | TODO |
 | V5-4 | Add OAuth framework with fake provider. | TODO |
