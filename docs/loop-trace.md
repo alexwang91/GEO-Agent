@@ -9,14 +9,14 @@ This file records observable runner events. Keep entries compact, factual, and e
 | selected_milestone | 1 | M0 bootstrap selected. |
 | branch_created | 1 | `m0-bootstrap-runner` created from `main`. |
 | pr_opened | 1 | PR #1 opened. |
-| ci_observed | 1 | Combined status returned no checks yet. |
-| feedback_classified | 2 | F-0001 records bootstrap success; F-0002 records missing CI signal. |
+| ci_observed | 2 | Initial status was empty; Actions run later passed. |
+| feedback_classified | 3 | F-0001 bootstrap success; F-0002 missing CI signal; F-0003 CI success. |
 | merge_attempted | 0 | No merge attempt yet. |
 | progress_updated | 1 | M0 marked DONE in bootstrap branch. |
 | review_run | 0 | No renewal review needed yet. |
 | harness_repair_run | 0 | No harness repair needed yet. |
 | hypothesis_updated | 0 | No process hypotheses yet. |
-| stop | 0 | Loop can continue after bootstrap PR CI is available. |
+| stop | 0 | Loop can continue after bootstrap PR merge. |
 
 ## Events
 
@@ -107,4 +107,26 @@ entries:
     state_after:
       progress_status: DONE
       blocking_feedback: true
+  - id: T-0005
+    timestamp: "2026-06-24T15:47:00Z"
+    event: ci_observed
+    milestone: M0
+    branch: m0-bootstrap-runner
+    pr: 1
+    actor: autonomous-runner
+    evidence:
+      files:
+        - .github/workflows/verify.yml
+      checks:
+        - "verify / docs: success"
+      feedback_ids:
+        - F-0003
+      hypothesis_ids: []
+    decision:
+      summary: "Observed successful verify workflow run 28111000872."
+      next_action: merge_when_current_head_ci_is_green
+      reason: "Bootstrap PR has CI evidence for required runner docs."
+    state_after:
+      progress_status: DONE
+      blocking_feedback: false
 ```
