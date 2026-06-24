@@ -41,3 +41,11 @@ Durable product and architecture decisions are recorded here. Use short ADR-styl
 - Context: Loop V3 created a fixture audit CLI that writes reports, but reviewers still need a complete package containing evidence, metadata, and artifacts.
 - Decision: Future work follows Loop V4. Each audit should become a reproducible package with a manifest, report artifacts, and an inspectable evidence database.
 - Consequences: New slices must improve package reproducibility and evidence reviewability. Live engine work remains out of scope until the adapter boundary is documented.
+
+## D-0006: Loop V5 prioritizes Tauri + React provider access
+
+- Date: 2026-06-24
+- Status: accepted
+- Context: The reproducible CLI package is useful, but the original product needs a user-facing app that connects answer, search, crawl, model, and analytics providers.
+- Decision: Future work follows Loop V5. The product entry point is a Tauri + React desktop UI with a provider access layer supporting API key, OAuth, platform-managed access, and manual import.
+- Consequences: UI and provider access become first-class. New slices must prevent credential leakage and keep CI fixture-based while moving toward real provider-connected audits.
