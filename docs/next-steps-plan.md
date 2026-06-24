@@ -43,40 +43,75 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 | V4-4 | Publish recorded dataset schema documentation. | DONE |
 | V4-5 | Document live adapter boundary without implementing live calls. | DONE |
 
-## V4-0 Acceptance Criteria
+## Loop V5 Backlog
 
-- `docs/project-evaluation-v4.md` evaluates the current project state.
-- `docs/loop-v4.md` defines the reproducible audit package loop.
-- `AGENTS.md` instructs future agents to read and follow Loop V4.
-- `docs/decision-log.md` records the move from report output to reproducible audit package output.
+| Slice | Description | Status |
+| :--- | :--- | :--- |
+| V5-0 | Install V5 evaluation, Tauri + React UI brief, provider access architecture, and loop plan. | IN_PROGRESS |
+| V5-1 | Add provider access domain model and registry. | TODO |
+| V5-2 | Add Tauri + React app shell. | TODO |
+| V5-3 | Add BYOK API key session flow. | TODO |
+| V5-4 | Add OAuth framework with fake provider. | TODO |
+| V5-5 | Add first OpenAI-compatible answer provider behind explicit config. | TODO |
+| V5-6 | Add crawler provider abstraction and first crawler adapter. | TODO |
+| V5-7 | Wire UI Run Audit to provider registry and audit package output. | TODO |
+
+## V5-0 Acceptance Criteria
+
+- `docs/project-evaluation-v5.md` evaluates the UI/provider access product gap.
+- `docs/loop-v5.md` defines the UI-first provider access loop.
+- `docs/ui-tori-brief.md` describes the Tauri + React UI workflow.
+- `docs/provider-access-architecture.md` defines provider types, access methods, security rules, and initial matrix.
+- `AGENTS.md` instructs future agents to read and follow Loop V5.
+- `docs/decision-log.md` records the shift from CLI package to UI/provider access product entry.
 - CI passes.
 
-## V4-1 Acceptance Criteria
+## V5-1 Acceptance Criteria
 
-- `AuditRunner.run` persists query records, page inventory records, engine runs, diagnoses, tasks, and report artifacts.
-- Tests prove the store contains every evidence layer after a fixture audit.
-- Existing CLI and report behavior remain unchanged.
+- Provider access domain model supports provider types, capabilities, access methods, implementation status, and redacted connection state.
+- Registry exposes initial provider matrix.
+- Tests reject unsupported access methods and prove credentials are redacted.
+- No live provider calls.
 
-## V4-2 Acceptance Criteria
+## V5-2 Acceptance Criteria
 
-- CLI writes `manifest.json`, `audit.sqlite`, `report.json`, and `report.md`.
-- Manifest includes profile brand/domain, engine, query count, page count, run count, generated timestamp, and artifact names.
-- CLI tests verify package contents without network or live engine credentials.
+- Repository includes a Tauri + React app shell.
+- UI includes Providers, Brand Profile, Queries, Audit Run, Report, and Evidence Package navigation shells.
+- CI verifies app structure without requiring network install.
+- UI does not claim live provider support.
 
-## V4-3 Acceptance Criteria
+## V5-3 Acceptance Criteria
 
-- Repository includes `examples/acme-fixture.json`.
-- Usage docs show a fixture audit command and expected outputs.
-- CI verifies the example fixture can run through the CLI.
+- API key session flow accepts a key through a backend/session boundary.
+- Key is redacted from responses, reports, manifests, audit DB, and logs.
+- Missing key gives clear error.
+- No live provider calls.
 
-## V4-4 Acceptance Criteria
+## V5-4 Acceptance Criteria
 
-- Repository includes recorded dataset schema documentation.
-- Required sections and field types are documented.
-- Tests or docs checks cover the schema file presence and example alignment.
+- OAuth start/callback/disconnect framework exists with fake provider.
+- State validation is tested.
+- Tokens are redacted and never enter artifacts.
+- No live OAuth provider calls in CI.
 
-## V4-5 Acceptance Criteria
+## V5-5 Acceptance Criteria
 
-- Live adapter boundary is documented without adding live calls.
-- Docs define required secrets, rate limits, provenance fields, and stopper rules.
-- CI remains fully fixture-based.
+- OpenAI-compatible answer provider interface exists behind explicit config.
+- CI uses fake HTTP client.
+- Missing credentials fail clearly.
+- Output converts to `EngineRun` or equivalent answer evidence.
+- No default live calls.
+
+## V5-6 Acceptance Criteria
+
+- Crawler provider abstraction exists.
+- First crawler adapter boundary is documented and testable with fake/static crawler.
+- Crawl output feeds page inventory/evidence store.
+- CI remains network-free.
+
+## V5-7 Acceptance Criteria
+
+- UI Run Audit can execute a fixture/fake-provider audit path.
+- UI can display a report shell from generated package artifacts.
+- Download actions are represented.
+- No live credentials required in CI.
