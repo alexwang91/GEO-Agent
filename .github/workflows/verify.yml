@@ -25,3 +25,12 @@ jobs:
           test -f docs/stopper-policy.md
           test -f docs/loop-review.md
           ! find . -maxdepth 4 -type f \( -name noop -o -name dummy -o -name x -o -name y \) | grep .
+  python-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run unit tests
+        run: PYTHONPATH=src python -m unittest discover -s tests -v
