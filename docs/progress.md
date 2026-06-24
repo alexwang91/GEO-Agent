@@ -16,7 +16,7 @@
 | Milestone | Description | Status |
 | :--- | :--- | :--- |
 | M0 | Bootstrap runner docs, CI scaffold, product brief, feedback taxonomy, loop trace, and stopper policy. | DONE |
-| M1 | Build domain intake and entity profile schema for brand, domain, competitors, region, language, customer, product, and business goal. | TODO |
+| M1 | Build domain intake and entity profile schema for brand, domain, competitors, region, language, customer, product, and business goal. | DONE |
 | M2 | Implement Query Space Builder that creates clustered queries by intent, funnel stage, language, region, target engine, competitors, and priority. | TODO |
 | M3 | Implement page inventory crawler for sitemap, canonical URLs, titles, headings, metadata, schema types, freshness, and text chunks. | TODO |
 | M4 | Implement Engine Sampling abstraction with recorded runs, answer text, mentions, citations, recommendations, source domains, timestamp, engine, language, and region. | TODO |

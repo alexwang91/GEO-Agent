@@ -1,0 +1,8 @@
+[project]
+name = "geo-agent"
+version = "0.1.0"
+description = "AI Search Visibility Agent for Generative Engine Optimization."
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["src"]
