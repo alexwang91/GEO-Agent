@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from geo_agent.cli import main
+from geo_agent.evidence_store import EvidenceStore
 
 
 def fixture():
@@ -48,7 +49,7 @@ def fixture():
 
 
 class CliTests(unittest.TestCase):
-    def test_cli_writes_json_and_markdown_reports_without_network(self):
+    def test_cli_writes_reproducible_audit_package_without_network(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             fixture_path = root / "fixture.json"
@@ -58,9 +59,28 @@ class CliTests(unittest.TestCase):
             exit_code = main(["audit", str(fixture_path), "--out", str(output_dir)])
 
             self.assertEqual(exit_code, 0)
+            self.assertTrue((output_dir / "manifest.json").exists())
+            self.assertTrue((output_dir / "report.json").exists())
+            self.assertTrue((output_dir / "report.md").exists())
+            self.assertTrue((output_dir / "audit.sqlite").exists())
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
             report_json = json.loads((output_dir / "report.json").read_text(encoding="utf-8"))
             report_md = (output_dir / "report.md").read_text(encoding="utf-8")
+            with EvidenceStore(output_dir / "audit.sqlite") as store:
+                self.assertEqual(store.count_runs(), 2)
+                self.assertEqual(len(store.list_query_records()), 2)
+                self.assertEqual(len(store.list_page_records()), 1)
+                self.assertEqual(len(store.list_diagnoses()), 2)
+                self.assertEqual(len(store.list_tasks()), 2)
+                self.assertEqual(len(store.list_report_artifacts()), 2)
 
+        self.assertEqual(manifest["profile"], {"brand": "Acme AI", "domain": "acme.ai"})
+        self.assertEqual(manifest["engine"], "recorded")
+        self.assertEqual(manifest["query_count"], 2)
+        self.assertEqual(manifest["page_count"], 1)
+        self.assertEqual(manifest["run_count"], 2)
+        self.assertEqual(manifest["evidence_database"], "audit.sqlite")
+        self.assertEqual(manifest["artifacts"], ["manifest.json", "report.json", "report.md", "audit.sqlite"])
         self.assertIn("score", report_json)
         self.assertIn("missing_queries", report_json)
         self.assertIn("competitor_map", report_json)
