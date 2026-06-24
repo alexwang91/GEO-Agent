@@ -5,7 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from email.utils import parsedate_to_datetime
 import re
-from urllib.parse import urlparse
+from typing import Protocol
+from urllib.parse import urljoin, urlparse
+from urllib.request import urlopen
 from xml.etree import ElementTree
 
 
@@ -31,8 +33,61 @@ class PageInventoryRecord:
         }
 
 
+@dataclass(frozen=True)
+class FetchResponse:
+    url: str
+    body: str
+    content_type: str = "text/html"
+
+
+class PageFetcher(Protocol):
+    def fetch(self, url: str) -> FetchResponse:
+        ...
+
+
+class StaticPageFetcher:
+    """Fixture-backed fetcher for CI and recorded crawls."""
+
+    def __init__(self, pages: dict[str, str]) -> None:
+        self.pages = pages
+
+    def fetch(self, url: str) -> FetchResponse:
+        if url not in self.pages:
+            raise PageInventoryError(f"No fixture for URL: {url}")
+        return FetchResponse(url=url, body=self.pages[url], content_type=_content_type(url))
+
+
+class UrlLibPageFetcher:
+    """Minimal real fetcher seam. Tests should use StaticPageFetcher."""
+
+    def fetch(self, url: str) -> FetchResponse:
+        with urlopen(url, timeout=10) as response:
+            body = response.read().decode(response.headers.get_content_charset() or "utf-8", errors="replace")
+            return FetchResponse(url=response.geturl(), body=body, content_type=response.headers.get_content_type())
+
+
 class PageInventoryError(ValueError):
     pass
+
+
+def crawl_inventory(
+    fetcher: PageFetcher,
+    *,
+    sitemap_urls: list[str] | None = None,
+    manual_urls: list[str] | None = None,
+    chunk_size: int = 240,
+) -> list[PageInventoryRecord]:
+    urls = _ordered_unique([*_discover_sitemap_urls(fetcher, sitemap_urls or []), *(manual_urls or [])])
+    records: list[PageInventoryRecord] = []
+    canonical_seen: set[str] = set()
+    for url in urls:
+        response = fetcher.fetch(url)
+        record = parse_page(response.url, response.body, chunk_size=chunk_size)
+        if record.canonical_url in canonical_seen:
+            continue
+        canonical_seen.add(record.canonical_url)
+        records.append(record)
+    return records
 
 
 def inventory_pages(
@@ -65,9 +120,17 @@ def parse_page(url: str, html: str, *, chunk_size: int = 240) -> PageInventoryRe
         h1=_clean(_first_match(html, r"<h1[^>]*>(.*?)</h1>")),
         schema_types=tuple(_schema_types(html)),
         last_modified=_last_modified(html),
-        canonical_url=canonical,
+        canonical_url=urljoin(url, canonical),
         content_chunks=tuple(_chunks(_visible_text(html), chunk_size)),
     )
+
+
+def _discover_sitemap_urls(fetcher: PageFetcher, sitemap_urls: list[str]) -> list[str]:
+    discovered: list[str] = []
+    for sitemap_url in sitemap_urls:
+        response = fetcher.fetch(sitemap_url)
+        discovered.extend(_urls_from_sitemap(response.body))
+    return discovered
 
 
 def _urls_from_sitemap(sitemap_xml: str | None) -> list[str]:
@@ -136,3 +199,7 @@ def _ordered_unique(values: list[str]) -> list[str]:
 def _valid_url(value: str) -> bool:
     parsed = urlparse(value)
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
+
+
+def _content_type(url: str) -> str:
+    return "application/xml" if url.endswith(".xml") else "text/html"
