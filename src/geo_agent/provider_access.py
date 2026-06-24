@@ -88,6 +88,8 @@ class ApiKeySessionStore:
         definition = self.registry.get(provider_id)
         if not definition.supports("api_key"):
             raise ProviderAccessError(f"Provider {provider_id} does not support API key access.")
+        if definition.implementation_status != "implemented":
+            raise ProviderAccessError(f"Provider {provider_id} is not implemented yet.")
         session_id = token_urlsafe(16)
         redacted = redact_credential_label(label or api_key)
         session = ApiKeySession(session_id=session_id, provider_id=provider_id, redacted_label=redacted)
