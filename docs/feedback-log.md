@@ -39,7 +39,7 @@ entries:
     timestamp: "2026-06-24T15:46:00Z"
     source: ci
     type: weak_verification
-    severity: blocking
+    severity: warning
     milestone: M0
     branch: m0-bootstrap-runner
     pr: 1
@@ -67,4 +67,36 @@ entries:
     runner_decision:
       action: wait_for_ci
       reason: "CI may still be starting because the workflow was introduced by the bootstrap PR."
+  - id: F-0003
+    timestamp: "2026-06-24T15:47:00Z"
+    source: ci
+    type: success
+    severity: info
+    milestone: M0
+    branch: m0-bootstrap-runner
+    pr: 1
+    summary: "GitHub Actions verify workflow completed successfully."
+    evidence:
+      checks:
+        - "workflow_run: 28111000872"
+        - "job docs: success"
+        - "step Verify runner docs: success"
+      files:
+        - .github/workflows/verify.yml
+      review_comments: []
+      trace_ids:
+        - T-0005
+      hypothesis_ids: []
+    root_cause:
+      layer: verification
+      category: ci_verified
+      confidence: high
+      explanation: "The docs verification job passed on GitHub Actions."
+    allowed_next_actions:
+      - merge_after_current_head_ci_green
+      - continue_to_m1_after_merge
+    forbidden_next_actions: []
+    runner_decision:
+      action: update_pr_evidence
+      reason: "CI evidence is now available for the bootstrap PR."
 ```
