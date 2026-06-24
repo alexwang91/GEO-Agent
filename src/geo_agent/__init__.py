@@ -7,7 +7,7 @@ from .entity_profile import (
     ValidationIssue,
     validate_entity_profile,
 )
-from .evidence_store import EvidenceStore
+from .evidence_store import EvidenceStore, ReportArtifact
 from .query_space import INTENT_TYPES, QueryRecord, build_query_space
 from .recorded_dataset import (
     RecordedAuditDataset,
@@ -24,6 +24,7 @@ __all__ = [
     "ValidationIssue",
     "validate_entity_profile",
     "EvidenceStore",
+    "ReportArtifact",
     "INTENT_TYPES",
     "QueryRecord",
     "build_query_space",
