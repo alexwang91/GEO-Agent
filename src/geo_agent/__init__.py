@@ -10,6 +10,8 @@ from .entity_profile import (
 from .evidence_store import EvidenceStore, ReportArtifact
 from .failure_debugger import FailureDiagnosis, diagnose_failure_v2
 from .provider_access import (
+    ApiKeySession,
+    ApiKeySessionStore,
     ProviderAccessError,
     ProviderConnection,
     ProviderDefinition,
@@ -36,6 +38,8 @@ __all__ = [
     "ReportArtifact",
     "FailureDiagnosis",
     "diagnose_failure_v2",
+    "ApiKeySession",
+    "ApiKeySessionStore",
     "ProviderAccessError",
     "ProviderConnection",
     "ProviderDefinition",
