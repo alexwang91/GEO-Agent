@@ -9,6 +9,12 @@ from .entity_profile import (
 )
 from .evidence_store import EvidenceStore
 from .query_space import INTENT_TYPES, QueryRecord, build_query_space
+from .recorded_dataset import (
+    RecordedAuditDataset,
+    RecordedDatasetError,
+    load_recorded_dataset,
+    load_recorded_dataset_from_mapping,
+)
 
 __all__ = [
     "AuditArtifacts",
@@ -21,4 +27,8 @@ __all__ = [
     "INTENT_TYPES",
     "QueryRecord",
     "build_query_space",
+    "RecordedAuditDataset",
+    "RecordedDatasetError",
+    "load_recorded_dataset",
+    "load_recorded_dataset_from_mapping",
 ]
