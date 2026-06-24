@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://geo-agent.local/schemas/recorded-dataset.schema.json",
+  "title": "Recorded GEO Audit Dataset",
+  "type": "object",
+  "required": ["profile", "pages", "audit", "recorded_runs"],
+  "additionalProperties": true,
+  "properties": {
+    "profile": {
+      "type": "object",
+      "required": ["brand", "aliases", "domain", "competitors", "target_regions", "target_languages", "target_customer", "main_product", "category", "business_goal"],
+      "properties": {
+        "brand": {"type": "string", "minLength": 1},
+        "aliases": {"type": "array", "items": {"type": "string"}},
+        "domain": {"type": "string", "minLength": 1},
+        "competitors": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "target_regions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "target_languages": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "target_customer": {"type": "string", "minLength": 1},
+        "main_product": {"type": "string", "minLength": 1},
+        "category": {"type": "string", "minLength": 1},
+        "business_goal": {"type": "string", "minLength": 1}
+      }
+    },
+    "pages": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "audit": {
+      "type": "object",
+      "properties": {
+        "manual_urls": {"type": "array", "items": {"type": "string", "format": "uri"}},
+        "sitemap_urls": {"type": "array", "items": {"type": "string", "format": "uri"}},
+        "max_queries": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": true
+    },
+    "recorded_runs": {
+      "type": "object",
+      "required": ["engine", "runs"],
+      "properties": {
+        "engine": {"type": "string", "minLength": 1},
+        "runs": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "required": ["raw_answer"],
+            "properties": {
+              "timestamp": {"type": ["string", "null"]},
+              "raw_answer": {"type": "string"},
+              "citations": {"type": "array", "items": {"type": "string"}},
+              "mentions": {"type": "array", "items": {"type": "string"}},
+              "recommendations": {"type": "array", "items": {"type": "string"}}
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "metadata": {"type": "object", "additionalProperties": true}
+  }
+}
