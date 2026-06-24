@@ -9,14 +9,14 @@ This file records observable runner events. Keep entries compact, factual, and e
 | selected_milestone | 2 | M0 bootstrap selected; M1 entity profile selected. |
 | branch_created | 2 | `m0-bootstrap-runner`; `m1-entity-profile-schema`. |
 | pr_opened | 2 | PR #1; PR #2. |
-| ci_observed | 2 | M0 CI observed twice; M1 CI not observed yet. |
-| feedback_classified | 5 | F-0001 through F-0005 recorded. |
+| ci_observed | 3 | M0 observed twice; M1 run 28111747304 observed green. |
+| feedback_classified | 6 | F-0001 through F-0006 recorded. |
 | merge_attempted | 0 | No merge attempt yet. |
 | progress_updated | 2 | M0 and M1 marked DONE in their milestone branches. |
 | review_run | 1 | M1 self-review completed before CI observation. |
 | harness_repair_run | 0 | No harness repair needed yet. |
 | hypothesis_updated | 0 | No process hypotheses yet. |
-| stop | 0 | Loop can continue after PR #2 CI and merge evidence. |
+| stop | 0 | Loop can continue after PR #2 final CI and merge evidence. |
 
 ## Events
 
@@ -267,6 +267,31 @@ entries:
       summary: "Reviewed the M1 slice against acceptance criteria and guardrails."
       next_action: observe_ci
       reason: "The review found no scope violation, but CI remains required before merge."
+    state_after:
+      progress_status: DONE
+      blocking_feedback: false
+  - id: T-0012
+    timestamp: "2026-06-24T16:01:00Z"
+    event: ci_observed
+    milestone: M1
+    branch: m1-entity-profile-schema
+    pr: 2
+    actor: autonomous-runner
+    evidence:
+      files:
+        - .github/workflows/verify.yml
+        - tests/test_entity_profile.py
+      checks:
+        - "workflow_run: 28111747304"
+        - "verify / docs: success"
+        - "verify / python-tests: success"
+      feedback_ids:
+        - F-0006
+      hypothesis_ids: []
+    decision:
+      summary: "Observed successful M1 verify workflow run 28111747304."
+      next_action: update_pr_evidence
+      reason: "M1 PR has CI evidence for docs and Python unit tests."
     state_after:
       progress_status: DONE
       blocking_feedback: false
