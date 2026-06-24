@@ -9,7 +9,7 @@ entries:
     severity: info
     milestone: M0
     branch: m0-bootstrap-runner
-    pr: null
+    pr: 1
     summary: "Bootstrap branch prepared with runner docs, progress, CI scaffold, and product brief."
     evidence:
       checks: []
@@ -22,6 +22,7 @@ entries:
       trace_ids:
         - T-0001
         - T-0002
+        - T-0003
       hypothesis_ids: []
     root_cause:
       layer: control_loop
@@ -29,10 +30,41 @@ entries:
       confidence: high
       explanation: "The initial runner harness was generated as planned."
     allowed_next_actions:
-      - open_bootstrap_pr
       - observe_ci
     forbidden_next_actions: []
     runner_decision:
-      action: open_bootstrap_pr
-      reason: "M0 files are staged on the bootstrap branch."
+      action: observe_ci
+      reason: "Bootstrap PR #1 is open and needs CI evidence."
+  - id: F-0002
+    timestamp: "2026-06-24T15:46:00Z"
+    source: ci
+    type: weak_verification
+    severity: blocking
+    milestone: M0
+    branch: m0-bootstrap-runner
+    pr: 1
+    summary: "Combined commit status returned no checks for the PR head commit yet."
+    evidence:
+      checks: []
+      files:
+        - .github/workflows/verify.yml
+      review_comments: []
+      trace_ids:
+        - T-0004
+      hypothesis_ids: []
+    root_cause:
+      layer: verification
+      category: ci_signal_unavailable
+      confidence: medium
+      explanation: "A verification workflow exists in the PR, but no status checks were visible at observation time."
+    allowed_next_actions:
+      - wait_for_ci
+      - inspect_actions_configuration
+      - rerun_status_observation
+    forbidden_next_actions:
+      - merge_without_ci
+      - mark_verified_without_evidence
+    runner_decision:
+      action: wait_for_ci
+      reason: "CI may still be starting because the workflow was introduced by the bootstrap PR."
 ```
