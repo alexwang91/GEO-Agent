@@ -25,8 +25,8 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 
 | Slice | Description | Status |
 | :--- | :--- | :--- |
-| V3-0 | Install Loop V3 and productization plan. | IN_PROGRESS |
-| V3-1 | Add `AuditRunner` orchestrating existing modules over fixtures. | TODO |
+| V3-0 | Install Loop V3 and productization plan. | DONE |
+| V3-1 | Add `AuditRunner` orchestrating existing modules over fixtures. | DONE |
 | V3-2 | Add recorded dataset schema and fixture loader. | TODO |
 | V3-3 | Expand EvidenceStore beyond engine runs. | TODO |
 | V3-4 | Add Diagnosis V2 using run, page, and competitor evidence. | TODO |

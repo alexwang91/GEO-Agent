@@ -1,5 +1,6 @@
 """GEO Agent domain model package."""
 
+from .audit_runner import AuditArtifacts, AuditRunner
 from .entity_profile import (
     EntityProfile,
     EntityProfileValidationError,
@@ -10,6 +11,8 @@ from .evidence_store import EvidenceStore
 from .query_space import INTENT_TYPES, QueryRecord, build_query_space
 
 __all__ = [
+    "AuditArtifacts",
+    "AuditRunner",
     "EntityProfile",
     "EntityProfileValidationError",
     "ValidationIssue",
