@@ -9,6 +9,14 @@ from .entity_profile import (
 )
 from .evidence_store import EvidenceStore, ReportArtifact
 from .failure_debugger import FailureDiagnosis, diagnose_failure_v2
+from .provider_access import (
+    ProviderAccessError,
+    ProviderConnection,
+    ProviderDefinition,
+    ProviderRegistry,
+    default_provider_registry,
+    redact_credential_label,
+)
 from .query_space import INTENT_TYPES, QueryRecord, build_query_space
 from .recorded_dataset import (
     RecordedAuditDataset,
@@ -28,6 +36,12 @@ __all__ = [
     "ReportArtifact",
     "FailureDiagnosis",
     "diagnose_failure_v2",
+    "ProviderAccessError",
+    "ProviderConnection",
+    "ProviderDefinition",
+    "ProviderRegistry",
+    "default_provider_registry",
+    "redact_credential_label",
     "INTENT_TYPES",
     "QueryRecord",
     "build_query_space",
