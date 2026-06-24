@@ -7,7 +7,7 @@ from typing import Mapping
 
 from .engine_sampling import EngineAdapter, EngineRun, sample_with_adapter
 from .entity_profile import EntityProfile
-from .evidence_store import EvidenceStore
+from .evidence_store import EvidenceStore, ReportArtifact
 from .failure_debugger import FailureDiagnosis, diagnose_failure_v2
 from .optimization_tasks import OptimizationTaskBrief, generate_task_brief
 from .page_inventory import PageInventoryRecord, StaticPageFetcher, crawl_inventory
@@ -71,6 +71,8 @@ class AuditRunner:
             )
             for query in queries
         )
+        self.store.save_query_records(queries)
+        self.store.save_page_records(page_records)
         self.store.save_runs(runs)
         score = score_weighted_visibility(
             list(runs),
@@ -99,6 +101,12 @@ class AuditRunner:
             diagnoses=diagnoses,
             tasks=tasks,
         )
+        report_json = render_report_json(report)
+        report_markdown = render_report_markdown(report)
+        self.store.save_diagnoses(diagnoses)
+        self.store.save_tasks(tasks)
+        self.store.save_report_artifact(ReportArtifact("report", "json", report_json))
+        self.store.save_report_artifact(ReportArtifact("report", "markdown", report_markdown))
         return AuditArtifacts(
             profile=profile,
             queries=queries,
@@ -108,8 +116,8 @@ class AuditRunner:
             diagnoses=diagnoses,
             tasks=tasks,
             report=report,
-            report_json=render_report_json(report),
-            report_markdown=render_report_markdown(report),
+            report_json=report_json,
+            report_markdown=report_markdown,
         )
 
 
