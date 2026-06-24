@@ -36,8 +36,8 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 
 | Slice | Description | Status |
 | :--- | :--- | :--- |
-| V4-0 | Install V4 evaluation, loop, and reproducible audit package plan. | IN_PROGRESS |
-| V4-1 | Persist the full audit evidence graph during `AuditRunner.run`. | TODO |
+| V4-0 | Install V4 evaluation, loop, and reproducible audit package plan. | DONE |
+| V4-1 | Persist the full audit evidence graph during `AuditRunner.run`. | DONE |
 | V4-2 | Write reproducible audit package artifacts from CLI. | TODO |
 | V4-3 | Add canonical example fixture and usage docs. | TODO |
 | V4-4 | Publish recorded dataset schema documentation. | TODO |
