@@ -53,8 +53,9 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 | V5-3 | Add BYOK API key session flow. | DONE |
 | V5-4 | Add OAuth framework with fake provider. | TODO |
 | V5-5 | Add first OpenAI-compatible answer provider behind explicit config. | TODO |
+| V5-5.5 | Add Tauri command path that runs the existing fixture audit. | TODO |
 | V5-6 | Add crawler provider abstraction and first crawler adapter. | TODO |
-| V5-7 | Wire UI Run Audit to provider registry and audit package output. | TODO |
+| V5-7 | Wire UI Run Audit to provider registry, fixture/provider audit paths, and report display. | TODO |
 
 ## V5-0 Acceptance Criteria
 
@@ -102,6 +103,14 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 - Output converts to `EngineRun` or equivalent answer evidence.
 - No default live calls.
 
+## V5-5.5 Acceptance Criteria
+
+- Tauri command boundary can invoke the existing fixture audit path without live provider credentials.
+- The command accepts a fixture path and output directory.
+- The command returns redacted package metadata and report file locations.
+- CI verifies command shape or wrapper behavior without installing Tauri dependencies or making network calls.
+- This slice does not replace provider-backed audit execution; it creates an early clickable local product loop.
+
 ## V5-6 Acceptance Criteria
 
 - Crawler provider abstraction exists.
@@ -111,7 +120,7 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 
 ## V5-7 Acceptance Criteria
 
-- UI Run Audit can execute a fixture/fake-provider audit path.
-- UI can display a report shell from generated package artifacts.
+- UI Run Audit can execute fixture audit and fake-provider audit paths.
+- UI can display report data from generated package artifacts.
 - Download actions are represented.
 - No live credentials required in CI.
