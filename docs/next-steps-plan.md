@@ -41,7 +41,7 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 | V4-2 | Write reproducible audit package artifacts from CLI. | DONE |
 | V4-3 | Add canonical example fixture and usage docs. | DONE |
 | V4-4 | Publish recorded dataset schema documentation. | DONE |
-| V4-5 | Document live adapter boundary without implementing live calls. | TODO |
+| V4-5 | Document live adapter boundary without implementing live calls. | DONE |
 
 ## V4-0 Acceptance Criteria
 
