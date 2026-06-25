@@ -140,7 +140,7 @@ class ProviderRegistry:
 
 def default_provider_registry() -> ProviderRegistry:
     return ProviderRegistry((
-        ProviderDefinition("openai_compatible", "OpenAI-compatible", "answer", ("answer", "model"), ("api_key", "platform_managed"), "planned"),
+        ProviderDefinition("openai_compatible", "OpenAI-compatible", "answer", ("answer", "model"), ("api_key", "platform_managed"), "implemented"),
         ProviderDefinition("perplexity", "Perplexity", "answer", ("answer", "search"), ("api_key",), "planned"),
         ProviderDefinition("gemini", "Gemini", "answer", ("answer", "model"), ("api_key",), "planned"),
         ProviderDefinition("crawl4ai", "Crawl4AI", "crawl", ("crawl",), ("local", "platform_managed"), "planned"),
