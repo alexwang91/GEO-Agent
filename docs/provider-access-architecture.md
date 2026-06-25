@@ -1,6 +1,6 @@
 # Provider Access Architecture
 
-Provider Access is the layer between the UI and external capabilities. It must support API keys, OAuth, platform-managed credentials, and manual import without leaking secrets into audit evidence.
+Provider Access is the layer between the UI and external capabilities. It must support API keys, OAuth, platform-managed credentials, local fixture-backed providers, and manual import without leaking secrets into audit evidence.
 
 ## Provider Types
 
@@ -20,6 +20,7 @@ Provider Access is the layer between the UI and external capabilities. It must s
 | `oauth` | User authorizes the app through an external provider authorization flow. |
 | `platform_managed` | The GEO Agent deployment uses its own managed provider key. |
 | `manual_import` | User imports recorded evidence without live provider access. |
+| `local` | Local or fixture-backed execution that does not require a network service. |
 
 ## Core Objects
 
@@ -61,6 +62,19 @@ AnswerProviderRequest
   language
   config
   credential_ref
+
+CrawlProviderRequest
+  provider_id
+  manual_urls
+  sitemap_urls
+  chunk_size
+  metadata
+
+CrawlProviderResult
+  provider_id
+  pages
+  errors
+  metadata
 ```
 
 ## Security Rules
@@ -74,12 +88,15 @@ AnswerProviderRequest
 - Planned providers must be visible but not executable.
 - OpenAI-compatible answer-provider tests must use an injected fake HTTP client in CI.
 - OpenAI-compatible provider response objects must convert to `EngineRun` evidence without returning raw request headers or provider keys.
+- Crawler provider tests must use fixture-backed/static crawlers in CI.
+- Crawler provider output must convert to existing `PageInventoryRecord` evidence before persistence.
 
 ## Initial Provider Matrix
 
 | Provider | Type | Access | Status |
 | --- | --- | --- | --- |
 | OpenAI-compatible | answer/model | api_key, platform_managed | implemented behind explicit config and fake-client CI |
+| Static crawler | crawl | local | implemented for fixture-backed CI and recorded crawls |
 | Perplexity | answer/search | api_key | planned |
 | Gemini | answer/model | api_key | planned |
 | Crawl4AI | crawl | local/platform_managed | planned |
@@ -96,6 +113,14 @@ The first implemented answer provider is `openai_compatible`. It is not a defaul
 - an injected HTTP client.
 
 CI uses fake HTTP clients only. The adapter converts successful responses to existing `EngineRun` evidence. Missing credentials, malformed provider payloads, and provider error responses raise `ProviderAccessError`.
+
+## Crawler Provider Boundary
+
+The first implemented crawler provider is `StaticCrawlerProvider`. It is a local fixture-backed provider for deterministic CI and recorded crawls, not a live Crawl4AI or Firecrawl integration.
+
+Callers pass a `CrawlProviderRequest` with manual URLs or sitemap URLs. The provider returns a `CrawlProviderResult` containing existing `PageInventoryRecord` objects plus typed errors and metadata. `pages_from_crawl_result()` exposes the conversion seam used by `EvidenceStore.save_page_records()`.
+
+Live crawler providers remain planned until they are added behind explicit configuration, credential handling, missing-access errors, network-isolated tests, and artifact redaction checks.
 
 ## First Implementation Principle
 
