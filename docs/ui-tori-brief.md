@@ -43,19 +43,12 @@ Navigation:
 
 Purpose: connect services used by the audit.
 
-Sections:
-
-- Provider matrix
-- Connected providers
-- Add provider modal
-- Security note
-
 Provider cards should show:
 
 - Provider name
 - Capability badges: Answer, Search, Crawl, Model, Analytics
-- Access methods: API Key, OAuth, Platform, Manual Import
-- Status: Available, Planned, Connected, Missing credential, Configured boundary
+- Access methods: API Key, OAuth, Platform, Manual Import, Local
+- Status: Available, Planned, Connected, Missing credential, Configured boundary, Fake/test available
 - Primary action: Connect, Configure, Disconnect, Coming soon
 
 Required UX copy:
@@ -115,7 +108,9 @@ Sections:
 - Audit checklist
 - Provider readiness
 - Crawl readiness
-- Fixture-only run path
+- Fixture package path
+- Manual import path
+- Fake provider path
 - Run progress
 - Warnings
 
@@ -145,11 +140,19 @@ The Tauri command accepts a fixture path and output directory, delegates to the 
 - `report.md`
 - `audit.sqlite`
 
-The React app must show this as fixture-only and must state that provider-backed audit execution is still planned for V5-7. CI verifies this by Python wrapper tests and structural source checks; it does not compile or install Tauri dependencies.
+### V5-7 Run Audit UI Path
+
+The React app now represents three truthful run paths:
+
+- fixture package audit;
+- manual import / recorded evidence;
+- fake provider path using deterministic provider-shaped fixtures.
+
+The V5-7 UI must not claim live provider execution. It shows local package artifacts and deterministic test providers only. Live provider-backed execution remains a later V6 path.
 
 ## Screen 5: Report
 
-Purpose: show the operational result.
+Purpose: show the operational result from generated package artifacts.
 
 Cards:
 
@@ -157,8 +160,6 @@ Cards:
 - Mention share
 - Citation share
 - Recommendation share
-- Competitor-only share
-- Query coverage
 
 Main sections:
 
@@ -174,7 +175,8 @@ Actions:
 - Download report.json
 - Download report.md
 - Download audit package
-- Start follow-up audit
+
+V5-7 represents download/export actions as disabled until direct file-open and save behavior is wired. The text still proves the user-facing information architecture.
 
 ## Screen 6: Evidence Package
 
@@ -229,6 +231,7 @@ Commands must return redacted provider state only. No command may return raw cre
 - Profile form
 - Query table
 - Audit progress timeline
+- Run path card
 - Score metric cards
 - Failure diagnosis table
 - Task recommendation list
