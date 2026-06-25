@@ -7,6 +7,13 @@ from .answer_provider import (
     OpenAICompatibleAnswerProvider,
 )
 from .audit_runner import AuditArtifacts, AuditRunner
+from .crawl_provider import (
+    CrawlProviderError,
+    CrawlProviderRequest,
+    CrawlProviderResult,
+    StaticCrawlerProvider,
+    pages_from_crawl_result,
+)
 from .entity_profile import (
     EntityProfile,
     EntityProfileValidationError,
@@ -47,6 +54,11 @@ __all__ = [
     "OpenAICompatibleAnswerProvider",
     "AuditArtifacts",
     "AuditRunner",
+    "CrawlProviderError",
+    "CrawlProviderRequest",
+    "CrawlProviderResult",
+    "StaticCrawlerProvider",
+    "pages_from_crawl_result",
     "EntityProfile",
     "EntityProfileValidationError",
     "ValidationIssue",
