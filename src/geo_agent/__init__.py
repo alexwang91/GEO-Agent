@@ -40,6 +40,13 @@ from .provider_auth_flow import (
     FakeAuthorizationProvider,
     TokenSession,
 )
+from .provider_output_eval import (
+    ProviderOutputEvalCase,
+    ProviderOutputEvalResult,
+    ProviderOutputEvalSummary,
+    evaluate_provider_output_cases,
+    provider_response_to_run,
+)
 from .query_space import INTENT_TYPES, QueryRecord, build_query_space
 from .recorded_dataset import (
     RecordedAuditDataset,
@@ -85,6 +92,11 @@ __all__ = [
     "AuthorizationStart",
     "FakeAuthorizationProvider",
     "TokenSession",
+    "ProviderOutputEvalCase",
+    "ProviderOutputEvalResult",
+    "ProviderOutputEvalSummary",
+    "evaluate_provider_output_cases",
+    "provider_response_to_run",
     "INTENT_TYPES",
     "QueryRecord",
     "build_query_space",
