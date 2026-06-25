@@ -148,6 +148,7 @@ export function App() {
 
         <section id="report" className="panel">
           <h3>Report</h3>
+          <p>No audit report yet for a new project. Run or import an audit package to generate visibility evidence.</p>
           <p className="eyebrow">{reportPreview.source}</p>
           <div className="metric-grid">
             <MetricCard label="Visibility score" value={reportPreview.score.visibility_score} />
