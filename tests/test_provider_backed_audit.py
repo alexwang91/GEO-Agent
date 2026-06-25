@@ -85,7 +85,7 @@ class ProviderBackedAuditTests(unittest.TestCase):
             brand="Acme AI",
             domain="acme.ai",
             aliases=(),
-            competitors=(),
+            competitors=("Globex",),
             target_regions=("US",),
             target_languages=("en",),
             target_customer="marketing teams",
