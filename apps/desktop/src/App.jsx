@@ -1,3 +1,5 @@
+import { buildReportArtifactView, sampleManifestArtifact, sampleReportArtifact } from './reportArtifacts';
+
 const navItems = [
   'Providers',
   'Brand Profile',
@@ -24,23 +26,8 @@ const runPaths = [
   { label: 'Fake provider path', status: 'Fake/test only', command: 'static_crawler + recorded answer adapter' },
 ];
 
-const reportPreview = {
-  source: 'Generated package artifact: report.json',
-  score: {
-    visibility_score: 0.42,
-    mention_share: 0.5,
-    citation_share: 0.25,
-    recommendation_share: 0.25,
-  },
-  missing_queries: ['Best GEO software tools for marketing teams in US'],
-  competitor_map: ['Globex: 1'],
-  cited_sources: ['acme.ai', 'globex.com'],
-  failures: ['missing_brand_mention,citation_gap'],
-  recommended_actions: ['strengthen_page_evidence', 'add_comparison_content'],
-  retest_plan: ['Re-run the same package after content updates.'],
-};
-
-const packageFiles = ['manifest.json', 'report.json', 'report.md', 'audit.sqlite'];
+const reportView = buildReportArtifactView(sampleManifestArtifact, sampleReportArtifact);
+const packageFiles = ['manifest.json', ...reportView.files];
 
 function statusClass(status) {
   return status.toLowerCase().replaceAll(' ', '-').replaceAll('/', '-');
@@ -56,11 +43,12 @@ function MetricCard({ label, value }) {
 }
 
 function ListBlock({ title, values }) {
+  const listValues = values.length ? values : ['No evidence in this artifact section.'];
   return (
     <article className="evidence-block">
       <h4>{title}</h4>
       <ul>
-        {values.map((value) => (
+        {listValues.map((value) => (
           <li key={value}>{value}</li>
         ))}
       </ul>
@@ -151,20 +139,24 @@ export function App() {
         <section id="report" className="panel">
           <h3>Report</h3>
           <p>No audit report yet for a new project. Run or import an audit package to generate visibility evidence.</p>
-          <p className="eyebrow">{reportPreview.source}</p>
+          <p className="eyebrow">Generated package artifact: {reportView.source}</p>
+          <p>Package: {reportView.packageId} generated at {reportView.generatedAt}</p>
+          {reportView.warnings.map((warning) => (
+            <p className="security-note" key={warning}>{warning}</p>
+          ))}
           <div className="metric-grid">
-            <MetricCard label="Visibility score" value={reportPreview.score.visibility_score} />
-            <MetricCard label="Mention share" value={reportPreview.score.mention_share} />
-            <MetricCard label="Citation share" value={reportPreview.score.citation_share} />
-            <MetricCard label="Recommendation share" value={reportPreview.score.recommendation_share} />
+            <MetricCard label="Visibility score" value={reportView.score.visibility_score} />
+            <MetricCard label="Mention share" value={reportView.score.mention_share} />
+            <MetricCard label="Citation share" value={reportView.score.citation_share} />
+            <MetricCard label="Recommendation share" value={reportView.score.recommendation_share} />
           </div>
           <div className="report-grid">
-            <ListBlock title="Missing queries" values={reportPreview.missing_queries} />
-            <ListBlock title="Competitor map" values={reportPreview.competitor_map} />
-            <ListBlock title="Cited sources" values={reportPreview.cited_sources} />
-            <ListBlock title="Failure diagnoses" values={reportPreview.failures} />
-            <ListBlock title="Recommended tasks" values={reportPreview.recommended_actions} />
-            <ListBlock title="Retest plan" values={reportPreview.retest_plan} />
+            <ListBlock title="Missing queries" values={reportView.missingQueries} />
+            <ListBlock title="Competitor map" values={reportView.competitorMap} />
+            <ListBlock title="Cited sources" values={reportView.citedSources} />
+            <ListBlock title="Failure diagnoses" values={reportView.failures} />
+            <ListBlock title="Recommended tasks" values={reportView.recommendedActions} />
+            <ListBlock title="Retest plan" values={reportView.retestPlan} />
           </div>
           <div className="download-actions" aria-label="Report export actions">
             <button disabled>Download report.json</button>
