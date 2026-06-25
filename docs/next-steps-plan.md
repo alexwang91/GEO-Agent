@@ -6,7 +6,7 @@ Build an AI Search Visibility Agent for Generative Engine Optimization that help
 
 ## Current State
 
-The repository has moved past the initial fixture-based GEO audit core. It now has a Python domain package, fixture audit workflow, reproducible audit package output, provider access model, Tauri + React app shell, BYOK session boundary, fake OAuth boundary, and the first OpenAI-compatible answer-provider boundary with fake-client verification.
+The repository has moved past the initial fixture-based GEO audit core. It now has a Python domain package, fixture audit workflow, reproducible audit package output, provider access model, Tauri + React app shell, BYOK session boundary, fake OAuth boundary, the first OpenAI-compatible answer-provider boundary, and a fixture-only Tauri command path.
 
 Current completion checkpoint:
 
@@ -14,8 +14,8 @@ Current completion checkpoint:
 - V2: complete evidence store, crawler seam, adapter contract, weighted scoring, operational report artifact.
 - V3: complete fixture audit runner, recorded dataset loader, evidence graph store, diagnosis V2, CLI.
 - V4: complete reproducible audit package with manifest, report, audit database, example fixture, schema docs, live adapter boundary.
-- V5-0 through V5-5: complete UI/provider plan, provider registry, Tauri + React shell, BYOK session, fake OAuth flow, and OpenAI-compatible answer-provider boundary.
-- First product TODO after this branch: `V5-5.5`.
+- V5-0 through V5-5.5: complete UI/provider plan, provider registry, Tauri + React shell, BYOK session, fake OAuth flow, OpenAI-compatible answer-provider boundary, and fixture-only command path.
+- First product TODO after this branch: `V5-6`.
 
 ## Methodology Map
 
@@ -46,70 +46,39 @@ Current completion checkpoint:
 | V5-3 | Add BYOK API key session flow. | DONE |
 | V5-4 | Add OAuth framework with fake provider. | DONE |
 | V5-5 | Add first OpenAI-compatible answer provider behind explicit config. | DONE |
-| V5-5.5 | Add Tauri command path that runs the existing fixture audit. | TODO |
+| V5-5.5 | Add Tauri command path that runs the existing fixture audit. | DONE |
 | V5-6 | Add crawler provider abstraction and first crawler adapter. | TODO |
 | V5-7 | Wire UI Run Audit to provider registry, fixture/provider audit paths, and report display. | TODO |
-
-## V5-5: OpenAI-Compatible Answer Provider
-
-Goal: implement the first answer-provider boundary without default live calls.
-
-Implemented files:
-
-- `src/geo_agent/answer_provider.py`
-- `src/geo_agent/provider_access.py`
-- `src/geo_agent/__init__.py`
-- `tests/test_answer_provider.py`
-- `tests/test_provider_access.py`
-- `docs/provider-access-architecture.md`
-- `docs/next-steps-plan.md`
-- `docs/progress.md`
-
-Acceptance evidence:
-
-- Provider interface accepts query text, model/provider config, and an explicit session or platform access reference.
-- OpenAI-compatible adapter accepts an injected fake HTTP client in CI.
-- Missing access state fails with `ProviderAccessError`.
-- Adapter output converts to existing `EngineRun` answer evidence.
-- No default live calls or network requirement are introduced.
-- Returned request, report, and run payloads use redacted labels or evidence values rather than raw access values.
-
-Verification:
-
-- Unit tests cover fake successful answer, missing session reference, missing platform reference, provider error, redaction, malformed metadata, and conversion to evidence.
-- Existing provider access tests were updated so OpenAI-compatible is implemented while other planned providers remain planned.
 
 ## V5-5.5: Tauri Fixture Audit Command Path
 
 Goal: create an early clickable local product loop by letting the Tauri boundary invoke the existing fixture audit path.
 
-Likely files:
+Implemented files:
 
 - `apps/desktop/src-tauri/src/main.rs`
 - `apps/desktop/src/App.jsx`
 - `tests/test_tauri_fixture_audit_command.py`
-- `src/geo_agent/cli.py` or a thin audit service wrapper if needed
+- `src/geo_agent/cli.py`
+- `src/geo_agent/fixture_package.py`
+- `src/geo_agent/__init__.py`
 - `docs/ui-tori-brief.md`
 - `docs/next-steps-plan.md`
 - `docs/progress.md`
 
-Acceptance criteria:
+Acceptance evidence:
 
 - Command accepts fixture path and output directory.
-- Command delegates to existing fixture audit workflow or a narrow wrapper around it.
-- Command returns redacted package metadata and report file locations.
-- React app exposes a disabled/fixture-only Run Audit path with truthful status text.
-- CI verifies command shape or wrapper behavior without installing Tauri dependencies or making network calls.
+- Command delegates to the existing fixture audit workflow through a narrow Python wrapper.
+- Command returns package metadata and report file locations.
+- React app exposes a fixture-only Run Audit path with truthful status text.
+- CI verifies wrapper and command shape without installing Tauri dependencies or making network calls.
 
 Verification:
 
-- Structural or Python tests validate command/wrapper contract.
-- UI text tests or file checks prove the UI does not claim live provider execution.
-
-Stop if:
-
-- Tauri tests require network dependency installation.
-- The UI implies provider-backed audit execution before V5-7.
+- `tests/test_tauri_fixture_audit_command.py` runs the wrapper against a deterministic fixture package.
+- Structural checks confirm `run_fixture_audit(fixture_path, output_dir)` is registered in the Tauri command boundary.
+- UI text checks confirm no provider-backed audit claim appears before V5-7.
 
 ## V5-6: Crawler Provider Abstraction
 
@@ -188,57 +157,6 @@ V6 starts after V5-7 completes the first usable desktop loop. V6 turns the produ
 | V6-6 | Retest planning workflow. | Baseline and follow-up packages can be compared for visibility/citation/diagnosis deltas. |
 | V6-7 | Release-readiness packaging checks. | CI verifies desktop app structure, Python package entry points, docs, and no dummy files. |
 | V6-8 | Skill-learning records. | Optimization outcomes are stored by engine, query type, vertical, action, confidence, and result. |
-
-## V6-1 Acceptance Criteria
-
-- Provider-backed run path accepts provider config and answer-provider session reference.
-- Fake provider can produce deterministic answers, citations, and recommendations.
-- Output persists to the existing evidence store and audit package.
-- Existing fixture path remains unchanged.
-- No live calls by default.
-
-## V6-2 Acceptance Criteria
-
-- Manual import UX can load recorded evidence datasets.
-- Schema validation rejects malformed query, answer, citation, page, and competitor records.
-- Redaction rules run before persistence.
-- Import path produces an audit package compatible with report rendering.
-
-## V6-3 Acceptance Criteria
-
-- Eval fixtures cover answer mention extraction, citation parsing, recommendation rank, source domain normalization, error handling, and redaction.
-- Eval results can block regressions in CI.
-- Provider output parser handles missing citations, duplicate citations, and unsupported regions without crashing.
-
-## V6-4 Acceptance Criteria
-
-- Report UI reads generated `manifest.json`, `report.json`, `report.md`, and database/package metadata when available.
-- UI sections map to product outputs: AI Visibility Score, missing high-value queries, competitor citation map, diagnosis, website audit, optimization tasks, expected impact/confidence, retest plan.
-- Empty or partial artifact states show explicit warnings.
-
-## V6-5 Acceptance Criteria
-
-- Redaction tests scan report artifacts, manifests, logs, database rows, UI payloads, and command responses.
-- Sensitive provider values are represented by opaque session IDs or redacted labels only.
-- Failure logs avoid raw request headers and access values.
-
-## V6-6 Acceptance Criteria
-
-- Retest plan can compare two audit packages.
-- Deltas include mention share, citation share, recommendation share, rank, sentiment framing, and claim accuracy when available.
-- Report output separates measured improvement from unverified recommendations.
-
-## V6-7 Acceptance Criteria
-
-- CI checks Python package entry points, desktop app file structure, docs, no dummy/noop/temp files, and runner docs.
-- Release docs explain fixture mode, manual import mode, and provider-config mode.
-- No packaging step depends on live provider access.
-
-## V6-8 Acceptance Criteria
-
-- Optimization action records store action type, source evidence, engine, query type, vertical, expected impact, observed outcome, and confidence.
-- Retest outcomes can update action effectiveness without overwriting raw evidence.
-- Report can identify reusable actions and actions that failed.
 
 ## Review and Renewal Rules
 

@@ -15,6 +15,7 @@ from .entity_profile import (
 )
 from .evidence_store import EvidenceStore, ReportArtifact
 from .failure_debugger import FailureDiagnosis, diagnose_failure_v2
+from .fixture_package import FixturePackageResult, run_fixture_package
 from .provider_access import (
     ApiKeySession,
     ApiKeySessionStore,
@@ -54,6 +55,8 @@ __all__ = [
     "ReportArtifact",
     "FailureDiagnosis",
     "diagnose_failure_v2",
+    "FixturePackageResult",
+    "run_fixture_package",
     "ApiKeySession",
     "ApiKeySessionStore",
     "ProviderAccessError",

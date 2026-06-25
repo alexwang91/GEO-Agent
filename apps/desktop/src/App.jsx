@@ -8,7 +8,7 @@ const navItems = [
 ];
 
 const providers = [
-  { name: 'OpenAI-compatible', capabilities: ['Answer', 'Model'], access: ['API Key', 'Platform'], status: 'Planned' },
+  { name: 'OpenAI-compatible', capabilities: ['Answer', 'Model'], access: ['API Key', 'Platform'], status: 'Configured boundary' },
   { name: 'Perplexity', capabilities: ['Answer', 'Search'], access: ['API Key'], status: 'Planned' },
   { name: 'Gemini', capabilities: ['Answer', 'Model'], access: ['API Key'], status: 'Planned' },
   { name: 'Crawl4AI', capabilities: ['Crawl'], access: ['Local', 'Platform'], status: 'Planned' },
@@ -16,6 +16,14 @@ const providers = [
   { name: 'Google Search Console', capabilities: ['Analytics', 'Search'], access: ['OAuth'], status: 'Planned' },
   { name: 'Manual Import', capabilities: ['Answer'], access: ['Manual Import'], status: 'Available' },
 ];
+
+const fixturePackage = {
+  mode: 'Fixture-only audit path',
+  command: 'run_fixture_audit(fixture_path, output_dir)',
+  status: 'Ready for local fixtures',
+  warning: 'Provider-backed audit execution is still planned for V5-7.',
+  outputs: ['manifest.json', 'report.json', 'report.md', 'audit.sqlite'],
+};
 
 export function App() {
   return (
@@ -48,7 +56,7 @@ export function App() {
               <article className="provider-card" key={provider.name}>
                 <div className="card-header">
                   <h4>{provider.name}</h4>
-                  <span className={`status ${provider.status.toLowerCase()}`}>{provider.status}</span>
+                  <span className={`status ${provider.status.toLowerCase().replaceAll(' ', '-')}`}>{provider.status}</span>
                 </div>
                 <p>Capabilities: {provider.capabilities.join(', ')}</p>
                 <p>Access: {provider.access.join(', ')}</p>
@@ -75,10 +83,14 @@ export function App() {
 
         <section id="audit-run" className="panel">
           <h3>Audit Run</h3>
+          <p className="eyebrow">{fixturePackage.mode}</p>
+          <p>{fixturePackage.command} accepts a fixture path and output directory, then returns package metadata and report file paths.</p>
+          <p className="security-note">{fixturePackage.warning}</p>
+          <button disabled>Run fixture audit from local file</button>
           <ol>
             <li>Build query space</li>
-            <li>Crawl owned pages</li>
-            <li>Sample answer providers</li>
+            <li>Crawl owned pages from fixture data</li>
+            <li>Read recorded answer runs</li>
             <li>Store evidence</li>
             <li>Score visibility</li>
             <li>Diagnose failures</li>
@@ -89,16 +101,15 @@ export function App() {
 
         <section id="report" className="panel">
           <h3>Report</h3>
-          <p>No audit report yet. Run an audit to generate visibility evidence.</p>
+          <p>No audit report yet. Run a fixture audit to generate visibility evidence.</p>
         </section>
 
         <section id="evidence-package" className="panel">
           <h3>Evidence Package</h3>
           <ul>
-            <li>manifest.json</li>
-            <li>report.json</li>
-            <li>report.md</li>
-            <li>audit.sqlite</li>
+            {fixturePackage.outputs.map((output) => (
+              <li key={output}>{output}</li>
+            ))}
           </ul>
         </section>
       </section>
