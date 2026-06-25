@@ -6,7 +6,7 @@ Build an AI Search Visibility Agent for Generative Engine Optimization that help
 
 ## Current State
 
-The repository has moved past the initial fixture-based GEO audit core. It now has a Python domain package, fixture audit workflow, reproducible audit package output, provider access model, Tauri + React app shell, BYOK session boundary, fake OAuth boundary, the first OpenAI-compatible answer-provider boundary, and a fixture-only Tauri command path.
+The repository has moved past the initial fixture-based GEO audit core. It now has a Python domain package, fixture audit workflow, reproducible audit package output, provider access model, Tauri + React app shell, BYOK session boundary, fake OAuth boundary, the first OpenAI-compatible answer-provider boundary, a fixture-only Tauri command path, and a fixture-backed crawler provider boundary.
 
 Current completion checkpoint:
 
@@ -14,8 +14,8 @@ Current completion checkpoint:
 - V2: complete evidence store, crawler seam, adapter contract, weighted scoring, operational report artifact.
 - V3: complete fixture audit runner, recorded dataset loader, evidence graph store, diagnosis V2, CLI.
 - V4: complete reproducible audit package with manifest, report, audit database, example fixture, schema docs, live adapter boundary.
-- V5-0 through V5-5.5: complete UI/provider plan, provider registry, Tauri + React shell, BYOK session, fake OAuth flow, OpenAI-compatible answer-provider boundary, and fixture-only command path.
-- First product TODO after this branch: `V5-6`.
+- V5-0 through V5-6: complete UI/provider plan, provider registry, Tauri + React shell, BYOK session, fake OAuth flow, OpenAI-compatible answer-provider boundary, fixture-only command path, and static crawler provider boundary.
+- First product TODO after this branch: `V5-7`.
 
 ## Methodology Map
 
@@ -47,69 +47,34 @@ Current completion checkpoint:
 | V5-4 | Add OAuth framework with fake provider. | DONE |
 | V5-5 | Add first OpenAI-compatible answer provider behind explicit config. | DONE |
 | V5-5.5 | Add Tauri command path that runs the existing fixture audit. | DONE |
-| V5-6 | Add crawler provider abstraction and first crawler adapter. | TODO |
+| V5-6 | Add crawler provider abstraction and first crawler adapter. | DONE |
 | V5-7 | Wire UI Run Audit to provider registry, fixture/provider audit paths, and report display. | TODO |
-
-## V5-5.5: Tauri Fixture Audit Command Path
-
-Goal: create an early clickable local product loop by letting the Tauri boundary invoke the existing fixture audit path.
-
-Implemented files:
-
-- `apps/desktop/src-tauri/src/main.rs`
-- `apps/desktop/src/App.jsx`
-- `tests/test_tauri_fixture_audit_command.py`
-- `src/geo_agent/cli.py`
-- `src/geo_agent/fixture_package.py`
-- `src/geo_agent/__init__.py`
-- `docs/ui-tori-brief.md`
-- `docs/next-steps-plan.md`
-- `docs/progress.md`
-
-Acceptance evidence:
-
-- Command accepts fixture path and output directory.
-- Command delegates to the existing fixture audit workflow through a narrow Python wrapper.
-- Command returns package metadata and report file locations.
-- React app exposes a fixture-only Run Audit path with truthful status text.
-- CI verifies wrapper and command shape without installing Tauri dependencies or making network calls.
-
-Verification:
-
-- `tests/test_tauri_fixture_audit_command.py` runs the wrapper against a deterministic fixture package.
-- Structural checks confirm `run_fixture_audit(fixture_path, output_dir)` is registered in the Tauri command boundary.
-- UI text checks confirm no provider-backed audit claim appears before V5-7.
 
 ## V5-6: Crawler Provider Abstraction
 
 Goal: add a crawler-provider boundary that can feed page inventory/evidence without live crawling in CI.
 
-Likely files:
+Implemented files:
 
 - `src/geo_agent/crawl_provider.py`
-- `src/geo_agent/page_inventory.py`
-- `src/geo_agent/evidence_store.py`
+- `src/geo_agent/__init__.py`
 - `tests/test_crawl_provider.py`
 - `docs/provider-access-architecture.md`
 - `docs/next-steps-plan.md`
 - `docs/progress.md`
 
-Acceptance criteria:
+Acceptance evidence:
 
-- Crawler provider interface represents URL input, crawl result, page chunks, metadata, and errors.
-- Static/fake crawler adapter works in CI.
-- Crawl output feeds existing page inventory or evidence store structures.
-- Crawl4AI, Firecrawl, or similar live providers remain planned unless explicitly implemented behind config.
+- `CrawlProviderRequest` represents provider id, manual URLs, sitemap URLs, chunk size, and metadata.
+- `CrawlProviderResult` represents page records, typed errors, and metadata.
+- `StaticCrawlerProvider` works in CI using fixture-backed pages and sitemaps.
+- Crawl output converts to existing `PageInventoryRecord` objects and persists through `EvidenceStore.save_page_records()`.
+- Crawl4AI and Firecrawl remain planned provider registry entries.
 - CI remains network-free.
 
 Verification:
 
-- Tests cover static crawler success, failure, unsupported method, redaction, and evidence conversion.
-
-Stop if:
-
-- The abstraction bypasses existing page inventory/evidence structures.
-- CI needs live crawling or external service access.
+- `tests/test_crawl_provider.py` covers static crawler success, failure, unsupported provider, request validation, redaction-shaped serialization, evidence store conversion, and planned live crawler registry entries.
 
 ## V5-7: UI Run Audit and Report Display
 
