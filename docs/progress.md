@@ -23,7 +23,7 @@
 | Loop V4 reproducible audit package | DONE | V4-0 through V4-5 are complete. |
 | Loop V5 UI and provider access | DONE | V5-0 through V5-7 are complete. |
 | Complete loop planning package | DONE | V6 planning, long-run growth, handoff, and runner prompt files are installed. |
-| Loop V6 provider-backed GEO agent | IN_PROGRESS | V6-1 through V6-3 are complete in branch; V6-4 through V6-8 remain. |
+| Loop V6 provider-backed GEO agent | IN_PROGRESS | V6-1 through V6-4 are complete in branch; V6-5 through V6-8 remain. |
 
 ## Progress
 
@@ -70,7 +70,7 @@
 | V6-1 | Add provider-backed audit orchestration that converts configured answer-provider output into existing evidence records. | DONE |
 | V6-2 | Add manual import and recorded live-run import UX path with schema validation and redaction checks. | DONE |
 | V6-3 | Add provider output eval harness for answer parsing, citation extraction, redaction, and deterministic fake-provider behavior. | DONE |
-| V6-4 | Add evidence-backed report UI reading generated package artifacts and showing visibility, citation, diagnosis, and task briefs. | TODO |
+| V6-4 | Add evidence-backed report UI reading generated package artifacts and showing visibility, citation, diagnosis, and task briefs. | DONE |
 | V6-5 | Add access and artifact safety hardening across CLI, Tauri commands, report artifacts, manifests, logs, and tests. | TODO |
 | V6-6 | Add retest planning workflow that compares baseline and follow-up audit packages. | TODO |
 | V6-7 | Add release-readiness packaging checks for desktop app structure, Python domain package, and docs. | TODO |
