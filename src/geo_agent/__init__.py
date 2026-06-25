@@ -23,6 +23,7 @@ from .entity_profile import (
 from .evidence_store import EvidenceStore, ReportArtifact
 from .failure_debugger import FailureDiagnosis, diagnose_failure_v2
 from .fixture_package import FixturePackageResult, run_fixture_package
+from .manual_import import ManualImportError, ManualImportResult, validate_manual_import
 from .provider_access import (
     ApiKeySession,
     ApiKeySessionStore,
@@ -69,6 +70,9 @@ __all__ = [
     "diagnose_failure_v2",
     "FixturePackageResult",
     "run_fixture_package",
+    "ManualImportError",
+    "ManualImportResult",
+    "validate_manual_import",
     "ApiKeySession",
     "ApiKeySessionStore",
     "ProviderAccessError",
