@@ -16,14 +16,26 @@ jobs:
           test -f docs/progress.md
           test -f docs/next-steps-plan.md
           test -f docs/development-principles.md
+          test -f docs/long-run-growth-loop.md
           test -f docs/feedback-taxonomy.md
           test -f docs/feedback-log.md
           test -f docs/loop-trace.md
+          test -f docs/handoff-decision.md
           test -f docs/review-and-renewal-loop.md
           test -f docs/harness-repair-loop.md
           test -f docs/loop-hypotheses.md
           test -f docs/stopper-policy.md
           test -f docs/loop-review.md
+          test -f docs/runner-prompt.md
+          test -f docs/project-evaluation-v5.md
+          test -f docs/loop-v5.md
+          test -f docs/project-evaluation-v6.md
+          test -f docs/loop-v6.md
+          test -f .github/pull_request_template.md
+          grep -q "V5-5" docs/progress.md
+          grep -q "V6-1" docs/next-steps-plan.md
+          grep -q "external_agent_development" docs/handoff-decision.md
+          grep -q "GitHub-only" docs/runner-prompt.md
           ! find . -maxdepth 4 -type f \( -name noop -o -name dummy -o -name x -o -name y \) | grep .
   python-tests:
     runs-on: ubuntu-latest
