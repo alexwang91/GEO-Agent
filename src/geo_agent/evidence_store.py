@@ -277,7 +277,7 @@ class EvidenceStore:
     def save_report_artifact(self, artifact: ReportArtifact) -> int:
         cursor = self._connection.execute(
             "INSERT INTO report_artifacts (name, format, content) VALUES (?, ?, ?)",
-            (artifact.name, artifact.format, artifact.content),
+            (artifact.name, artifact.format, _normalize_report_content(artifact.content)),
         )
         self._connection.commit()
         return int(cursor.lastrowid)
@@ -309,6 +309,10 @@ def _dump(values: tuple[str, ...]) -> str:
 
 def _load(value: str) -> tuple[str, ...]:
     return tuple(str(item) for item in json.loads(value))
+
+
+def _normalize_report_content(content: str) -> str:
+    return content.replace("\\u2026", "…")
 
 
 def _row_to_run(row: sqlite3.Row) -> EngineRun:
