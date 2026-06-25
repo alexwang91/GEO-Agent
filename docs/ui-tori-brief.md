@@ -55,7 +55,7 @@ Provider cards should show:
 - Provider name
 - Capability badges: Answer, Search, Crawl, Model, Analytics
 - Access methods: API Key, OAuth, Platform, Manual Import
-- Status: Available, Planned, Connected, Missing credential
+- Status: Available, Planned, Connected, Missing credential, Configured boundary
 - Primary action: Connect, Configure, Disconnect, Coming soon
 
 Required UX copy:
@@ -115,19 +115,37 @@ Sections:
 - Audit checklist
 - Provider readiness
 - Crawl readiness
+- Fixture-only run path
 - Run progress
 - Warnings
 
 Progress steps:
 
 1. Build query space
-2. Crawl owned pages
-3. Sample answer providers
+2. Crawl owned pages or read fixture pages
+3. Sample answer providers or read recorded answer runs
 4. Store evidence
 5. Score visibility
 6. Diagnose failures
 7. Generate tasks
 8. Write audit package
+
+### V5-5.5 Fixture Command Path
+
+The first executable desktop boundary is fixture-only:
+
+```text
+run_fixture_audit(fixture_path, output_dir)
+```
+
+The Tauri command accepts a fixture path and output directory, delegates to the Python fixture package path, and returns package metadata plus report file locations:
+
+- `manifest.json`
+- `report.json`
+- `report.md`
+- `audit.sqlite`
+
+The React app must show this as fixture-only and must state that provider-backed audit execution is still planned for V5-7. CI verifies this by Python wrapper tests and structural source checks; it does not compile or install Tauri dependencies.
 
 ## Screen 5: Report
 
@@ -219,42 +237,4 @@ Commands must return redacted provider state only. No command may return raw cre
 
 ## Empty States
 
-Providers:
-
-```text
-No providers connected yet. Connect an answer provider or import recorded runs to start an audit.
-```
-
-Queries:
-
-```text
-No queries generated yet. Complete your brand profile first.
-```
-
-Report:
-
-```text
-No audit report yet. Run an audit to generate visibility evidence.
-```
-
-## Security States
-
-- Missing credential
-- Expired OAuth token
-- Provider disconnected
-- API key rejected
-- Provider planned but unavailable
-- Live calls disabled in current environment
-
-## First Build Scope
-
-The first implementation should include:
-
-- Tauri + React app shell.
-- Providers page with provider matrix.
-- Brand profile form shell.
-- Query preview shell.
-- Audit run shell.
-- Report shell.
-
-It does not need real provider calls in the first UI slice.
+Use explicit empty states for missing providers, missing profile, no generated queries, no audit run, and no report yet. Empty states should describe the next safe user action.
