@@ -21,6 +21,7 @@ class ProviderAccessTests(unittest.TestCase):
         self.assertIn("google_search_console", definitions)
         self.assertIn("manual_import", definitions)
         self.assertEqual(definitions["openai_compatible"].access_methods, ("api_key", "platform_managed"))
+        self.assertEqual(definitions["openai_compatible"].implementation_status, "implemented")
         self.assertEqual(definitions["google_search_console"].access_methods, ("oauth",))
         self.assertEqual(definitions["manual_import"].implementation_status, "implemented")
 
@@ -39,10 +40,19 @@ class ProviderAccessTests(unittest.TestCase):
         self.assertEqual(payload["redacted_label"], "sk…ue")
         self.assertNotIn("sk-secret-value", str(payload))
 
-    def test_planned_provider_is_visible_but_not_connected(self):
+    def test_implemented_openai_provider_can_connect_with_redacted_credential(self):
         registry = default_provider_registry()
 
         connection = registry.connect("openai_compatible", "api_key", credential_label="sk-live-value")
+
+        self.assertEqual(connection.auth_status, "connected")
+        self.assertEqual(connection.redacted_label, "sk…ue")
+        self.assertNotIn("sk-live-value", json.dumps(connection.to_dict()))
+
+    def test_planned_provider_is_visible_but_not_connected(self):
+        registry = default_provider_registry()
+
+        connection = registry.connect("perplexity", "api_key", credential_label="pplx-live-value")
 
         self.assertEqual(connection.auth_status, "planned")
         self.assertEqual(connection.redacted_label, "planned")
