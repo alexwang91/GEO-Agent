@@ -60,6 +60,7 @@ from .recorded_dataset import (
     load_recorded_dataset,
     load_recorded_dataset_from_mapping,
 )
+from .retest_planning import RetestComparison, RetestMetricDelta, compare_retest_reports
 
 __all__ = [
     "AnswerCredentialRef",
@@ -114,4 +115,7 @@ __all__ = [
     "RecordedDatasetError",
     "load_recorded_dataset",
     "load_recorded_dataset_from_mapping",
+    "RetestComparison",
+    "RetestMetricDelta",
+    "compare_retest_reports",
 ]
