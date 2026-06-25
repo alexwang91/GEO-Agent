@@ -6,17 +6,17 @@ This file records observable runner events. Keep entries compact, factual, and e
 
 | Metric | Value | Notes |
 | --- | ---: | --- |
-| selected_milestone | 2 | M0 bootstrap selected; M1 entity profile selected. |
-| branch_created | 2 | `m0-bootstrap-runner`; `m1-entity-profile-schema`. |
-| pr_opened | 2 | PR #1; PR #2. |
-| ci_observed | 3 | M0 observed twice; M1 run 28111747304 observed green. |
-| feedback_classified | 6 | F-0001 through F-0006 recorded. |
-| merge_attempted | 0 | No merge attempt yet. |
-| progress_updated | 2 | M0 and M1 marked DONE in their milestone branches. |
-| review_run | 1 | M1 self-review completed before CI observation. |
-| harness_repair_run | 0 | No harness repair needed yet. |
-| hypothesis_updated | 0 | No process hypotheses yet. |
-| stop | 0 | Loop can continue after PR #2 final CI and merge evidence. |
+| selected_milestone | 3 | M0 bootstrap; M1 entity profile; V5-5 answer provider. |
+| branch_created | 3 | `m0-bootstrap-runner`; `m1-entity-profile-schema`; `v5-5-openai-compatible-answer-provider`. |
+| pr_opened | 2 | PR #1; PR #2. V5-5 PR pending. |
+| ci_observed | 3 | M0 observed twice; M1 run 28111747304 observed green. V5-5 CI pending after PR. |
+| feedback_classified | 8 | F-0001 through F-0008 recorded. |
+| merge_attempted | 0 | No merge attempt recorded in this trace. |
+| progress_updated | 3 | M0, M1, and V5-5 marked DONE in milestone branches. |
+| review_run | 2 | M1 and V5-5 self-reviews completed before CI observation. |
+| harness_repair_run | 0 | No harness repair needed. |
+| hypothesis_updated | 0 | No process hypotheses. |
+| stop | 0 | Loop can continue after V5-5 PR CI and merge evidence. |
 
 ## Events
 
@@ -292,6 +292,101 @@ entries:
       summary: "Observed successful M1 verify workflow run 28111747304."
       next_action: update_pr_evidence
       reason: "M1 PR has CI evidence for docs and Python unit tests."
+    state_after:
+      progress_status: DONE
+      blocking_feedback: false
+  - id: T-0013
+    timestamp: "2026-06-25T15:45:00Z"
+    event: selected_milestone
+    milestone: V5-5
+    branch: null
+    pr: null
+    actor: autonomous-runner
+    evidence:
+      files:
+        - docs/progress.md
+        - docs/next-steps-plan.md
+        - docs/project-evaluation-v6.md
+      checks: []
+      feedback_ids: []
+      hypothesis_ids: []
+    decision:
+      summary: "Selected first TODO after PR #29 merge: OpenAI-compatible answer provider."
+      next_action: create_branch
+      reason: "V5-5 is the first TODO in fresh progress and has concrete fake-client acceptance criteria."
+    state_after:
+      progress_status: IN_PROGRESS
+      blocking_feedback: false
+  - id: T-0014
+    timestamp: "2026-06-25T15:46:00Z"
+    event: branch_created
+    milestone: V5-5
+    branch: v5-5-openai-compatible-answer-provider
+    pr: null
+    actor: autonomous-runner
+    evidence:
+      files: []
+      checks: []
+      feedback_ids: []
+      hypothesis_ids: []
+    decision:
+      summary: "Created V5-5 implementation branch from main."
+      next_action: build_vertical_slice
+      reason: "GitHub-only mode requires branch-based implementation and PR verification."
+    state_after:
+      progress_status: IN_PROGRESS
+      blocking_feedback: false
+  - id: T-0015
+    timestamp: "2026-06-25T15:48:00Z"
+    event: progress_updated
+    milestone: V5-5
+    branch: v5-5-openai-compatible-answer-provider
+    pr: null
+    actor: autonomous-runner
+    evidence:
+      files:
+        - src/geo_agent/answer_provider.py
+        - tests/test_answer_provider.py
+        - tests/test_provider_access.py
+        - src/geo_agent/provider_access.py
+        - docs/provider-access-architecture.md
+        - docs/progress.md
+        - docs/next-steps-plan.md
+      checks:
+        - "ci: pending after PR creation"
+      feedback_ids:
+        - F-0007
+      hypothesis_ids: []
+    decision:
+      summary: "Marked V5-5 DONE in branch after adding provider boundary, fake-client tests, docs, and state updates."
+      next_action: open_pr
+      reason: "Acceptance criteria are mapped to deterministic tests and need CI verification."
+    state_after:
+      progress_status: DONE
+      blocking_feedback: false
+  - id: T-0016
+    timestamp: "2026-06-25T15:49:00Z"
+    event: review_run
+    milestone: V5-5
+    branch: v5-5-openai-compatible-answer-provider
+    pr: null
+    actor: autonomous-runner
+    evidence:
+      files:
+        - src/geo_agent/answer_provider.py
+        - tests/test_answer_provider.py
+        - docs/provider-access-architecture.md
+      checks:
+        - "review: fake-client boundary present"
+        - "review: output converts to EngineRun"
+        - "review: no default live call path"
+      feedback_ids:
+        - F-0008
+      hypothesis_ids: []
+    decision:
+      summary: "Reviewed V5-5 against acceptance criteria and provider guardrails."
+      next_action: open_pr
+      reason: "No scope violation, harness repair trigger, or stopper appears before CI."
     state_after:
       progress_status: DONE
       blocking_feedback: false
