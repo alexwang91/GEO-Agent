@@ -22,12 +22,12 @@ def main(argv: list[str] | None = None) -> int:
 
     args = parser.parse_args(argv)
     if args.command == "audit":
-        return _run_audit(Path(args.fixture), Path(args.out))
+        return run_fixture_audit(Path(args.fixture), Path(args.out))
     parser.error(f"Unknown command: {args.command}")
     return 2
 
 
-def _run_audit(fixture_path: Path, output_dir: Path) -> int:
+def run_fixture_audit(fixture_path: Path, output_dir: Path) -> int:
     dataset = load_recorded_dataset(fixture_path)
     output_dir.mkdir(parents=True, exist_ok=True)
     db_path = output_dir / "audit.sqlite"
