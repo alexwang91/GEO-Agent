@@ -2,48 +2,41 @@
 
 ## Product Goal
 
-Build an AI Search Visibility Agent for GEO that helps a brand understand where it appears or fails to appear in AI answers, why it is missing or uncited, what actions should be taken, and whether those actions improve measurable visibility after retesting.
+Build an AI Search Visibility Agent for Generative Engine Optimization that helps a brand understand where it appears or fails to appear in AI answers, why it is missing or uncited, what actions should be taken, and whether those actions improve measurable visibility after retesting.
+
+## Current State
+
+The repository has moved past the initial fixture-based GEO audit core. It now has a Python domain package, fixture audit workflow, reproducible audit package output, provider access model, Tauri + React app shell, BYOK session boundary, and fake OAuth boundary. The active gap is provider-connected execution from the desktop product entry point.
+
+Current completion checkpoint:
+
+- M0-M9: complete baseline GEO workflow.
+- V2: complete evidence store, crawler seam, adapter contract, weighted scoring, operational report artifact.
+- V3: complete fixture audit runner, recorded dataset loader, evidence graph store, diagnosis V2, CLI.
+- V4: complete reproducible audit package with manifest, report, audit database, example fixture, schema docs, live adapter boundary.
+- V5-0 through V5-4: complete UI/provider plan, provider registry, Tauri + React shell, BYOK session, fake OAuth flow.
+- First product TODO: `V5-5`.
 
 ## Methodology Map
 
-- Superpowers: evaluate before implementation, write plans, TDD/eval-first, review, and finish branches after verification.
-- Matt Pocock skills: alignment, shared language, ADR-worthy decisions, vertical slices, red-green-refactor, and architecture improvement.
-- GitHub Loop Runner: GitHub-only PR loop, progress as state, CI verification, feedback taxonomy, trace, repair, hypotheses, and stoppers.
+| Source | Repo application |
+| :--- | :--- |
+| Superpowers | Clarify product intent, write concrete plans, define tests/evals first, make the smallest implementation slice, review against evidence, finish only after CI. |
+| GitHub Loop Runner | GitHub-only branch/PR loop, `docs/progress.md` as state, CI as VERIFY, feedback classification, loop trace, long-run growth, harness repair, handoff prompt. |
+| Existing GEO docs | Preserve product boundary: real AI-answer visibility, citation diagnostics, evidence history, safe optimization tasks, retest plans. |
 
-## Loop V2 Backlog
+## Operating Rules
 
-| Slice | Description | Status |
-| :--- | :--- | :--- |
-| V2-0 | Install Loop V2, shared context, and decision log. | DONE |
-| V2-1 | Add persistent evidence store for raw query-answer-citation history. | DONE |
-| V2-2 | Replace parser-only page inventory with fetch-capable crawler seam. | DONE |
-| V2-3 | Upgrade engine sampling adapter contract and recorded-run import path. | DONE |
-| V2-4 | Rework scoring into weighted metric components with stronger edge-case tests. | DONE |
-| V2-5 | Add evidence-backed operational report artifact and snapshot or JSON tests. | DONE |
+1. Select the first TODO in `docs/progress.md`.
+2. Use one branch and one PR per milestone.
+3. Add deterministic tests or structural checks before product behavior changes.
+4. Keep CI network-free unless a milestone explicitly adds fake-client verification for live-provider boundaries.
+5. Never persist raw credentials or tokens.
+6. Update progress, loop trace, and feedback evidence in the milestone PR.
+7. Merge only after CI is green and acceptance criteria are mapped.
+8. Re-read progress before selecting the next milestone.
 
-## Loop V3 Backlog
-
-| Slice | Description | Status |
-| :--- | :--- | :--- |
-| V3-0 | Install Loop V3 and productization plan. | DONE |
-| V3-1 | Add `AuditRunner` orchestrating existing modules over fixtures. | DONE |
-| V3-2 | Add recorded dataset schema and fixture loader. | DONE |
-| V3-3 | Expand EvidenceStore beyond engine runs. | DONE |
-| V3-4 | Add Diagnosis V2 using run, page, and competitor evidence. | DONE |
-| V3-5 | Add CLI entry point for fixture-based audits. | DONE |
-
-## Loop V4 Backlog
-
-| Slice | Description | Status |
-| :--- | :--- | :--- |
-| V4-0 | Install V4 evaluation, loop, and reproducible audit package plan. | DONE |
-| V4-1 | Persist the full audit evidence graph during `AuditRunner.run`. | DONE |
-| V4-2 | Write reproducible audit package artifacts from CLI. | DONE |
-| V4-3 | Add canonical example fixture and usage docs. | DONE |
-| V4-4 | Publish recorded dataset schema documentation. | DONE |
-| V4-5 | Document live adapter boundary without implementing live calls. | DONE |
-
-## Loop V5 Backlog
+## Active Loop V5 Backlog
 
 | Slice | Description | Status |
 | :--- | :--- | :--- |
@@ -57,70 +50,210 @@ Build an AI Search Visibility Agent for GEO that helps a brand understand where 
 | V5-6 | Add crawler provider abstraction and first crawler adapter. | TODO |
 | V5-7 | Wire UI Run Audit to provider registry, fixture/provider audit paths, and report display. | TODO |
 
-## V5-0 Acceptance Criteria
+## V5-5: OpenAI-Compatible Answer Provider
 
-- `docs/project-evaluation-v5.md` evaluates the UI/provider access product gap.
-- `docs/loop-v5.md` defines the UI-first provider access loop.
-- `docs/ui-tori-brief.md` describes the Tauri + React UI workflow.
-- `docs/provider-access-architecture.md` defines provider types, access methods, security rules, and initial matrix.
-- `AGENTS.md` instructs future agents to read and follow Loop V5.
-- `docs/decision-log.md` records the shift from CLI package to UI/provider access product entry.
-- CI passes.
+Goal: implement the first answer-provider boundary without default live calls.
 
-## V5-1 Acceptance Criteria
+Likely files:
 
-- Provider access domain model supports provider types, capabilities, access methods, implementation status, and redacted connection state.
-- Registry exposes initial provider matrix.
-- Tests reject unsupported access methods and prove credentials are redacted.
-- No live provider calls.
+- `src/geo_agent/answer_provider.py`
+- `src/geo_agent/provider_access.py`
+- `src/geo_agent/__init__.py`
+- `tests/test_answer_provider.py`
+- `docs/provider-access-architecture.md`
+- `docs/next-steps-plan.md`
+- `docs/progress.md`
 
-## V5-2 Acceptance Criteria
+Acceptance criteria:
 
-- Repository includes a Tauri + React app shell.
-- UI includes Providers, Brand Profile, Queries, Audit Run, Report, and Evidence Package navigation shells.
-- CI verifies app structure without requiring network install.
-- UI does not claim live provider support.
+- Provider interface accepts query text, model/provider config, and an explicit session or platform credential reference.
+- OpenAI-compatible adapter accepts an injected fake HTTP client in CI.
+- Missing credentials fail with a clear `ProviderAccessError` or equivalent domain error.
+- Adapter output converts to existing `EngineRun` or equivalent answer evidence structure.
+- No default live calls, no network requirement in CI, no raw key leakage in returned objects or artifacts.
 
-## V5-3 Acceptance Criteria
+Verification:
 
-- API key session flow accepts a key through a backend/session boundary.
-- Key is redacted from responses, reports, manifests, audit DB, and logs.
-- Missing key gives clear error.
-- No live provider calls.
+- Unit tests cover fake successful answer, missing credential, provider error, redaction, and conversion to evidence.
+- Existing test suite remains green.
 
-## V5-4 Acceptance Criteria
+Stop if:
 
-- OAuth start/callback/disconnect framework exists with fake provider.
-- State validation is tested.
-- Tokens are redacted and never enter artifacts.
-- No live OAuth provider calls in CI.
+- The implementation requires real OpenAI credentials for CI.
+- Raw request headers, API keys, or response bodies with secrets could enter reports, logs, manifests, or audit databases.
+- Existing fixture engine-run contracts would need broad refactors.
 
-## V5-5 Acceptance Criteria
+## V5-5.5: Tauri Fixture Audit Command Path
 
-- OpenAI-compatible answer provider interface exists behind explicit config.
-- CI uses fake HTTP client.
-- Missing credentials fail clearly.
-- Output converts to `EngineRun` or equivalent answer evidence.
-- No default live calls.
+Goal: create an early clickable local product loop by letting the Tauri boundary invoke the existing fixture audit path.
 
-## V5-5.5 Acceptance Criteria
+Likely files:
 
-- Tauri command boundary can invoke the existing fixture audit path without live provider credentials.
-- The command accepts a fixture path and output directory.
-- The command returns redacted package metadata and report file locations.
+- `apps/desktop/src-tauri/src/main.rs`
+- `apps/desktop/src/App.jsx`
+- `tests/test_tauri_fixture_audit_command.py`
+- `src/geo_agent/cli.py` or a thin audit service wrapper if needed
+- `docs/ui-tori-brief.md`
+- `docs/next-steps-plan.md`
+- `docs/progress.md`
+
+Acceptance criteria:
+
+- Command accepts fixture path and output directory.
+- Command delegates to existing fixture audit workflow or a narrow wrapper around it.
+- Command returns redacted package metadata and report file locations.
+- React app exposes a disabled/fixture-only Run Audit path with truthful status text.
 - CI verifies command shape or wrapper behavior without installing Tauri dependencies or making network calls.
-- This slice does not replace provider-backed audit execution; it creates an early clickable local product loop.
 
-## V5-6 Acceptance Criteria
+Verification:
 
-- Crawler provider abstraction exists.
-- First crawler adapter boundary is documented and testable with fake/static crawler.
-- Crawl output feeds page inventory/evidence store.
+- Structural or Python tests validate command/wrapper contract.
+- UI text tests or file checks prove the UI does not claim live provider execution.
+
+Stop if:
+
+- Tauri tests require network dependency installation.
+- The UI implies provider-backed audit execution before V5-7.
+
+## V5-6: Crawler Provider Abstraction
+
+Goal: add a crawler-provider boundary that can feed page inventory/evidence without live crawling in CI.
+
+Likely files:
+
+- `src/geo_agent/crawl_provider.py`
+- `src/geo_agent/page_inventory.py`
+- `src/geo_agent/evidence_store.py`
+- `tests/test_crawl_provider.py`
+- `docs/provider-access-architecture.md`
+- `docs/next-steps-plan.md`
+- `docs/progress.md`
+
+Acceptance criteria:
+
+- Crawler provider interface represents URL input, crawl result, page chunks, metadata, and errors.
+- Static/fake crawler adapter works in CI.
+- Crawl output feeds existing page inventory or evidence store structures.
+- Crawl4AI, Firecrawl, or similar live providers remain planned unless explicitly implemented behind config.
 - CI remains network-free.
 
-## V5-7 Acceptance Criteria
+Verification:
 
-- UI Run Audit can execute fixture audit and fake-provider audit paths.
-- UI can display report data from generated package artifacts.
-- Download actions are represented.
-- No live credentials required in CI.
+- Tests cover static crawler success, failure, unsupported method, redaction, and evidence conversion.
+
+Stop if:
+
+- The abstraction bypasses existing page inventory/evidence structures.
+- CI needs live crawling or external service credentials.
+
+## V5-7: UI Run Audit and Report Display
+
+Goal: connect the UI to fixture and fake-provider audit paths and display report artifacts.
+
+Likely files:
+
+- `apps/desktop/src/App.jsx`
+- `apps/desktop/src/styles.css`
+- `apps/desktop/src-tauri/src/main.rs`
+- `tests/test_ui_run_audit_flow.py`
+- `src/geo_agent/audit_runner.py`
+- `docs/ui-tori-brief.md`
+- `docs/next-steps-plan.md`
+- `docs/progress.md`
+
+Acceptance criteria:
+
+- UI can select fixture/manual-import path and fake-provider path.
+- UI can display generated report summary, visibility score, citation map, diagnosis, and task brief sections from package artifacts.
+- Download/export actions are represented truthfully.
+- Provider status clearly distinguishes implemented, fake/test, planned, and unavailable.
+- No live credentials are required in CI.
+
+Verification:
+
+- Tests or structural checks cover navigation, state labels, report artifact parsing, and no-live-claim copy.
+
+Stop if:
+
+- The UI masks provider failure as successful audit execution.
+- Report display is disconnected from generated package artifacts.
+
+## V6 Complete Development Plan
+
+V6 starts after V5-7 completes the first usable desktop loop. V6 turns the product from a fixture-capable shell into a safer provider-backed GEO agent.
+
+| Milestone | Goal | Acceptance evidence |
+| :--- | :--- | :--- |
+| V6-1 | Provider-backed audit orchestration. | Fake answer provider output flows into `AuditRunner` evidence records with tests. |
+| V6-2 | Manual import and recorded live-run import UX. | UI/import schema validates recorded answer/citation datasets and rejects unsafe fields. |
+| V6-3 | Provider output eval harness. | Deterministic evals test answer parsing, citation extraction, redaction, and error handling. |
+| V6-4 | Evidence-backed report UI. | UI reads generated artifacts and renders score, citations, diagnoses, and task briefs. |
+| V6-5 | Credential and artifact safety hardening. | Tests prove raw credentials/tokens cannot appear in reports, manifests, logs, DB rows, or UI payloads. |
+| V6-6 | Retest planning workflow. | Baseline and follow-up packages can be compared for visibility/citation/diagnosis deltas. |
+| V6-7 | Release-readiness packaging checks. | CI verifies desktop app structure, Python package entry points, docs, and no dummy files. |
+| V6-8 | Skill-learning records. | Optimization outcomes are stored by engine, query type, vertical, action, confidence, and result. |
+
+## V6-1 Acceptance Criteria
+
+- Provider-backed run path accepts provider config and answer-provider session reference.
+- Fake provider can produce deterministic answers, citations, and recommendations.
+- Output persists to the existing evidence store and audit package.
+- Existing fixture path remains unchanged.
+- No live calls by default.
+
+## V6-2 Acceptance Criteria
+
+- Manual import UX can load recorded evidence datasets.
+- Schema validation rejects malformed query, answer, citation, page, and competitor records.
+- Redaction rules run before persistence.
+- Import path produces an audit package compatible with report rendering.
+
+## V6-3 Acceptance Criteria
+
+- Eval fixtures cover answer mention extraction, citation parsing, recommendation rank, source domain normalization, error handling, and redaction.
+- Eval results can block regressions in CI.
+- Provider output parser handles missing citations, duplicate citations, and unsupported regions without crashing.
+
+## V6-4 Acceptance Criteria
+
+- Report UI reads generated `manifest.json`, `report.json`, `report.md`, and database/package metadata when available.
+- UI sections map to product outputs: AI Visibility Score, missing high-value queries, competitor citation map, diagnosis, website audit, optimization tasks, expected impact/confidence, retest plan.
+- Empty or partial artifact states show explicit warnings.
+
+## V6-5 Acceptance Criteria
+
+- Redaction tests scan report artifacts, manifests, logs, database rows, UI payloads, and command responses.
+- Sensitive provider values are represented by opaque session IDs or redacted labels only.
+- Failure logs avoid raw request headers and tokens.
+
+## V6-6 Acceptance Criteria
+
+- Retest plan can compare two audit packages.
+- Deltas include mention share, citation share, recommendation share, rank, sentiment framing, and claim accuracy when available.
+- Report output separates measured improvement from unverified recommendations.
+
+## V6-7 Acceptance Criteria
+
+- CI checks Python package entry points, desktop app file structure, docs, no dummy/noop/temp files, and runner docs.
+- Release docs explain fixture mode, manual import mode, and provider-config mode.
+- No packaging step depends on live credentials.
+
+## V6-8 Acceptance Criteria
+
+- Optimization action records store action type, source evidence, engine, query type, vertical, expected impact, observed outcome, and confidence.
+- Retest outcomes can update action effectiveness without overwriting raw evidence.
+- Report can identify reusable actions and actions that failed.
+
+## Review and Renewal Rules
+
+Run Review and Renewal before adding more milestones when:
+
+- V5 backlog completes;
+- TODO backlog falls below the configured floor;
+- CI or feedback repeats the same failure type;
+- trace evidence is stale or missing;
+- credential or provider trust boundaries change;
+- a milestone becomes too broad for one PR;
+- user asks to re-evaluate direction.
+
+New milestones must be specific, useful, verifiable, and non-duplicative. Do not add vague cleanup, polish, placeholder, broad refactor, or churn-only tasks.
