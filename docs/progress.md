@@ -21,7 +21,7 @@
 | Loop V2 evidence/report hardening | DONE | V2-0 through V2-5 are complete. |
 | Loop V3 fixture audit productization | DONE | V3-0 through V3-5 are complete. |
 | Loop V4 reproducible audit package | DONE | V4-0 through V4-5 are complete. |
-| Loop V5 UI and provider access | IN_PROGRESS | V5-0 through V5-6 are complete; V5-7 remains. |
+| Loop V5 UI and provider access | DONE | V5-0 through V5-7 are complete. |
 | Complete loop planning package | DONE | V6 planning, long-run growth, handoff, and runner prompt files are installed. |
 
 ## Progress
@@ -65,7 +65,7 @@
 | V5-5 | Add first OpenAI-compatible answer provider behind explicit config. | DONE |
 | V5-5.5 | Add Tauri command path that runs the existing fixture audit. | DONE |
 | V5-6 | Add crawler provider abstraction and first crawler adapter. | DONE |
-| V5-7 | Wire UI Run Audit to provider registry, fixture/provider audit paths, and report display. | TODO |
+| V5-7 | Wire UI Run Audit to provider registry, fixture/provider audit paths, and report display. | DONE |
 | V6-1 | Add provider-backed audit orchestration that converts configured answer-provider output into existing evidence records. | TODO |
 | V6-2 | Add manual import and recorded live-run import UX path with schema validation and redaction checks. | TODO |
 | V6-3 | Add provider output eval harness for answer parsing, citation extraction, redaction, and deterministic fake-provider behavior. | TODO |

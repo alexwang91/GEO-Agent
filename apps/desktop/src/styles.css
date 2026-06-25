@@ -75,16 +75,49 @@ button:disabled {
   color: #334155;
 }
 
-.provider-grid {
+.provider-grid,
+.run-path-grid,
+.metric-grid,
+.report-grid {
   display: grid;
   gap: 1rem;
+}
+
+.provider-grid,
+.run-path-grid {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
-.provider-card {
+.metric-grid {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.report-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-top: 1rem;
+}
+
+.provider-card,
+.run-path-card,
+.metric-card,
+.evidence-block {
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 1rem;
+}
+
+.metric-card {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.metric-card span {
+  color: #475569;
+  font-size: 0.85rem;
+}
+
+.metric-card strong {
+  font-size: 1.45rem;
 }
 
 .card-header,
@@ -106,7 +139,19 @@ button:disabled {
   color: #92400e;
 }
 
-.status.available {
+.status.available,
+.status.available-for-local-fixtures,
+.status.recorded-evidence-available,
+.status.fake-test-available,
+.status.fake-test-only,
+.status.configured-boundary {
   background: #dcfce7;
   color: #166534;
+}
+
+.download-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
 }
