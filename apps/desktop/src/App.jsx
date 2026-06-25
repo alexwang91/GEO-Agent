@@ -121,7 +121,8 @@ export function App() {
         <section id="audit-run" className="panel">
           <h3>Audit Run</h3>
           <p className="eyebrow">Fixture, manual-import, and fake-provider run paths</p>
-          <p className="security-note">Live provider execution remains a later V6 path. This screen represents local package artifacts and deterministic test providers only.</p>
+          <p className="eyebrow">Fixture-only audit path</p>
+          <p className="security-note">Provider-backed audit execution is still planned for V5-7. Live provider execution remains a later V6 path. This screen represents local package artifacts and deterministic test providers only.</p>
           <div className="run-path-grid">
             {runPaths.map((path) => (
               <article className="run-path-card" key={path.label}>
@@ -133,6 +134,7 @@ export function App() {
               </article>
             ))}
           </div>
+          <button disabled>Run fixture audit from local file</button>
           <button disabled>Run selected audit path</button>
           <ol>
             <li>Build query space</li>
