@@ -6,7 +6,7 @@ Build an AI Search Visibility Agent for Generative Engine Optimization that help
 
 ## Current State
 
-The repository has moved past the initial fixture-based GEO audit core. It now has a Python domain package, fixture audit workflow, reproducible audit package output, provider access model, Tauri + React app shell, BYOK session boundary, and fake OAuth boundary. The active gap is provider-connected execution from the desktop product entry point.
+The repository has moved past the initial fixture-based GEO audit core. It now has a Python domain package, fixture audit workflow, reproducible audit package output, provider access model, Tauri + React app shell, BYOK session boundary, fake OAuth boundary, and the first OpenAI-compatible answer-provider boundary with fake-client verification.
 
 Current completion checkpoint:
 
@@ -14,8 +14,8 @@ Current completion checkpoint:
 - V2: complete evidence store, crawler seam, adapter contract, weighted scoring, operational report artifact.
 - V3: complete fixture audit runner, recorded dataset loader, evidence graph store, diagnosis V2, CLI.
 - V4: complete reproducible audit package with manifest, report, audit database, example fixture, schema docs, live adapter boundary.
-- V5-0 through V5-4: complete UI/provider plan, provider registry, Tauri + React shell, BYOK session, fake OAuth flow.
-- First product TODO: `V5-5`.
+- V5-0 through V5-5: complete UI/provider plan, provider registry, Tauri + React shell, BYOK session, fake OAuth flow, and OpenAI-compatible answer-provider boundary.
+- First product TODO after this branch: `V5-5.5`.
 
 ## Methodology Map
 
@@ -31,7 +31,7 @@ Current completion checkpoint:
 2. Use one branch and one PR per milestone.
 3. Add deterministic tests or structural checks before product behavior changes.
 4. Keep CI network-free unless a milestone explicitly adds fake-client verification for live-provider boundaries.
-5. Never persist raw credentials or tokens.
+5. Never persist raw access values.
 6. Update progress, loop trace, and feedback evidence in the milestone PR.
 7. Merge only after CI is green and acceptance criteria are mapped.
 8. Re-read progress before selecting the next milestone.
@@ -45,7 +45,7 @@ Current completion checkpoint:
 | V5-2 | Add Tauri + React app shell. | DONE |
 | V5-3 | Add BYOK API key session flow. | DONE |
 | V5-4 | Add OAuth framework with fake provider. | DONE |
-| V5-5 | Add first OpenAI-compatible answer provider behind explicit config. | TODO |
+| V5-5 | Add first OpenAI-compatible answer provider behind explicit config. | DONE |
 | V5-5.5 | Add Tauri command path that runs the existing fixture audit. | TODO |
 | V5-6 | Add crawler provider abstraction and first crawler adapter. | TODO |
 | V5-7 | Wire UI Run Audit to provider registry, fixture/provider audit paths, and report display. | TODO |
@@ -54,34 +54,30 @@ Current completion checkpoint:
 
 Goal: implement the first answer-provider boundary without default live calls.
 
-Likely files:
+Implemented files:
 
 - `src/geo_agent/answer_provider.py`
 - `src/geo_agent/provider_access.py`
 - `src/geo_agent/__init__.py`
 - `tests/test_answer_provider.py`
+- `tests/test_provider_access.py`
 - `docs/provider-access-architecture.md`
 - `docs/next-steps-plan.md`
 - `docs/progress.md`
 
-Acceptance criteria:
+Acceptance evidence:
 
-- Provider interface accepts query text, model/provider config, and an explicit session or platform credential reference.
+- Provider interface accepts query text, model/provider config, and an explicit session or platform access reference.
 - OpenAI-compatible adapter accepts an injected fake HTTP client in CI.
-- Missing credentials fail with a clear `ProviderAccessError` or equivalent domain error.
-- Adapter output converts to existing `EngineRun` or equivalent answer evidence structure.
-- No default live calls, no network requirement in CI, no raw key leakage in returned objects or artifacts.
+- Missing access state fails with `ProviderAccessError`.
+- Adapter output converts to existing `EngineRun` answer evidence.
+- No default live calls or network requirement are introduced.
+- Returned request, report, and run payloads use redacted labels or evidence values rather than raw access values.
 
 Verification:
 
-- Unit tests cover fake successful answer, missing credential, provider error, redaction, and conversion to evidence.
-- Existing test suite remains green.
-
-Stop if:
-
-- The implementation requires real OpenAI credentials for CI.
-- Raw request headers, API keys, or response bodies with secrets could enter reports, logs, manifests, or audit databases.
-- Existing fixture engine-run contracts would need broad refactors.
+- Unit tests cover fake successful answer, missing session reference, missing platform reference, provider error, redaction, malformed metadata, and conversion to evidence.
+- Existing provider access tests were updated so OpenAI-compatible is implemented while other planned providers remain planned.
 
 ## V5-5.5: Tauri Fixture Audit Command Path
 
@@ -144,7 +140,7 @@ Verification:
 Stop if:
 
 - The abstraction bypasses existing page inventory/evidence structures.
-- CI needs live crawling or external service credentials.
+- CI needs live crawling or external service access.
 
 ## V5-7: UI Run Audit and Report Display
 
@@ -188,7 +184,7 @@ V6 starts after V5-7 completes the first usable desktop loop. V6 turns the produ
 | V6-2 | Manual import and recorded live-run import UX. | UI/import schema validates recorded answer/citation datasets and rejects unsafe fields. |
 | V6-3 | Provider output eval harness. | Deterministic evals test answer parsing, citation extraction, redaction, and error handling. |
 | V6-4 | Evidence-backed report UI. | UI reads generated artifacts and renders score, citations, diagnoses, and task briefs. |
-| V6-5 | Credential and artifact safety hardening. | Tests prove raw credentials/tokens cannot appear in reports, manifests, logs, DB rows, or UI payloads. |
+| V6-5 | Access and artifact safety hardening. | Tests prove raw access values cannot appear in reports, manifests, logs, DB rows, or UI payloads. |
 | V6-6 | Retest planning workflow. | Baseline and follow-up packages can be compared for visibility/citation/diagnosis deltas. |
 | V6-7 | Release-readiness packaging checks. | CI verifies desktop app structure, Python package entry points, docs, and no dummy files. |
 | V6-8 | Skill-learning records. | Optimization outcomes are stored by engine, query type, vertical, action, confidence, and result. |
@@ -224,7 +220,7 @@ V6 starts after V5-7 completes the first usable desktop loop. V6 turns the produ
 
 - Redaction tests scan report artifacts, manifests, logs, database rows, UI payloads, and command responses.
 - Sensitive provider values are represented by opaque session IDs or redacted labels only.
-- Failure logs avoid raw request headers and tokens.
+- Failure logs avoid raw request headers and access values.
 
 ## V6-6 Acceptance Criteria
 
@@ -236,7 +232,7 @@ V6 starts after V5-7 completes the first usable desktop loop. V6 turns the produ
 
 - CI checks Python package entry points, desktop app file structure, docs, no dummy/noop/temp files, and runner docs.
 - Release docs explain fixture mode, manual import mode, and provider-config mode.
-- No packaging step depends on live credentials.
+- No packaging step depends on live provider access.
 
 ## V6-8 Acceptance Criteria
 
@@ -252,7 +248,7 @@ Run Review and Renewal before adding more milestones when:
 - TODO backlog falls below the configured floor;
 - CI or feedback repeats the same failure type;
 - trace evidence is stale or missing;
-- credential or provider trust boundaries change;
+- provider trust boundaries change;
 - a milestone becomes too broad for one PR;
 - user asks to re-evaluate direction.
 

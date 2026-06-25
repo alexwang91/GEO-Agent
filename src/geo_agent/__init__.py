@@ -1,5 +1,11 @@
 """GEO Agent domain model package."""
 
+from .answer_provider import (
+    AnswerCredentialRef,
+    AnswerProviderConfig,
+    AnswerProviderRequest,
+    OpenAICompatibleAnswerProvider,
+)
 from .audit_runner import AuditArtifacts, AuditRunner
 from .entity_profile import (
     EntityProfile,
@@ -34,6 +40,10 @@ from .recorded_dataset import (
 )
 
 __all__ = [
+    "AnswerCredentialRef",
+    "AnswerProviderConfig",
+    "AnswerProviderRequest",
+    "OpenAICompatibleAnswerProvider",
     "AuditArtifacts",
     "AuditRunner",
     "EntityProfile",
