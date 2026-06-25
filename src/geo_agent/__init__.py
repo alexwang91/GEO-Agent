@@ -6,6 +6,12 @@ from .answer_provider import (
     AnswerProviderRequest,
     OpenAICompatibleAnswerProvider,
 )
+from .artifact_safety import (
+    ArtifactSafetyFinding,
+    ArtifactSafetyReport,
+    assert_artifacts_safe,
+    scan_artifacts_for_access_leaks,
+)
 from .audit_runner import AuditArtifacts, AuditRunner
 from .crawl_provider import (
     CrawlProviderError,
@@ -60,6 +66,10 @@ __all__ = [
     "AnswerProviderConfig",
     "AnswerProviderRequest",
     "OpenAICompatibleAnswerProvider",
+    "ArtifactSafetyFinding",
+    "ArtifactSafetyReport",
+    "assert_artifacts_safe",
+    "scan_artifacts_for_access_leaks",
     "AuditArtifacts",
     "AuditRunner",
     "CrawlProviderError",
