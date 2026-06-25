@@ -1,10 +1,11 @@
-"""End-to-end fixture audit runner for GEO Agent."""
+"""End-to-end fixture and provider-backed audit runner for GEO Agent."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Mapping
+from typing import Mapping, Protocol
 
+from .answer_provider import AnswerCredentialRef, AnswerProviderConfig, AnswerProviderRequest
 from .engine_sampling import EngineAdapter, EngineRun, sample_with_adapter
 from .entity_profile import EntityProfile
 from .evidence_store import EvidenceStore, ReportArtifact
@@ -14,6 +15,11 @@ from .page_inventory import PageInventoryRecord, StaticPageFetcher, crawl_invent
 from .query_space import QueryRecord, build_query_space
 from .report import ReportView, build_report_view, render_report_json, render_report_markdown
 from .visibility_scoring import WeightedVisibilityScore, score_weighted_visibility
+
+
+class AnswerProvider(Protocol):
+    def sample(self, request: AnswerProviderRequest, *, timestamp: str | None = None) -> EngineRun:
+        ...
 
 
 @dataclass(frozen=True)
@@ -43,7 +49,7 @@ class AuditArtifacts:
 
 
 class AuditRunner:
-    """Runs a deterministic audit from fixture evidence without live engine claims."""
+    """Runs deterministic audits from fixture or configured provider evidence."""
 
     def __init__(self, store: EvidenceStore | None = None) -> None:
         self.store = store or EvidenceStore()
@@ -71,6 +77,53 @@ class AuditRunner:
             )
             for query in queries
         )
+        return self._persist_and_report(profile, queries, page_records, runs)
+
+    def run_with_answer_provider(
+        self,
+        profile: EntityProfile,
+        *,
+        pages: Mapping[str, str],
+        answer_provider: AnswerProvider,
+        provider_config: AnswerProviderConfig,
+        credential_ref: AnswerCredentialRef,
+        sitemap_urls: list[str] | None = None,
+        manual_urls: list[str] | None = None,
+        max_queries: int | None = None,
+        timestamp: str | None = None,
+    ) -> AuditArtifacts:
+        """Run the audit evidence path with a configured answer provider.
+
+        Tests should inject fake provider clients. This method does not create live
+        credentials or bypass the existing fixture page inventory path.
+        """
+
+        queries = tuple(build_query_space(profile, target_engines=(provider_config.provider_id,), max_queries=max_queries))
+        page_records = tuple(
+            crawl_inventory(StaticPageFetcher(dict(pages)), sitemap_urls=sitemap_urls, manual_urls=manual_urls)
+        )
+        runs = tuple(
+            answer_provider.sample(
+                AnswerProviderRequest(
+                    query=query.query,
+                    region=query.region,
+                    language=query.language,
+                    config=provider_config,
+                    credential_ref=credential_ref,
+                ),
+                timestamp=timestamp,
+            )
+            for query in queries
+        )
+        return self._persist_and_report(profile, queries, page_records, runs)
+
+    def _persist_and_report(
+        self,
+        profile: EntityProfile,
+        queries: tuple[QueryRecord, ...],
+        page_records: tuple[PageInventoryRecord, ...],
+        runs: tuple[EngineRun, ...],
+    ) -> AuditArtifacts:
         self.store.save_query_records(queries)
         self.store.save_page_records(page_records)
         self.store.save_runs(runs)
