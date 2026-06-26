@@ -20,7 +20,7 @@ GEO-Agent must not promise or imply:
 
 - The product does not guarantee ranking improvement, recommendation improvement, or citation improvement in any AI engine.
 - Full coverage of ChatGPT Search, Perplexity, Google AI Overviews, Gemini, Claude Search, Bing Copilot, or any other live surface unless that provider path is implemented and verified.
-- That OpenAI-compatible API output is ChatGPT Search output.
+- OpenAI-compatible API output is not ChatGPT Search.
 - That a single answer sample proves brand visibility, competitor preference, engine behavior, or optimization impact.
 - That generated optimization tasks are safe to publish without human review.
 - That owned-page edits alone solve GEO failures; third-party evidence, crawlability, citation source mix, and claim support may matter.
