@@ -17,7 +17,8 @@ Current completion checkpoint:
 - V5: complete UI/provider plan, provider registry, Tauri + React shell, BYOK session, fake OAuth flow, OpenAI-compatible answer-provider boundary, fixture-only command path, static crawler provider boundary, and Run Audit/report display wiring (V5-0 through V5-7).
 - V6: complete provider-backed orchestration, manual/recorded import, provider output eval harness, evidence-backed report UI, access/artifact safety hardening, retest planning, release-readiness checks, and skill-learning records (V6-1 through V6-8).
 - V7-01: complete state-source audit, stale-milestone consistency test, current-agent handoff reconciliation, and alpha/technical-preview README boundary.
-- First product TODO: `V7-02` (see Loop V7 Backlog below and `docs/loop-v7.md`).
+- V7-02: complete product contract, provider status language, limitations docs, and consistency checks across README, UI copy, docs, and provider registry labels.
+- First product TODO: `V7-03` (see Loop V7 Backlog below and `docs/loop-v7.md`).
 
 ## Methodology Map
 
@@ -38,99 +39,12 @@ Current completion checkpoint:
 7. Merge only after CI is green and acceptance criteria are mapped.
 8. Re-read progress before selecting the next milestone.
 
-## Active Loop V5 Backlog
-
-| Slice | Description | Status |
-| :--- | :--- | :--- |
-| V5-0 | Install V5 evaluation, Tauri + React UI brief, provider access architecture, and loop plan. | DONE |
-| V5-1 | Add provider access domain model and registry. | DONE |
-| V5-2 | Add Tauri + React app shell. | DONE |
-| V5-3 | Add BYOK API key session flow. | DONE |
-| V5-4 | Add OAuth framework with fake provider. | DONE |
-| V5-5 | Add first OpenAI-compatible answer provider behind explicit config. | DONE |
-| V5-5.5 | Add Tauri command path that runs the existing fixture audit. | DONE |
-| V5-6 | Add crawler provider abstraction and first crawler adapter. | DONE |
-| V5-7 | Wire UI Run Audit to provider registry, fixture/provider audit paths, and report display. | DONE |
-
-## V5-6: Crawler Provider Abstraction
-
-Goal: add a crawler-provider boundary that can feed page inventory/evidence without live crawling in CI.
-
-Implemented files:
-
-- `src/geo_agent/crawl_provider.py`
-- `src/geo_agent/__init__.py`
-- `tests/test_crawl_provider.py`
-- `docs/provider-access-architecture.md`
-- `docs/next-steps-plan.md`
-- `docs/progress.md`
-
-Acceptance evidence:
-
-- `CrawlProviderRequest` represents provider id, manual URLs, sitemap URLs, chunk size, and metadata.
-- `CrawlProviderResult` represents page records, typed errors, and metadata.
-- `StaticCrawlerProvider` works in CI using fixture-backed pages and sitemaps.
-- Crawl output converts to existing `PageInventoryRecord` objects and persists through `EvidenceStore.save_page_records()`.
-- Crawl4AI and Firecrawl remain planned provider registry entries.
-- CI remains network-free.
-
-Verification:
-
-- `tests/test_crawl_provider.py` covers static crawler success, failure, unsupported provider, request validation, redaction-shaped serialization, evidence store conversion, and planned live crawler registry entries.
-
-## V5-7: UI Run Audit and Report Display
-
-Goal: connect the UI to fixture and fake-provider audit paths and display report artifacts.
-
-Likely files:
-
-- `apps/desktop/src/App.jsx`
-- `apps/desktop/src/styles.css`
-- `apps/desktop/src-tauri/src/main.rs`
-- `tests/test_ui_run_audit_flow.py`
-- `src/geo_agent/audit_runner.py`
-- `docs/ui-tori-brief.md`
-- `docs/next-steps-plan.md`
-- `docs/progress.md`
-
-Acceptance criteria:
-
-- UI can select fixture/manual-import path and fake-provider path.
-- UI can display generated report summary, visibility score, citation map, diagnosis, and task brief sections from package artifacts.
-- Download/export actions are represented truthfully.
-- Provider status clearly distinguishes implemented, fake/test, planned, and unavailable.
-- No live credentials are required in CI.
-
-Verification:
-
-- Tests or structural checks cover navigation, state labels, report artifact parsing, and no-live-claim copy.
-
-Stop if:
-
-- The UI masks provider failure as successful audit execution.
-- Report display is disconnected from generated package artifacts.
-
-## V6 Complete Development Plan
-
-V6 starts after V5-7 completes the first usable desktop loop. V6 turns the product from a fixture-capable shell into a safer provider-backed GEO agent.
-
-| Milestone | Goal | Acceptance evidence |
-| :--- | :--- | :--- |
-| V6-1 | Provider-backed audit orchestration. | Fake answer provider output flows into `AuditRunner` evidence records with tests. |
-| V6-2 | Manual import and recorded live-run import UX. | UI/import schema validates recorded answer/citation datasets and rejects unsafe fields. |
-| V6-3 | Provider output eval harness. | Deterministic evals test answer parsing, citation extraction, redaction, and error handling. |
-| V6-4 | Evidence-backed report UI. | UI reads generated artifacts and renders score, citations, diagnoses, and task briefs. |
-| V6-5 | Access and artifact safety hardening. | Tests prove raw access values cannot appear in reports, manifests, logs, DB rows, or UI payloads. |
-| V6-6 | Retest planning workflow. | Baseline and follow-up packages can be compared for visibility/citation/diagnosis deltas. |
-| V6-7 | Release-readiness packaging checks. | CI verifies desktop app structure, Python package entry points, docs, and no dummy files. |
-| V6-8 | Skill-learning records. | Optimization outcomes are stored by engine, query type, vertical, action, confidence, and result. |
-
 ## Loop V7 Backlog: AI Search Visibility Experiment Workbench
 
 V7 starts after V6. It repositions the product as an AI Search Visibility Experiment Workbench and
 hardens evidence traceability, real-answer ingestion, statistical credibility, diagnosis depth,
 executable owner-mapped tasks, retest loops, desktop UX, and reports. Design intent and the full
-slice-to-PR mapping live in `docs/loop-v7.md`. The first TODO is `V7-02` after V7-01 merges.
+slice-to-PR mapping live in `docs/loop-v7.md`. The first TODO is `V7-03` after V7-02 merges.
 
 Each slice is one branch and one PR. Keep CI network-free unless a slice explicitly adds fake-client
 verification. Never persist raw access values. Add deterministic tests or structural checks before
@@ -154,7 +68,7 @@ behavior changes.
 | Slice | Acceptance criteria | Likely files | Verification / stop-if |
 | :--- | :--- | :--- | :--- |
 | V7-04 | Frozen dataclasses exist for AuditRun, PromptRecord, EngineSample, CitationRecord, MentionRecord, RecommendationRecord, PageSnapshot, ClaimRecord, DiagnosisRecord, OptimizationTask, RetestRecord, SkillOutcomeRecord; each metric/diagnosis/task can reference the sample/prompt/citation/page IDs it derives from. | `src/geo_agent/evidence_store.py`, `src/geo_agent/schema.py`, `src/geo_agent/audit_runner.py`, `tests/test_evidence_graph.py` | Tests prove a fixture audit produces a complete evidence package and IDs link metrics back to samples. |
-| V7-05 | Audit package manifest v2 records traceability from each metric to sample IDs; `audit.sqlite`, `manifest.json`, and `report.json` contain no secrets. | `src/geo_agent/fixture_package.py`, `src/geo_agent/report.py`, `tests/test_audit_package_manifest.py`, `tests/test_artifact_safety.py` | Manifest test asserts metric→sample-ID links; safety test asserts no credentials in any artifact. |
+| V7-05 | Audit package manifest v2 records traceability from each metric to sample IDs; `audit.sqlite`, `manifest.json`, and `report.json` contain no secrets. | `src/geo_agent/fixture_package.py`, `src/geo_agent/report.py`, `tests/test_audit_package_manifest.py`, `tests/test_artifact_safety.py` | Manifest test asserts metric-to-sample-ID links; safety test asserts no credentials in any artifact. |
 
 ### M3 - STORM-style query discovery
 
