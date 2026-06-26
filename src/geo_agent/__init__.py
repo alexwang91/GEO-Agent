@@ -21,6 +21,7 @@ from .browser_capture import (
     artifact_digest,
     make_capture_artifact,
 )
+from .citation_absorption import CitationAbsorptionMetric, calculate_citation_absorption, calculate_citation_absorption_from_urls
 from .citation_parser import CitationParserError, ParsedCitation, citation_domain, normalize_citation_url, parse_citations
 from .crawl_provider import (
     CrawlProviderError,
@@ -127,6 +128,9 @@ __all__ = [
     "BrowserViewport",
     "artifact_digest",
     "make_capture_artifact",
+    "CitationAbsorptionMetric",
+    "calculate_citation_absorption",
+    "calculate_citation_absorption_from_urls",
     "CitationParserError",
     "ParsedCitation",
     "citation_domain",
