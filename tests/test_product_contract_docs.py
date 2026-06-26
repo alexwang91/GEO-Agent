@@ -1,31 +1,38 @@
 import ast
-import re
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROVIDER_ACCESS = ROOT / "src" / "geo_agent" / "provider_access.py"
-STATUS_RE = re.compile(r"implementation_status=\"(?P<status>[a-z_]+)\"")
 
 
 def read(path):
     return (ROOT / path).read_text(encoding="utf-8")
 
 
+def provider_access_tree():
+    return ast.parse(PROVIDER_ACCESS.read_text(encoding="utf-8"))
+
+
 def provider_status_literal_values():
-    tree = ast.parse(PROVIDER_ACCESS.read_text(encoding="utf-8"))
-    for node in tree.body:
+    for node in provider_access_tree().body:
         if isinstance(node, ast.Assign):
             for target in node.targets:
                 if isinstance(target, ast.Name) and target.id == "ProviderStatus":
-                    literal = node.value.slice if isinstance(node.value, ast.Subscript) else None
-                    return {value.value for value in literal.elts if isinstance(value, ast.Constant)}
+                    if not isinstance(node.value, ast.Subscript) or not isinstance(node.value.slice, ast.Tuple):
+                        raise AssertionError("ProviderStatus must be a Literal tuple")
+                    return {value.value for value in node.value.slice.elts if isinstance(value, ast.Constant)}
     raise AssertionError("ProviderStatus literal not found")
 
 
 def registry_status_values():
-    text = PROVIDER_ACCESS.read_text(encoding="utf-8")
-    return set(re.findall(r'ProviderDefinition\([^\n]+, "(?P<status>[a-z_]+)"\)', text))
+    statuses = set()
+    for node in ast.walk(provider_access_tree()):
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "ProviderDefinition":
+            if len(node.args) < 6 or not isinstance(node.args[5], ast.Constant):
+                raise AssertionError("ProviderDefinition implementation_status must be a literal string")
+            statuses.add(node.args[5].value)
+    return statuses
 
 
 class ProductContractDocsTest(unittest.TestCase):
@@ -39,10 +46,9 @@ class ProductContractDocsTest(unittest.TestCase):
         status_doc = read("docs/provider-status-language.md")
 
         self.assertEqual({"implemented", "planned"}, literal_values)
+        self.assertTrue(registry_values)
         self.assertTrue(registry_values <= literal_values)
-        for status in literal_values:
-            self.assertIn(f"`{status}`", status_doc)
-        for status in registry_values:
+        for status in literal_values | registry_values:
             self.assertIn(f"`{status}`", status_doc)
 
     def test_readme_docs_and_ui_use_consistent_status_language(self):
