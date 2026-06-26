@@ -23,6 +23,7 @@ from .browser_capture import (
 )
 from .citation_absorption import CitationAbsorptionMetric, calculate_citation_absorption, calculate_citation_absorption_from_urls
 from .citation_parser import CitationParserError, ParsedCitation, citation_domain, normalize_citation_url, parse_citations
+from .claim_fidelity import ClaimFidelityResult, audit_claim_fidelity, audit_claims_fidelity
 from .crawl_provider import (
     CrawlProviderError,
     CrawlProviderRequest,
@@ -136,6 +137,9 @@ __all__ = [
     "citation_domain",
     "normalize_citation_url",
     "parse_citations",
+    "ClaimFidelityResult",
+    "audit_claim_fidelity",
+    "audit_claims_fidelity",
     "ClassifiedSource",
     "classify_source",
     "classify_sources",
