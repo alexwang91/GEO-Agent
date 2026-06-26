@@ -19,7 +19,7 @@
 | Loop V4 reproducible audit package | DONE | V4-0 through V4-5 are complete. |
 | Loop V5 UI and provider access | DONE | V5-0 through V5-7 are complete. |
 | Loop V6 provider-backed GEO agent | DONE | V6-1 through V6-8 are complete. |
-| Loop V7 AI visibility workbench | TODO | V7-01 through V7-12 are DONE; V7-13 through V7-38 remain TODO. |
+| Loop V7 AI visibility workbench | TODO | V7-01 through V7-13 are DONE; V7-14 through V7-38 remain TODO. |
 
 ## Progress
 
@@ -37,7 +37,7 @@
 | V7-10 | Provider status UI and report copy. | DONE |
 | V7-11 | Crawler provider v2. | DONE |
 | V7-12 | Page snapshot extractor. | DONE |
-| V7-13 | Citation parser v1. | TODO |
+| V7-13 | Citation parser v1. | DONE |
 | V7-14 | Source classifier. | TODO |
 | V7-15 | Citation absorption metric. | TODO |
 | V7-16 | Claim fidelity audit. | TODO |
