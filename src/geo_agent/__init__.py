@@ -50,6 +50,13 @@ from .learning_records import (
     summarize_outcomes,
 )
 from .manual_import import ManualImportError, ManualImportResult, validate_manual_import
+from .page_snapshot_extractor import (
+    ExtractedFAQ,
+    ExtractedPageSnapshot,
+    ExtractedTable,
+    PageSnapshotExtractionError,
+    extract_page_snapshot,
+)
 from .provider_access import (
     ApiKeySession,
     ApiKeySessionStore,
@@ -127,6 +134,11 @@ __all__ = [
     "CrawlerProviderV2Result",
     "PageCrawlResult",
     "StaticCrawlerProviderV2",
+    "ExtractedFAQ",
+    "ExtractedPageSnapshot",
+    "ExtractedTable",
+    "PageSnapshotExtractionError",
+    "extract_page_snapshot",
     "EntityProfile",
     "EntityProfileValidationError",
     "ValidationIssue",
