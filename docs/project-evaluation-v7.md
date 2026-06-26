@@ -61,6 +61,7 @@ Reposition as an AI Search Visibility Experiment Workbench
 | Citation depth | 3/10 | Selection only; needs absorption and claim fidelity (V7-15/16). |
 | Desktop end-to-end UX | 4/10 | Shell exists; full journey pages and dashboard not yet built (V7-24..30). |
 | Role-based reporting | 4/10 | Report artifacts exist; owner-specific reports needed (V7-31). |
+| Runner state consistency | 8/10 | V7-01 adds a state audit, current-agent handoff reconciliation, workflow checks, and a docs-state consistency test. |
 
 ## Strategic Direction
 
@@ -77,15 +78,16 @@ SEO data volume, enterprise coverage, or algorithm papers. Keep AutoGEO-style op
 | Evidence drift | UI/reports can diverge from raw evidence. | Traceable evidence graph and metric-to-sample IDs (V7-04/05); reports read artifacts. |
 | UI theater | Pages without executable audit paths add no value. | Every desktop slice connects to evidence, audit, or report artifacts. |
 | Over-broad milestones | Provider, stats, UI, and report work can exceed one PR. | One PR-sized slice per branch; Review and Renewal when scope grows. |
+| Stale runner state | A stale first-TODO pointer can make the runner skip or repeat the wrong milestone. | V7-01 state audit and CI consistency test. |
 
 ## Decision
 
 Proceed with Loop V7 as encoded in `docs/progress.md`, `docs/next-steps-plan.md`, and `docs/loop-v7.md`.
-The first TODO is `V7-01`: reconcile doc state and add a CI consistency test for stale milestones, then
-mark the alpha/technical-preview boundary.
+V7-01 reconciles runner state and marks the technical-preview boundary. After the V7-01 PR merges, the
+first TODO is `V7-02`: product contract, provider-status language, and limitations docs.
 
 ## Stopper Assessment
 
-No hard stopper blocks planning. Product work must stop if any next slice requires live credentials in
+No hard stopper blocks the V7 backlog. Product work must stop if any next slice requires live credentials in
 CI, weakens redaction, represents planned providers as live, equates API output with a search UI, states
 low-sample conclusions as definite, or cannot map acceptance criteria to CI/review evidence.

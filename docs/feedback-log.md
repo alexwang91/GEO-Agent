@@ -59,4 +59,23 @@ entries:
     allowed_next_actions: [observe_ci, update_pr_evidence]
     forbidden_next_actions: [skip_v6_1_without_review]
     runner_decision: {action: observe_ci, reason: "Review passed, but CI remains required before merge."}
+  - id: F-0015
+    timestamp: "2026-06-26T15:03:00Z"
+    source: ci
+    type: success
+    severity: info
+    milestone: V7-01
+    branch: v7-01-docs-state-cleanup
+    pr: 43
+    summary: "V7-01 state repair and docs consistency checks passed CI."
+    evidence:
+      checks: ["verify run #108: success", "tests/test_docs_state_consistency.py"]
+      files: [AGENTS.md, README.md, docs/autonomous-runner.md, docs/progress.md, docs/next-steps-plan.md, docs/handoff-decision.md, docs/runner-prompt.md, docs/state-audit.md, docs/loop-review.md, .github/workflows/verify.yml, tests/test_docs_state_consistency.py]
+      review_comments: []
+      trace_ids: [T-0056, T-0057, T-0058, T-0059, T-0060, T-0061]
+      hypothesis_ids: []
+    root_cause: {layer: state_store, category: stale_runner_state, confidence: high, explanation: "V7-01 repaired stale first-TODO and handoff state references with a deterministic consistency test."}
+    allowed_next_actions: [merge_after_trace_update]
+    forbidden_next_actions: [merge_without_ci]
+    runner_decision: {action: merge_after_trace_update, reason: "CI is green and acceptance criteria are mapped in PR #43."}
 ```

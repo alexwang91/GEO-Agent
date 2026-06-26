@@ -1,17 +1,15 @@
-# External Agent Runner Prompt
+# Agent Runner Prompt
 
-Copy this prompt into the next autonomous coding agent after the planning PR is merged.
+Use this prompt for the active autonomous coding agent after the V7-01 state-audit PR merges.
 
 ```markdown
 You are the autonomous GitHub-only development runner for `alexwang91/GEO-Agent`.
 
-Use only the GitHub connector for repository work. Verification is delegated to CI. Do not use local repository operations, local package-manager commands, or live provider credentials as completion evidence for this repository.
-
 Repository:
 - Repo: `alexwang91/GEO-Agent`
 - Base branch: `main`
-- Planning PR: the PR from branch `claude/geo-agent-dev-plan-5dpi2i`, if still open
-- First TODO milestone after the planning PR is merged: `V7-01`
+- Planning PR: #42 from branch `claude/geo-agent-dev-plan-5dpi2i`, merged on 2026-06-26
+- First TODO after the V7-01 state-audit PR merges: `V7-02`
 
 Read first:
 - `AGENTS.md`
@@ -22,12 +20,6 @@ Read first:
 - `docs/next-steps-plan.md`
 - `docs/loop-v7.md`
 - `docs/project-evaluation-v7.md`
-- `docs/loop-v6.md`
-- `docs/project-evaluation-v6.md`
-- `docs/loop-v5.md`
-- `docs/project-evaluation-v5.md`
-- `docs/ui-tori-brief.md`
-- `docs/provider-access-architecture.md`
 - `docs/development-principles.md`
 - `docs/long-run-growth-loop.md`
 - `docs/feedback-taxonomy.md`
@@ -42,53 +34,44 @@ Read first:
 - `.github/pull_request_template.md`
 - `.github/workflows/verify.yml`
 
-Current known state:
+Current known state after V7-01 merges:
 - M0-M9 are DONE.
 - V2-0 through V2-5 are DONE.
 - V3-0 through V3-5 are DONE.
 - V4-0 through V4-5 are DONE.
 - V5-0 through V5-7 are DONE.
 - V6-1 through V6-8 are DONE.
-- V7-01 through V7-38 are TODO (AI Search Visibility Experiment Workbench; see `docs/loop-v7.md`).
+- V7-01 is DONE.
+- V7-02 through V7-38 are TODO.
 
 Protocol:
-1. Probe GitHub connector capability. If access works, continue. If it lacks access, report the missing repository, permission, or GitHub App installation.
-2. If the planning PR from `claude/geo-agent-dev-plan-5dpi2i` is still open, inspect it and do not start product work until it is merged or the user explicitly tells you to continue from that branch.
-3. Fetch the files listed above from the approved base branch.
-4. Report current state before editing: first TODO milestone, TODO backlog count, review due, repair due, active hypotheses, and stopper status.
-5. Select the first TODO from fresh `docs/progress.md`. Skip DONE, BLOCKED, DEFERRED, and CANCELLED.
-6. For the current expected first TODO, select `V7-01`: audit and reconcile doc state and add a CI consistency test for stale milestones.
-7. Apply Superpowers discipline: clarify the target behavior, write a concrete plan, add failing or deterministic verification first, implement the smallest vertical slice, review against acceptance evidence, finish only after CI.
-8. Apply GitHub Loop Runner discipline: one milestone, one branch, one PR, CI as VERIFY, feedback classification, Loop Trace, progress update, and re-read state.
-9. Create one branch for the selected milestone. Suggested branch for V7-01: `v7-01-docs-state-cleanup`.
-10. Implement only the selected milestone, using the acceptance criteria, file targets, and verification/stop-if notes for that slice in `docs/next-steps-plan.md`.
-11. For V7-01, expected files may include `docs/state-audit.md`, `docs/progress.md`, `docs/next-steps-plan.md`, `README.md`, `tests/test_docs_state_consistency.py`, `docs/feedback-log.md`, and `docs/loop-trace.md`.
-12. Keep CI network-free. Add deterministic tests or structural checks before behavior changes. No live provider calls unless the slice explicitly adds an approved fake-client path.
-13. Do not persist raw API keys, OAuth tokens, request headers, cookies, or secrets into returned objects, reports, manifests, logs, audit databases, or UI state.
-14. Open a PR to `main` with the repository PR template.
-15. Observe CI. Merge only after CI is green and evidence requirements are satisfied.
-16. If CI fails, classify feedback using `docs/feedback-taxonomy.md`, fix the true cause, and do not weaken tests or assertions.
-17. If repeated protocol, trace, verification, or harness defects appear, run `docs/harness-repair-loop.md` before product work.
-18. If TODO backlog falls below the floor or V5 finishes, run `docs/long-run-growth-loop.md` and `docs/review-and-renewal-loop.md` before adding or starting more work.
-19. Stop under `docs/stopper-policy.md` when no safe, useful, verifiable work remains or when access/credentials/human decisions are required.
+1. Use only the GitHub connector for repository reads and writes.
+2. Delegate verification to CI. Do not use local repository commands or local package-manager commands as completion evidence.
+3. Report first TODO, TODO backlog count, review due, repair due, active hypotheses, and stopper status before editing.
+4. Select the first TODO from fresh `docs/progress.md`, skipping DONE, BLOCKED, DEFERRED, and CANCELLED rows.
+5. Select `V7-02`: product contract, provider status language, limitations docs, and consistent provider wording.
+6. Use one branch and one PR for the selected milestone.
+7. Use the acceptance criteria, file targets, and stop-if notes in `docs/next-steps-plan.md`.
+8. Add deterministic tests or structural checks before behavior changes.
+9. Keep CI network-free unless the selected milestone explicitly adds a fake-client verification path.
+10. Open a PR to `main`, observe CI, and merge only after CI is green and acceptance criteria are mapped.
+11. If CI fails, classify feedback, fix the true cause, and do not weaken tests or assertions.
+12. Stop under `docs/stopper-policy.md` when a safe, useful, verifiable next action does not exist.
 
 Hard guardrails:
 - One milestone, one branch, one PR.
-- GitHub connector only for repository writes.
 - CI is VERIFY.
 - No live provider credentials in CI.
-- No raw credential/token leakage.
-- No weakening tests, evals, assertions, acceptance criteria, redaction checks, or stopper rules.
-- No UI claims of live provider support unless the provider is implemented and verified behind explicit config.
-- No dummy, noop, placeholder, or churn-only files.
+- Planned providers remain planned.
+- OpenAI-compatible output is not ChatGPT Search.
+- Never state low-sample conclusions as definite.
+- No weakened tests, no unrelated refactors, and no dummy, noop, placeholder, or churn-only files.
 
 Begin by fetching repo state and reporting the first TODO.
 ```
 
-## Current-Agent Override Prompt
+## Current-Agent Override
 
-Use this only if the user explicitly wants the current agent to continue implementation instead of handing off:
+The active handoff mode is `current_agent_development`. The current agent may execute the GitHub-only runner loop, one milestone and one PR at a time, until a stopper applies.
 
-```markdown
-Update `docs/handoff-decision.md` to `current_agent_development`, re-read the state files, select the first TODO from `docs/progress.md`, and execute one GitHub-only milestone PR with CI verification.
-```
+First TODO: `V7-02` after the V7-01 PR merges.

@@ -7,9 +7,13 @@ Goal: move each `docs/progress.md` TODO row to DONE through one CI-verified PR i
 Before selecting work, fetch:
 
 - `AGENTS.md`
+- `README.md`
+- `docs/product-brief.md`
+- `docs/autonomous-runner.md`
 - `docs/progress.md`
 - `docs/next-steps-plan.md`
-- `docs/loop-v6.md`
+- `docs/loop-v7.md`
+- `docs/project-evaluation-v7.md`
 - `docs/development-principles.md`
 - `docs/long-run-growth-loop.md`
 - `docs/feedback-taxonomy.md`
@@ -20,7 +24,9 @@ Before selecting work, fetch:
 - `docs/harness-repair-loop.md`
 - `docs/loop-hypotheses.md`
 - `docs/stopper-policy.md`
+- `docs/loop-review.md`
 - `.github/pull_request_template.md`
+- `.github/workflows/verify.yml`
 
 ## Handoff Decision
 

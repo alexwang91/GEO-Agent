@@ -11,6 +11,7 @@ jobs:
       - name: Verify runner docs
         run: |
           test -f AGENTS.md
+          test -f README.md
           test -f docs/product-brief.md
           test -f docs/autonomous-runner.md
           test -f docs/progress.md
@@ -27,14 +28,19 @@ jobs:
           test -f docs/stopper-policy.md
           test -f docs/loop-review.md
           test -f docs/runner-prompt.md
+          test -f docs/state-audit.md
           test -f docs/project-evaluation-v5.md
           test -f docs/loop-v5.md
           test -f docs/project-evaluation-v6.md
           test -f docs/loop-v6.md
+          test -f docs/project-evaluation-v7.md
+          test -f docs/loop-v7.md
+          test -f tests/test_docs_state_consistency.py
           test -f .github/pull_request_template.md
-          grep -q "V5-5" docs/progress.md
-          grep -q "V6-1" docs/next-steps-plan.md
-          grep -q "external_agent_development" docs/handoff-decision.md
+          grep -q "V7-02" docs/progress.md
+          grep -q "V7-02" docs/next-steps-plan.md
+          grep -q "current_agent_development" docs/handoff-decision.md
+          grep -q "Technical preview status" README.md
           grep -q "GitHub-only" docs/runner-prompt.md
           ! find . -maxdepth 4 -type f \( -name noop -o -name dummy -o -name x -o -name y \) | grep .
   python-tests:
