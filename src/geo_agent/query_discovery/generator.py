@@ -62,8 +62,9 @@ def discover_queries_no_llm(profile: EntityProfile, *, target_engine: str = "man
                 language=profile.target_languages[0],
                 region=profile.target_regions[0],
                 target_engine=target_engine,
-                competitors=profile.competitors,
-                priority=_priority(cluster, perspective),
+                competitor_entities=profile.competitors,
+                expected_answer_format="shortlist",
+                priority_score=_priority(cluster, perspective),
                 cluster=cluster.cluster_id,
             )
             discovered.append(DiscoveredQuery(record, cluster.cluster_id, perspective.perspective_id, tuple(source.source_id for source in seeds)))
@@ -92,7 +93,7 @@ def _query_text(profile: EntityProfile, cluster: QueryCluster, perspective: Quer
     )
 
 
-def _priority(cluster: QueryCluster, perspective: QueryPerspective) -> int:
-    cluster_weight = {"decision": 5, "solution": 4, "brand": 4, "source": 3, "problem": 3}[cluster.cluster_id]
-    perspective_weight = {"buyer": 2, "technical": 2, "operator": 1, "pr": 1}[perspective.perspective_id]
-    return min(5, cluster_weight + perspective_weight - 1)
+def _priority(cluster: QueryCluster, perspective: QueryPerspective) -> float:
+    cluster_weight = {"decision": 0.9, "solution": 0.82, "brand": 0.78, "source": 0.7, "problem": 0.66}[cluster.cluster_id]
+    perspective_weight = {"buyer": 0.04, "technical": 0.04, "operator": 0.02, "pr": 0.02}[perspective.perspective_id]
+    return round(min(cluster_weight + perspective_weight, 1.0), 2)
