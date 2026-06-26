@@ -19,7 +19,7 @@
 | Loop V4 reproducible audit package | DONE | V4-0 through V4-5 are complete. |
 | Loop V5 UI and provider access | DONE | V5-0 through V5-7 are complete. |
 | Loop V6 provider-backed GEO agent | DONE | V6-1 through V6-8 are complete. |
-| Loop V7 AI visibility workbench | TODO | V7-01 through V7-16 are DONE; V7-17 through V7-38 remain TODO. |
+| Loop V7 AI visibility workbench | TODO | V7-01 through V7-17 are DONE; V7-18 through V7-38 remain TODO. |
 
 ## Progress
 
@@ -41,7 +41,7 @@
 | V7-14 | Source classifier. | DONE |
 | V7-15 | Citation absorption metric. | DONE |
 | V7-16 | Claim fidelity audit. | DONE |
-| V7-17 | Repeated sampling plan. | TODO |
+| V7-17 | Repeated sampling plan. | DONE |
 | V7-18 | Bootstrap confidence intervals and noise floor. | TODO |
 | V7-19 | Diagnosis taxonomy v3. | TODO |
 | V7-20 | Optimization task engine v2. | TODO |
