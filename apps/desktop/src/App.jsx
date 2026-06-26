@@ -79,6 +79,7 @@ export function App() {
         <section id="providers" className="panel">
           <h3>Providers</h3>
           <p className="security-note">Provider status uses the registry language from docs/provider-status-language.md. Planned providers are not live or available for audit execution.</p>
+          <p className="security-note">Copy contract: manual import is recorded evidence, simulated fixture or fake-provider data is test evidence, live configured execution requires an implemented provider boundary, and planned providers stay unavailable.</p>
           <div className="provider-grid">
             {providers.map((provider) => (
               <article className="provider-card" key={provider.name}>
