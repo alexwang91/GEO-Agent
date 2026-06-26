@@ -67,6 +67,7 @@ from .provider_output_eval import (
     evaluate_provider_output_cases,
     provider_response_to_run,
 )
+from .provider_status_copy import ProviderStatusCopy, provider_report_status_line, provider_status_copy
 from .providers import ManualImportProvider, ManualImportProviderRequest, ManualImportProviderResult
 from .query_space import INTENT_TYPES, QueryRecord, build_query_space
 from .recorded_dataset import (
@@ -136,6 +137,9 @@ __all__ = [
     "ManualImportProvider",
     "ManualImportProviderRequest",
     "ManualImportProviderResult",
+    "ProviderStatusCopy",
+    "provider_report_status_line",
+    "provider_status_copy",
     "ApiKeySession",
     "ApiKeySessionStore",
     "ProviderAccessError",
