@@ -13,15 +13,13 @@ handoff:
   external_agent_prompt_generated: true
   prompt_file: docs/runner-prompt.md
   base_branch: main
-  bootstrap_pr: null
-  planning_branch: claude/geo-agent-dev-plan-5dpi2i
   planning_pr: 42
   planning_pr_merged: true
-  completed_milestone: V7-04
-  first_todo_after_v7_04_merge: V7-05
+  completed_milestone: V7-05
+  first_todo_after_v7_05_merge: V7-06
 ```
 
-First TODO: `V7-05` after the V7-04 PR merges.
+First TODO: `V7-06` after the V7-05 PR merges.
 
 ## Allowed Modes
 
@@ -30,9 +28,7 @@ First TODO: `V7-05` after the V7-04 PR merges.
 
 ## Decision Rationale
 
-The active handoff remains current-agent development for the GitHub-only runner loop.
-
-V7-04 installs evidence graph schema records and traceability from metrics, diagnoses, and tasks back to sample/prompt/citation/page IDs. After this PR merges, the next implementation milestone is V7-05.
+The active handoff remains current-agent development for the GitHub-only runner loop. V7-05 upgrades the audit package manifest to v2 with metric traceability and package artifact safety checks. After this PR merges, the next milestone is V7-06.
 
 ## Handoff Rules
 
@@ -42,4 +38,3 @@ V7-04 installs evidence graph schema records and traceability from metrics, diag
 4. The active agent must create one branch and one PR for the selected milestone.
 5. CI is VERIFY.
 6. Product work must stop under `docs/stopper-policy.md`.
-7. If a future user selects external-agent development again, update this file in a planning or harness PR before changing the product code path.
