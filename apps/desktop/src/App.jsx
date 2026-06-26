@@ -10,20 +10,20 @@ const navItems = [
 ];
 
 const providers = [
-  { name: 'OpenAI-compatible', capabilities: ['Answer', 'Model'], access: ['API Key', 'Platform'], status: 'Configured boundary' },
-  { name: 'Static crawler', capabilities: ['Crawl'], access: ['Local'], status: 'Fake/test available' },
-  { name: 'Perplexity', capabilities: ['Answer', 'Search'], access: ['API Key'], status: 'Planned' },
-  { name: 'Gemini', capabilities: ['Answer', 'Model'], access: ['API Key'], status: 'Planned' },
-  { name: 'Crawl4AI', capabilities: ['Crawl'], access: ['Local', 'Platform'], status: 'Planned' },
-  { name: 'Firecrawl', capabilities: ['Crawl'], access: ['API Key'], status: 'Planned' },
-  { name: 'Google Search Console', capabilities: ['Analytics', 'Search'], access: ['OAuth'], status: 'Planned' },
-  { name: 'Manual Import', capabilities: ['Answer'], access: ['Manual Import'], status: 'Available' },
+  { name: 'OpenAI-compatible', capabilities: ['Answer', 'Model'], access: ['API Key', 'Platform'], status: 'Implemented', note: 'Implemented API boundary; not ChatGPT Search.' },
+  { name: 'Static crawler', capabilities: ['Crawl'], access: ['Local'], status: 'Implemented', note: 'Fixture-backed local crawler boundary for deterministic tests.' },
+  { name: 'Perplexity', capabilities: ['Answer', 'Search'], access: ['API Key'], status: 'Planned', note: 'Planned provider; not available for live audits.' },
+  { name: 'Gemini', capabilities: ['Answer', 'Model'], access: ['API Key'], status: 'Planned', note: 'Planned provider; not available for live audits.' },
+  { name: 'Crawl4AI', capabilities: ['Crawl'], access: ['Local', 'Platform'], status: 'Planned', note: 'Planned crawler provider.' },
+  { name: 'Firecrawl', capabilities: ['Crawl'], access: ['API Key'], status: 'Planned', note: 'Planned crawler provider.' },
+  { name: 'Google Search Console', capabilities: ['Analytics', 'Search'], access: ['OAuth'], status: 'Planned', note: 'Planned analytics/search provider.' },
+  { name: 'Manual Import', capabilities: ['Answer'], access: ['Manual Import'], status: 'Implemented', note: 'Implemented manual/recorded evidence path.' },
 ];
 
 const runPaths = [
-  { label: 'Fixture package audit', status: 'Available for local fixtures', command: 'run_fixture_audit(fixture_path, output_dir)' },
-  { label: 'Manual import path', status: 'Recorded evidence available', command: 'manual_import(recorded_dataset)' },
-  { label: 'Fake provider path', status: 'Fake/test only', command: 'static_crawler + recorded answer adapter' },
+  { label: 'Fixture package audit', status: 'Implemented for local fixtures', command: 'run_fixture_audit(fixture_path, output_dir)' },
+  { label: 'Manual import path', status: 'Implemented for recorded evidence', command: 'manual_import(recorded_dataset)' },
+  { label: 'Fake provider path', status: 'Implemented for deterministic tests', command: 'static_crawler + recorded answer adapter' },
 ];
 
 const reportView = buildReportArtifactView(sampleManifestArtifact, sampleReportArtifact);
@@ -78,6 +78,7 @@ export function App() {
 
         <section id="providers" className="panel">
           <h3>Providers</h3>
+          <p className="security-note">Provider status uses the registry language from docs/provider-status-language.md. Planned providers are not live or available for audit execution.</p>
           <div className="provider-grid">
             {providers.map((provider) => (
               <article className="provider-card" key={provider.name}>
@@ -87,6 +88,7 @@ export function App() {
                 </div>
                 <p>Capabilities: {provider.capabilities.join(', ')}</p>
                 <p>Access: {provider.access.join(', ')}</p>
+                <p>{provider.note}</p>
                 <button disabled={provider.status === 'Planned'}>{provider.status === 'Planned' ? 'Coming soon' : 'Configure'}</button>
               </article>
             ))}
@@ -110,7 +112,7 @@ export function App() {
           <h3>Audit Run</h3>
           <p className="eyebrow">Fixture, manual-import, and fake-provider run paths</p>
           <p className="eyebrow">Fixture-only audit path</p>
-          <p className="security-note">Provider-backed audit execution is still planned for V5-7. Live provider execution remains a later V6 path. This screen represents local package artifacts and deterministic test providers only.</p>
+          <p className="security-note">Provider-backed audit execution uses implemented fixture/manual boundaries only unless a provider is explicitly configured and verified. Planned providers remain planned and unavailable for live audits.</p>
           <div className="run-path-grid">
             {runPaths.map((path) => (
               <article className="run-path-card" key={path.label}>
