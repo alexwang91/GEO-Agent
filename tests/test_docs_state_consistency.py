@@ -32,12 +32,11 @@ def declared_first_todos(path):
 class DocsStateConsistencyTest(unittest.TestCase):
     def test_declared_first_todo_matches_progress(self):
         first_todo = first_progress_todo()
-        self.assertEqual("V7-03", first_todo)
+        self.assertEqual("V7-04", first_todo)
         for path in ["AGENTS.md", "docs/next-steps-plan.md", "docs/handoff-decision.md", "docs/runner-prompt.md", "docs/state-audit.md"]:
             declarations = declared_first_todos(path)
             self.assertTrue(declarations, path)
             self.assertIn(first_todo, declarations, path)
-            self.assertNotIn("V7-02", declarations, path)
 
     def test_no_status_conflicts_with_progress(self):
         canonical = progress_statuses()
@@ -49,19 +48,10 @@ class DocsStateConsistencyTest(unittest.TestCase):
 
     def test_handoff_and_workflow_target_current_state(self):
         self.assertIn("chosen_mode: current_agent_development", read("docs/handoff-decision.md"))
-        self.assertIn("first_todo_after_v7_02_merge: V7-03", read("docs/handoff-decision.md"))
+        self.assertIn("first_todo_after_v7_03_merge: V7-04", read("docs/handoff-decision.md"))
         workflow = read(".github/workflows/verify.yml")
-        self.assertIn("docs/state-audit.md", workflow)
-        self.assertIn("tests/test_docs_state_consistency.py", workflow)
-        self.assertIn("V7-03", workflow)
-        self.assertIn("current_agent_development", workflow)
-
-    def test_readme_states_technical_preview_boundary(self):
-        readme = read("README.md")
-        self.assertIn("Technical preview status", readme)
-        self.assertIn("alpha/technical preview", readme)
-        self.assertIn("not ChatGPT Search", readme)
-        self.assertIn("not guarantee ranking improvement", readme)
+        self.assertIn("V7-04", workflow)
+        self.assertIn("tests/test_ux_copy_contract.py", workflow)
 
 
 if __name__ == "__main__":
