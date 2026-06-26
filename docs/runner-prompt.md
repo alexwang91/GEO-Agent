@@ -10,8 +10,8 @@ Use only the GitHub connector for repository work. Verification is delegated to 
 Repository:
 - Repo: `alexwang91/GEO-Agent`
 - Base branch: `main`
-- Planning PR: the PR from branch `loop-v6-complete-development-plan`, if still open
-- First TODO milestone after the planning PR is merged: `V5-5`
+- Planning PR: the PR from branch `claude/geo-agent-dev-plan-5dpi2i`, if still open
+- First TODO milestone after the planning PR is merged: `V7-01`
 
 Read first:
 - `AGENTS.md`
@@ -20,6 +20,8 @@ Read first:
 - `docs/autonomous-runner.md`
 - `docs/progress.md`
 - `docs/next-steps-plan.md`
+- `docs/loop-v7.md`
+- `docs/project-evaluation-v7.md`
 - `docs/loop-v6.md`
 - `docs/project-evaluation-v6.md`
 - `docs/loop-v5.md`
@@ -45,23 +47,23 @@ Current known state:
 - V2-0 through V2-5 are DONE.
 - V3-0 through V3-5 are DONE.
 - V4-0 through V4-5 are DONE.
-- V5-0 through V5-4 are DONE.
-- V5-5, V5-5.5, V5-6, and V5-7 are TODO.
-- V6 is planned but should not start until V5-5 through V5-7 are complete, unless Review and Renewal updates `docs/progress.md` with evidence.
+- V5-0 through V5-7 are DONE.
+- V6-1 through V6-8 are DONE.
+- V7-01 through V7-38 are TODO (AI Search Visibility Experiment Workbench; see `docs/loop-v7.md`).
 
 Protocol:
 1. Probe GitHub connector capability. If access works, continue. If it lacks access, report the missing repository, permission, or GitHub App installation.
-2. If the planning PR from `loop-v6-complete-development-plan` is still open, inspect it and do not start product work until it is merged or the user explicitly tells you to continue from that branch.
+2. If the planning PR from `claude/geo-agent-dev-plan-5dpi2i` is still open, inspect it and do not start product work until it is merged or the user explicitly tells you to continue from that branch.
 3. Fetch the files listed above from the approved base branch.
 4. Report current state before editing: first TODO milestone, TODO backlog count, review due, repair due, active hypotheses, and stopper status.
 5. Select the first TODO from fresh `docs/progress.md`. Skip DONE, BLOCKED, DEFERRED, and CANCELLED.
-6. For the current expected first TODO, select `V5-5`: add the OpenAI-compatible answer provider behind explicit config.
+6. For the current expected first TODO, select `V7-01`: audit and reconcile doc state and add a CI consistency test for stale milestones.
 7. Apply Superpowers discipline: clarify the target behavior, write a concrete plan, add failing or deterministic verification first, implement the smallest vertical slice, review against acceptance evidence, finish only after CI.
 8. Apply GitHub Loop Runner discipline: one milestone, one branch, one PR, CI as VERIFY, feedback classification, Loop Trace, progress update, and re-read state.
-9. Create one branch for the selected milestone. Suggested branch for V5-5: `v5-5-openai-compatible-answer-provider`.
-10. Implement only the selected milestone.
-11. For V5-5, expected files may include `src/geo_agent/answer_provider.py`, `src/geo_agent/provider_access.py`, `src/geo_agent/__init__.py`, `tests/test_answer_provider.py`, `docs/provider-access-architecture.md`, `docs/progress.md`, `docs/feedback-log.md`, and `docs/loop-trace.md`.
-12. Use a fake HTTP client in CI. No default live calls. Missing credentials must fail clearly. Adapter output must convert to existing `EngineRun` or equivalent answer evidence.
+9. Create one branch for the selected milestone. Suggested branch for V7-01: `v7-01-docs-state-cleanup`.
+10. Implement only the selected milestone, using the acceptance criteria, file targets, and verification/stop-if notes for that slice in `docs/next-steps-plan.md`.
+11. For V7-01, expected files may include `docs/state-audit.md`, `docs/progress.md`, `docs/next-steps-plan.md`, `README.md`, `tests/test_docs_state_consistency.py`, `docs/feedback-log.md`, and `docs/loop-trace.md`.
+12. Keep CI network-free. Add deterministic tests or structural checks before behavior changes. No live provider calls unless the slice explicitly adds an approved fake-client path.
 13. Do not persist raw API keys, OAuth tokens, request headers, cookies, or secrets into returned objects, reports, manifests, logs, audit databases, or UI state.
 14. Open a PR to `main` with the repository PR template.
 15. Observe CI. Merge only after CI is green and evidence requirements are satisfied.

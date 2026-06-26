@@ -24,6 +24,7 @@
 | Loop V5 UI and provider access | DONE | V5-0 through V5-7 are complete. |
 | Complete loop planning package | DONE | V6 planning, long-run growth, handoff, and runner prompt files are installed. |
 | Loop V6 provider-backed GEO agent | DONE | V6-1 through V6-8 are complete in branch. |
+| Loop V7 AI visibility workbench | TODO | V7-01 through V7-38 planned in `docs/loop-v7.md`; first TODO is V7-01. |
 
 ## Progress
 
@@ -75,3 +76,41 @@
 | V6-6 | Add retest planning workflow that compares baseline and follow-up audit packages. | DONE |
 | V6-7 | Add release-readiness packaging checks for desktop app structure, Python package, and docs. | DONE |
 | V6-8 | Add skill-learning record for which optimization actions worked by engine, query type, and vertical. | DONE |
+| V7-01 | Audit and reconcile doc state (progress, next-steps, AGENTS, handoff, runner prompt) and add a CI consistency test for stale milestones; mark the alpha/technical-preview boundary. | TODO |
+| V7-02 | Add product-contract, provider-status-language, and limitations docs with consistent provider wording across README, UI, and docs. | TODO |
+| V7-03 | Add UX contract: personas, user journeys, report copy guidelines, error-state taxonomy, and a copy-contract test. | TODO |
+| V7-04 | Add evidence graph schema objects (AuditRun, EngineSample, Citation/Mention/Recommendation, PageSnapshot, Claim, Diagnosis, Task, Retest, SkillOutcome). | TODO |
+| V7-05 | Add audit package manifest v2 with metric-to-sample-ID traceability and no-secret tests. | TODO |
+| V7-06 | Replace template query builder with STORM-style multi-perspective query discovery and clusters. | TODO |
+| V7-07 | Add query ranker, deterministic dedupe, citation-likelihood, and business value scoring. | TODO |
+| V7-08 | Add manual-import provider (ChatGPT/Perplexity/Gemini/AIO) into the shared evidence graph. | TODO |
+| V7-09 | Add browser-capture schema (structure only, no fragile scraping). | TODO |
+| V7-10 | Add provider-status UI/report copy: implemented/manual/simulated/planned/unavailable. | TODO |
+| V7-11 | Add crawler provider v2 (sitemap + manual URL + rendered-HTML fallback, per-page status). | TODO |
+| V7-12 | Add page snapshot extractor (title/meta/headings/paragraphs/tables/FAQ/JSON-LD + hashes). | TODO |
+| V7-13 | Add citation parser v1 (URL normalize, domain extract, dedupe, position). | TODO |
+| V7-14 | Add source classifier (owned/competitor/earned/review/community/directory/docs/marketplace/gov/academic/unknown). | TODO |
+| V7-15 | Add citation absorption metric (selected vs absorbed: none/weak/material/strong). | TODO |
+| V7-16 | Add claim fidelity audit (supported/partially/unsupported/contradicted + evidence span). | TODO |
+| V7-17 | Add repeated sampling plan (runs_per_prompt, engines, region/language, sample budget). | TODO |
+| V7-18 | Add bootstrap confidence intervals, volatility, noise floor, and improvement judgment. | TODO |
+| V7-19 | Add diagnosis taxonomy v3 with root-cause failure types, evidence IDs, confidence, and recommended owner. | TODO |
+| V7-20 | Add optimization task engine v2 (owner/target asset/exact change/evidence/expected metric/risk/retest). | TODO |
+| V7-21 | Add task owner mapping and Markdown/CSV/JSON export. | TODO |
+| V7-22 | Add retest plan (same prompt/engine/region/language + holdout clusters). | TODO |
+| V7-23 | Add retest comparison stats and attribution with noise-floor gate (inconclusive when below floor). | TODO |
+| V7-24 | Add desktop Project Setup page (6 fields). | TODO |
+| V7-25 | Add desktop Query Space Review page (clusters, edit, budget). | TODO |
+| V7-26 | Add desktop Evidence Source Setup page with truthful provider status. | TODO |
+| V7-27 | Add desktop Run Audit page (product-language progress, failure next steps). | TODO |
+| V7-28 | Add desktop Dashboard (four questions + metric cards + confidence). | TODO |
+| V7-29 | Add desktop Query Drilldown and Citation Map. | TODO |
+| V7-30 | Add desktop Diagnosis, Task Plan, and Export pages. | TODO |
+| V7-31 | Add report system v2 (executive/SEO/content/PR/engineering/appendix/retest). | TODO |
+| V7-32 | Add secret-redaction hardening across report v2 outputs. | TODO |
+| V7-33 | Add skill-learning layer (outcome record + recommender feeding next task generation). | TODO |
+| V7-34 | Add B2B SaaS industry template (queries, source weights, tasks, sample report). | TODO |
+| V7-35 | Add ecommerce industry template. | TODO |
+| V7-36 | Add local-service industry template (and media site as needed). | TODO |
+| V7-37 | Add sample audit package and design-partner alpha scaffolding (M16 validation tracked off-loop). | TODO |
+| V7-38 | Add public technical preview docs (quickstart, provider-matrix, limitations, examples). | TODO |
