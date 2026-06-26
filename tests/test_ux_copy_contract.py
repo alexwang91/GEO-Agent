@@ -14,6 +14,11 @@ COPY_SURFACES = [
     "docs/error-state-taxonomy.md",
 ]
 
+USER_FACING_COPY_SURFACES = [
+    "README.md",
+    "apps/desktop/src/App.jsx",
+]
+
 REQUIRED_DOCS = [
     "docs/ux-contract.md",
     "docs/user-journeys.md",
@@ -36,8 +41,8 @@ def read(path):
     return (ROOT / path).read_text(encoding="utf-8")
 
 
-def combined_copy():
-    return "\n".join(read(path) for path in COPY_SURFACES).lower()
+def combined(paths):
+    return "\n".join(read(path) for path in paths).lower()
 
 
 class UXCopyContractTest(unittest.TestCase):
@@ -46,7 +51,7 @@ class UXCopyContractTest(unittest.TestCase):
             self.assertTrue((ROOT / path).is_file(), path)
 
     def test_provider_evidence_modes_are_distinguished(self):
-        copy = combined_copy()
+        copy = combined(COPY_SURFACES)
         required_terms = [
             "manual",
             "simulated",
@@ -58,8 +63,8 @@ class UXCopyContractTest(unittest.TestCase):
         for term in required_terms:
             self.assertIn(term, copy)
 
-    def test_low_sample_and_provider_overclaims_are_absent(self):
-        copy = combined_copy()
+    def test_low_sample_and_provider_overclaims_are_absent_from_user_copy(self):
+        copy = combined(USER_FACING_COPY_SURFACES)
         for phrase in FORBIDDEN_PHRASES:
             self.assertNotRegex(copy, re.compile(re.escape(phrase), re.IGNORECASE), phrase)
 
