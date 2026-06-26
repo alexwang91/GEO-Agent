@@ -17,11 +17,11 @@ handoff:
   planning_branch: claude/geo-agent-dev-plan-5dpi2i
   planning_pr: 42
   planning_pr_merged: true
-  completed_milestone: V7-02
-  first_todo_after_v7_02_merge: V7-03
+  completed_milestone: V7-03
+  first_todo_after_v7_03_merge: V7-04
 ```
 
-First TODO: `V7-03` after the V7-02 PR merges.
+First TODO: `V7-04` after the V7-03 PR merges.
 
 ## Allowed Modes
 
@@ -30,9 +30,9 @@ First TODO: `V7-03` after the V7-02 PR merges.
 
 ## Decision Rationale
 
-The planning handoff originally selected external-agent development. The current user request explicitly appoints the current agent as the autonomous GitHub-only development runner for `alexwang91/GEO-Agent` and instructs it to continue looping until the TODO backlog is complete unless a stopper applies.
+The active handoff remains current-agent development for the GitHub-only runner loop.
 
-V7-02 installs the product contract, provider-status language, and limitations boundary. After this PR merges, the next implementation milestone is V7-03.
+V7-03 installs the UX contract, personas, user journey, report copy guidelines, error-state taxonomy, and copy-contract test. After this PR merges, the next implementation milestone is V7-04.
 
 ## Handoff Rules
 
