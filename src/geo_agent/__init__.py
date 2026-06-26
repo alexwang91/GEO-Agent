@@ -108,6 +108,7 @@ from .schema import (
     SkillOutcomeRecord,
     build_evidence_graph,
 )
+from .source_classifier import ClassifiedSource, classify_source, classify_sources
 
 __all__ = [
     "AnswerCredentialRef",
@@ -131,6 +132,9 @@ __all__ = [
     "citation_domain",
     "normalize_citation_url",
     "parse_citations",
+    "ClassifiedSource",
+    "classify_source",
+    "classify_sources",
     "CrawlProviderError",
     "CrawlProviderRequest",
     "CrawlProviderResult",
