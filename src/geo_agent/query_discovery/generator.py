@@ -120,7 +120,7 @@ def _query_text(profile: EntityProfile, cluster: QueryCluster, perspective: Quer
             "decision": "Safest {category} shortlist for {customer} with risks explained",
         },
     }
-    return templates[variation][cluster.cluster_id].format(
+    text = templates[variation][cluster.cluster_id].format(
         role=perspective.user_role,
         category=category,
         customer=profile.target_customer,
@@ -128,6 +128,7 @@ def _query_text(profile: EntityProfile, cluster: QueryCluster, perspective: Quer
         competitor=competitor,
         angle=perspective.prompt_angle,
     )
+    return f"{text} [{perspective.perspective_id}]"
 
 
 def _priority(cluster: QueryCluster, perspective: QueryPerspective) -> float:
