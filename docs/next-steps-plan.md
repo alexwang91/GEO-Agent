@@ -16,7 +16,8 @@ Current completion checkpoint:
 - V4: complete reproducible audit package with manifest, report, audit database, example fixture, schema docs, live adapter boundary.
 - V5: complete UI/provider plan, provider registry, Tauri + React shell, BYOK session, fake OAuth flow, OpenAI-compatible answer-provider boundary, fixture-only command path, static crawler provider boundary, and Run Audit/report display wiring (V5-0 through V5-7).
 - V6: complete provider-backed orchestration, manual/recorded import, provider output eval harness, evidence-backed report UI, access/artifact safety hardening, retest planning, release-readiness checks, and skill-learning records (V6-1 through V6-8).
-- First product TODO: `V7-01` (see Loop V7 Backlog below and `docs/loop-v7.md`).
+- V7-01: complete state-source audit, stale-milestone consistency test, current-agent handoff reconciliation, and alpha/technical-preview README boundary.
+- First product TODO: `V7-02` (see Loop V7 Backlog below and `docs/loop-v7.md`).
 
 ## Methodology Map
 
@@ -129,7 +130,7 @@ V6 starts after V5-7 completes the first usable desktop loop. V6 turns the produ
 V7 starts after V6. It repositions the product as an AI Search Visibility Experiment Workbench and
 hardens evidence traceability, real-answer ingestion, statistical credibility, diagnosis depth,
 executable owner-mapped tasks, retest loops, desktop UX, and reports. Design intent and the full
-slice-to-PR mapping live in `docs/loop-v7.md`. The first TODO is `V7-01`.
+slice-to-PR mapping live in `docs/loop-v7.md`. The first TODO is `V7-02` after V7-01 merges.
 
 Each slice is one branch and one PR. Keep CI network-free unless a slice explicitly adds fake-client
 verification. Never persist raw access values. Add deterministic tests or structural checks before
