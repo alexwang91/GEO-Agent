@@ -21,6 +21,7 @@ from .browser_capture import (
     artifact_digest,
     make_capture_artifact,
 )
+from .citation_parser import CitationParserError, ParsedCitation, citation_domain, normalize_citation_url, parse_citations
 from .crawl_provider import (
     CrawlProviderError,
     CrawlProviderRequest,
@@ -125,6 +126,11 @@ __all__ = [
     "BrowserViewport",
     "artifact_digest",
     "make_capture_artifact",
+    "CitationParserError",
+    "ParsedCitation",
+    "citation_domain",
+    "normalize_citation_url",
+    "parse_citations",
     "CrawlProviderError",
     "CrawlProviderRequest",
     "CrawlProviderResult",
