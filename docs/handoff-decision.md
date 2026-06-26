@@ -6,7 +6,7 @@ Completed milestone in this branch: `V7-12`.
 
 First TODO after the V7-12 PR merges: `V7-13`.
 
-V7-12 adds page snapshot extraction. V7-13 is the citation parser v1 slice.
+V7-11 is complete. V7-12 adds page snapshot extraction. V7-13 is the citation parser v1 slice.
 
 ## Handoff Rules
 
