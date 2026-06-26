@@ -6,18 +6,19 @@
 | :--- | :--- | :--- |
 | V7-01 | Audit and reconcile doc state, add stale-milestone CI consistency test, and mark the alpha/technical-preview boundary. | DONE |
 | V7-02 | Product contract, provider status language, limitations docs, and consistent README/UI/docs wording. | DONE |
-| V7-03 | UX contract, personas, user journeys, report copy guidelines, error-state taxonomy, and copy-contract test. | TODO |
+| V7-03 | UX contract, personas, user journeys, report copy guidelines, error-state taxonomy, and copy-contract test. | DONE |
+| V7-04 | Evidence graph schema objects with traceable IDs for audit, sample, citation, page, claim, diagnosis, task, retest, and skill outcome records. | TODO |
 
-First TODO: `V7-03`.
+First TODO: `V7-04`.
 
 ## Reconciled State Sources
 
 `docs/progress.md` remains the single milestone state source. This audit records the current runner-facing references:
 
-- `AGENTS.md` names `V7-03` as the first TODO after the V7-02 PR merges.
-- `docs/next-steps-plan.md` names `V7-03` as the first TODO after V7-02.
-- `docs/handoff-decision.md` records current-agent development and the V7-03 next milestone.
-- `docs/runner-prompt.md` names `V7-03` as the next milestone and preserves CI-only verification.
+- `AGENTS.md` names `V7-04` as the first TODO after the V7-03 PR merges.
+- `docs/next-steps-plan.md` names `V7-04` as the first TODO after V7-03.
+- `docs/handoff-decision.md` records current-agent development and the V7-04 next milestone.
+- `docs/runner-prompt.md` names `V7-04` as the next milestone and preserves CI-only verification.
 - `.github/workflows/verify.yml` checks current V7 docs and tests.
 
 ## Review and Repair Assessment
@@ -47,3 +48,11 @@ GEO-Agent is an alpha/technical preview workbench. Current CI-verifiable behavio
 - provider-status docs match registry status literals;
 - README, UI copy, and docs use consistent provider-status wording;
 - product contract and limitations prevent provider, ranking, credential, and low-sample overclaims.
+
+`tests/test_ux_copy_contract.py` verifies that:
+
+- UX contract, personas, user journey, report copy guidelines, and error-state taxonomy docs exist;
+- copy surfaces distinguish manual, simulated, live configured, and planned evidence paths;
+- low-sample and provider overclaims are absent;
+- the user journey has ten numbered steps;
+- error states include recovery actions.
