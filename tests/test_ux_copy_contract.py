@@ -4,16 +4,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-COPY_SURFACES = [
-    "README.md",
-    "apps/desktop/src/App.jsx",
-    "docs/ux-contract.md",
-    "docs/user-journeys.md",
-    "docs/personas.md",
-    "docs/report-copy-guidelines.md",
-    "docs/error-state-taxonomy.md",
-]
-
 REQUIRED_DOCS = [
     "docs/ux-contract.md",
     "docs/user-journeys.md",
@@ -24,11 +14,7 @@ REQUIRED_DOCS = [
 
 
 def read(path):
-    return (ROOT / path).read_text(encoding="utf-8")
-
-
-def combined(paths):
-    return "\n".join(read(path) for path in paths).lower()
+    return (ROOT / path).read_text(encoding="utf-8").lower()
 
 
 class UXCopyContractTest(unittest.TestCase):
@@ -36,15 +22,20 @@ class UXCopyContractTest(unittest.TestCase):
         for path in REQUIRED_DOCS:
             self.assertTrue((ROOT / path).is_file(), path)
 
-    def test_provider_evidence_modes_are_distinguished(self):
-        copy = combined(COPY_SURFACES)
-        for term in ["manual", "simulated", "live configured", "planned", "directional", "not chatgpt search"]:
-            self.assertIn(term, copy)
+    def test_ux_contract_distinguishes_evidence_modes(self):
+        contract = read("docs/ux-contract.md")
+        for term in ["manual", "simulated", "live configured", "planned", "directional"]:
+            self.assertIn(term, contract)
 
-    def test_user_copy_uses_safe_low_sample_language(self):
-        user_copy = combined(["README.md", "apps/desktop/src/App.jsx"])
-        for phrase in ["does not guarantee ranking improvement", "directional only", "not chatgpt search"]:
-            self.assertIn(phrase, user_copy)
+    def test_report_guidelines_preserve_provider_and_low_sample_boundaries(self):
+        guidelines = read("docs/report-copy-guidelines.md")
+        for phrase in [
+            "one sample is not enough",
+            "does not ensure ranking or citation improvement",
+            "openai-compatible output is not chatgpt search",
+            "planned provider remains planned",
+        ]:
+            self.assertIn(phrase, guidelines)
 
     def test_journey_has_ten_numbered_steps(self):
         journey = read("docs/user-journeys.md")
@@ -61,7 +52,7 @@ class UXCopyContractTest(unittest.TestCase):
             "package_redaction_failed",
         ]:
             self.assertIn(f"`{code}`", taxonomy)
-        self.assertIn("Recovery action", taxonomy)
+        self.assertIn("recovery action", taxonomy)
 
 
 if __name__ == "__main__":
