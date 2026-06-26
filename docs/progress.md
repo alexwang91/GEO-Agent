@@ -19,7 +19,7 @@
 | Loop V4 reproducible audit package | DONE | V4-0 through V4-5 are complete. |
 | Loop V5 UI and provider access | DONE | V5-0 through V5-7 are complete. |
 | Loop V6 provider-backed GEO agent | DONE | V6-1 through V6-8 are complete. |
-| Loop V7 AI visibility workbench | TODO | V7-01 through V7-30 are DONE; V7-31 through V7-38 remain TODO. |
+| Loop V7 AI visibility workbench | TODO | V7-01 through V7-31 are DONE; V7-32 through V7-38 remain TODO. |
 
 ## Progress
 
@@ -55,7 +55,7 @@
 | V7-28 | Desktop Dashboard. | DONE |
 | V7-29 | Desktop Query Drilldown and Citation Map. | DONE |
 | V7-30 | Desktop Diagnosis, Task Plan, and Export pages. | DONE |
-| V7-31 | Report system v2. | TODO |
+| V7-31 | Report system v2. | DONE |
 | V7-32 | Report v2 output checks. | TODO |
 | V7-33 | Skill-learning layer. | TODO |
 | V7-34 | B2B SaaS industry template. | TODO |
