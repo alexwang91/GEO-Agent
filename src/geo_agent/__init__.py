@@ -67,6 +67,23 @@ from .recorded_dataset import (
     load_recorded_dataset_from_mapping,
 )
 from .retest_planning import RetestComparison, RetestMetricDelta, compare_retest_reports
+from .schema import (
+    AuditRun,
+    ClaimRecord,
+    CitationRecord,
+    DiagnosisRecord,
+    EngineSample,
+    EvidenceGraph,
+    MetricTrace,
+    MentionRecord,
+    OptimizationTask,
+    PageSnapshot,
+    PromptRecord,
+    RecommendationRecord,
+    RetestRecord,
+    SkillOutcomeRecord,
+    build_evidence_graph,
+)
 
 __all__ = [
     "AnswerCredentialRef",
@@ -128,4 +145,19 @@ __all__ = [
     "RetestComparison",
     "RetestMetricDelta",
     "compare_retest_reports",
+    "AuditRun",
+    "ClaimRecord",
+    "CitationRecord",
+    "DiagnosisRecord",
+    "EngineSample",
+    "EvidenceGraph",
+    "MetricTrace",
+    "MentionRecord",
+    "OptimizationTask",
+    "PageSnapshot",
+    "PromptRecord",
+    "RecommendationRecord",
+    "RetestRecord",
+    "SkillOutcomeRecord",
+    "build_evidence_graph",
 ]
