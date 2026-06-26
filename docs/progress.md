@@ -24,7 +24,7 @@
 | Loop V5 UI and provider access | DONE | V5-0 through V5-7 are complete. |
 | Complete loop planning package | DONE | V6 planning, long-run growth, handoff, and runner prompt files are installed. |
 | Loop V6 provider-backed GEO agent | DONE | V6-1 through V6-8 are complete. |
-| Loop V7 AI visibility workbench | TODO | V7-01 through V7-05 are DONE in sequence; V7-06 through V7-38 remain TODO. |
+| Loop V7 AI visibility workbench | TODO | V7-01 through V7-06 are DONE in sequence; V7-07 through V7-38 remain TODO. |
 
 ## Progress
 
@@ -75,13 +75,13 @@
 | V6-5 | Add access and artifact safety hardening across CLI, Tauri commands, report artifacts, manifests, logs, and tests. | DONE |
 | V6-6 | Add retest planning workflow that compares baseline and follow-up audit packages. | DONE |
 | V6-7 | Add release-readiness packaging checks for desktop app structure, Python package, and docs. | DONE |
-| V6-8 | Add skill-learning record for which optimization actions worked by engine, query type, and vertical. | DONE |
+| V6-8 | Add skill-learning record for which optimization actions worked by engine, query type, vertical. | DONE |
 | V7-01 | Audit and reconcile doc state (progress, next-steps, AGENTS, handoff, runner prompt) and add a CI consistency test for stale milestones; mark the alpha/technical-preview boundary. | DONE |
 | V7-02 | Add product-contract, provider-status-language, and limitations docs with consistent provider wording across README, UI, and docs. | DONE |
 | V7-03 | Add UX contract: personas, user journeys, report copy guidelines, error-state taxonomy, and a copy-contract test. | DONE |
 | V7-04 | Add evidence graph schema objects (AuditRun, EngineSample, Citation/Mention/Recommendation, PageSnapshot, Claim, Diagnosis, Task, Retest, SkillOutcome). | DONE |
 | V7-05 | Add audit package manifest v2 with metric-to-sample-ID traceability and no-secret tests. | DONE |
-| V7-06 | Replace template query builder with STORM-style multi-perspective query discovery and clusters. | TODO |
+| V7-06 | Replace template query builder with STORM-style multi-perspective query discovery and clusters. | DONE |
 | V7-07 | Add query ranker, deterministic dedupe, citation-likelihood, and business value scoring. | TODO |
 | V7-08 | Add manual-import provider (ChatGPT/Perplexity/Gemini/AIO) into the shared evidence graph. | TODO |
 | V7-09 | Add browser-capture schema (structure only, no fragile scraping). | TODO |
