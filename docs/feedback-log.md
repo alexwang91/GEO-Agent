@@ -78,4 +78,23 @@ entries:
     allowed_next_actions: [merge_after_trace_update]
     forbidden_next_actions: [merge_without_ci]
     runner_decision: {action: merge_after_trace_update, reason: "CI is green and acceptance criteria are mapped in PR #43."}
+  - id: F-0016
+    timestamp: "2026-06-26T15:20:00Z"
+    source: protocol
+    type: success
+    severity: info
+    milestone: V7-02
+    branch: v7-02-product-contract-provider-status
+    pr: null
+    summary: "V7-02 product contract, provider-status language, limitations docs, README/UI copy alignment, and structural consistency test were prepared."
+    evidence:
+      checks: ["ci: pending after PR creation", "test: tests/test_product_contract_docs.py"]
+      files: [README.md, apps/desktop/src/App.jsx, docs/product-contract.md, docs/provider-status-language.md, docs/limitations.md, tests/test_product_contract_docs.py, docs/progress.md, docs/next-steps-plan.md]
+      review_comments: []
+      trace_ids: [T-0063, T-0064, T-0065]
+      hypothesis_ids: []
+    root_cause: {layer: governance, category: provider_claim_boundary, confidence: high, explanation: "V7-02 constrains product and provider claims before richer provider-status UI work begins."}
+    allowed_next_actions: [open_pr, observe_ci]
+    forbidden_next_actions: [merge_without_ci, claim_live_provider_execution, call_openai_compatible_chatgpt_search]
+    runner_decision: {action: open_pr, reason: "The branch is ready for PR-based CI verification."}
 ```
