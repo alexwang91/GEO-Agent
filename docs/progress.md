@@ -23,7 +23,7 @@
 | Loop V4 reproducible audit package | DONE | V4-0 through V4-5 are complete. |
 | Loop V5 UI and provider access | DONE | V5-0 through V5-7 are complete. |
 | Loop V6 provider-backed GEO agent | DONE | V6-1 through V6-8 are complete. |
-| Loop V7 AI visibility workbench | TODO | V7-01 through V7-08 are DONE in sequence; V7-09 through V7-38 remain TODO. |
+| Loop V7 AI visibility workbench | TODO | V7-01 through V7-09 are DONE in sequence; V7-10 through V7-38 remain TODO. |
 
 ## Progress
 
@@ -44,36 +44,36 @@
 | V2-2 | Replace parser-only page inventory with fetch-capable crawler seam. | DONE |
 | V2-3 | Upgrade engine sampling adapter contract and recorded-run import path. | DONE |
 | V2-4 | Rework scoring into weighted metric components with stronger edge-case tests. | DONE |
-| V2-5 | Add evidence-backed operational report artifact and snapshot or JSON tests. | DONE |
+| V2-5 | Add evidence-backed report artifact tests. | DONE |
 | V3-0 | Install Loop V3 and productization plan. | DONE |
-| V3-1 | Add `AuditRunner` orchestrating existing modules over fixtures. | DONE |
+| V3-1 | Add AuditRunner over fixtures. | DONE |
 | V3-2 | Add recorded dataset schema and fixture loader. | DONE |
 | V3-3 | Expand EvidenceStore beyond engine runs. | DONE |
-| V3-4 | Add Diagnosis V2 using run, page, and competitor evidence. | DONE |
-| V3-5 | Add CLI entry point for fixture-based audits. | DONE |
-| V4-0 | Install V4 evaluation, loop, and reproducible audit package plan. | DONE |
-| V4-1 | Persist the full audit evidence graph during `AuditRunner.run`. | DONE |
-| V4-2 | Write reproducible audit package artifacts from CLI. | DONE |
+| V3-4 | Add Diagnosis V2. | DONE |
+| V3-5 | Add CLI entry point for fixture audits. | DONE |
+| V4-0 | Install V4 evaluation and package plan. | DONE |
+| V4-1 | Persist full audit evidence graph. | DONE |
+| V4-2 | Write reproducible audit package artifacts. | DONE |
 | V4-3 | Add canonical example fixture and usage docs. | DONE |
-| V4-4 | Publish recorded dataset schema documentation. | DONE |
-| V4-5 | Document live adapter boundary without implementing live calls. | DONE |
-| V5-0 | Install V5 evaluation, Tauri + React UI brief, provider access architecture, and loop plan. | DONE |
-| V5-1 | Add provider access domain model and registry. | DONE |
+| V4-4 | Publish recorded dataset schema docs. | DONE |
+| V4-5 | Document live adapter boundary. | DONE |
+| V5-0 | Install V5 evaluation and UI brief. | DONE |
+| V5-1 | Add provider access domain model. | DONE |
 | V5-2 | Add Tauri + React app shell. | DONE |
 | V5-3 | Add BYOK API key session flow. | DONE |
 | V5-4 | Add OAuth framework with fake provider. | DONE |
-| PLAN-0 | Install complete Superpowers plus GitHub Loop Runner planning package. | DONE |
-| V5-5 | Add first OpenAI-compatible answer provider behind explicit config. | DONE |
-| V5-5.5 | Add Tauri command path that runs the existing fixture audit. | DONE |
-| V5-6 | Add crawler provider abstraction and first crawler adapter. | DONE |
-| V5-7 | Wire UI Run Audit to provider registry, fixture/provider audit paths, and report display. | DONE |
+| PLAN-0 | Install planning package. | DONE |
+| V5-5 | Add OpenAI-compatible answer provider. | DONE |
+| V5-5.5 | Add Tauri fixture audit command path. | DONE |
+| V5-6 | Add crawler provider abstraction. | DONE |
+| V5-7 | Wire UI Run Audit path. | DONE |
 | V6-1 | Add provider-backed audit orchestration. | DONE |
-| V6-2 | Add manual import and recorded live-run import UX path. | DONE |
+| V6-2 | Add manual import UX path. | DONE |
 | V6-3 | Add provider output eval harness. | DONE |
 | V6-4 | Add evidence-backed report UI. | DONE |
-| V6-5 | Add access and artifact safety hardening. | DONE |
+| V6-5 | Add safety hardening. | DONE |
 | V6-6 | Add retest planning workflow. | DONE |
-| V6-7 | Add release-readiness packaging checks. | DONE |
+| V6-7 | Add release-readiness checks. | DONE |
 | V6-8 | Add skill-learning records. | DONE |
 | V7-01 | Audit and reconcile doc state. | DONE |
 | V7-02 | Add product contract and provider-status language. | DONE |
@@ -81,9 +81,9 @@
 | V7-04 | Add evidence graph schema objects. | DONE |
 | V7-05 | Add audit package manifest v2. | DONE |
 | V7-06 | Add multi-perspective query discovery and clusters. | DONE |
-| V7-07 | Add query ranker, deterministic dedupe, citation-likelihood, and business value scoring. | DONE |
+| V7-07 | Add query ranker and scoring. | DONE |
 | V7-08 | Add manual-import provider into the shared evidence graph. | DONE |
-| V7-09 | Add browser-capture schema. | TODO |
+| V7-09 | Add browser-capture schema. | DONE |
 | V7-10 | Add provider-status UI/report copy. | TODO |
 | V7-11 | Add crawler provider v2. | TODO |
 | V7-12 | Add page snapshot extractor. | TODO |
@@ -106,7 +106,7 @@
 | V7-29 | Add desktop Query Drilldown and Citation Map. | TODO |
 | V7-30 | Add desktop Diagnosis, Task Plan, and Export pages. | TODO |
 | V7-31 | Add report system v2. | TODO |
-| V7-32 | Add secret-redaction hardening across report v2 outputs. | TODO |
+| V7-32 | Add report v2 safety hardening. | TODO |
 | V7-33 | Add skill-learning layer. | TODO |
 | V7-34 | Add B2B SaaS industry template. | TODO |
 | V7-35 | Add ecommerce industry template. | TODO |

@@ -13,6 +13,14 @@ from .artifact_safety import (
     scan_artifacts_for_access_leaks,
 )
 from .audit_runner import AuditArtifacts, AuditRunner
+from .browser_capture import (
+    BrowserCaptureArtifact,
+    BrowserCaptureError,
+    BrowserCaptureRecord,
+    BrowserViewport,
+    artifact_digest,
+    make_capture_artifact,
+)
 from .crawl_provider import (
     CrawlProviderError,
     CrawlProviderRequest,
@@ -97,6 +105,12 @@ __all__ = [
     "scan_artifacts_for_access_leaks",
     "AuditArtifacts",
     "AuditRunner",
+    "BrowserCaptureArtifact",
+    "BrowserCaptureError",
+    "BrowserCaptureRecord",
+    "BrowserViewport",
+    "artifact_digest",
+    "make_capture_artifact",
     "CrawlProviderError",
     "CrawlProviderRequest",
     "CrawlProviderResult",

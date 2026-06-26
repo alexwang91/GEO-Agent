@@ -2,11 +2,11 @@
 
 Current mode: `current_agent_development`.
 
-Completed milestone in this branch: `V7-08`.
+Completed milestone in this branch: `V7-09`.
 
-First TODO after the V7-08 PR merges: `V7-09`.
+First TODO after the V7-09 PR merges: `V7-10`.
 
-V7-08 adds a manual-import provider path into the shared evidence graph. V7-09 is the browser-capture schema slice.
+V7-09 adds browser-capture schema records without live capture. V7-10 is the provider-status UI/report copy slice.
 
 ## Handoff Rules
 
