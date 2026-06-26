@@ -2,11 +2,11 @@
 
 Current mode: `current_agent_development`.
 
-Completed milestone in this branch: `V7-13`.
+Completed milestone in this branch: `V7-14`.
 
-First TODO after the V7-13 PR merges: `V7-14`.
+First TODO after the V7-14 PR merges: `V7-15`.
 
-V7-11 and V7-12 are complete. V7-13 adds citation parser v1. V7-14 is the source classifier slice.
+V7-11 and V7-13 are complete. V7-14 adds source classification. V7-15 is the citation absorption metric slice.
 
 ## Handoff Rules
 
