@@ -24,7 +24,7 @@
 | Loop V5 UI and provider access | DONE | V5-0 through V5-7 are complete. |
 | Complete loop planning package | DONE | V6 planning, long-run growth, handoff, and runner prompt files are installed. |
 | Loop V6 provider-backed GEO agent | DONE | V6-1 through V6-8 are complete. |
-| Loop V7 AI visibility workbench | TODO | V7-01 and V7-02 are DONE in this branch; V7-03 through V7-38 remain TODO. |
+| Loop V7 AI visibility workbench | TODO | V7-01 through V7-03 are DONE in sequence; V7-04 through V7-38 remain TODO. |
 
 ## Progress
 
@@ -78,7 +78,7 @@
 | V6-8 | Add skill-learning record for which optimization actions worked by engine, query type, and vertical. | DONE |
 | V7-01 | Audit and reconcile doc state (progress, next-steps, AGENTS, handoff, runner prompt) and add a CI consistency test for stale milestones; mark the alpha/technical-preview boundary. | DONE |
 | V7-02 | Add product-contract, provider-status-language, and limitations docs with consistent provider wording across README, UI, and docs. | DONE |
-| V7-03 | Add UX contract: personas, user journeys, report copy guidelines, error-state taxonomy, and a copy-contract test. | TODO |
+| V7-03 | Add UX contract: personas, user journeys, report copy guidelines, error-state taxonomy, and a copy-contract test. | DONE |
 | V7-04 | Add evidence graph schema objects (AuditRun, EngineSample, Citation/Mention/Recommendation, PageSnapshot, Claim, Diagnosis, Task, Retest, SkillOutcome). | TODO |
 | V7-05 | Add audit package manifest v2 with metric-to-sample-ID traceability and no-secret tests. | TODO |
 | V7-06 | Replace template query builder with STORM-style multi-perspective query discovery and clusters. | TODO |
