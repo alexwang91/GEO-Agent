@@ -2,11 +2,11 @@
 
 Current mode: `current_agent_development`.
 
-Completed milestone in this branch: `V7-15`.
+Completed milestone in this branch: `V7-16`.
 
-First TODO after the V7-15 PR merges: `V7-16`.
+First TODO after the V7-16 PR merges: `V7-17`.
 
-V7-11 and V7-14 are complete. V7-15 adds citation absorption scoring. V7-16 is the claim fidelity audit slice.
+V7-11 and V7-15 are complete. V7-16 adds claim fidelity audit. V7-17 is the repeated sampling plan slice.
 
 ## Handoff Rules
 
