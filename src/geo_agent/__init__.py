@@ -28,6 +28,12 @@ from .crawl_provider import (
     StaticCrawlerProvider,
     pages_from_crawl_result,
 )
+from .crawl_provider_v2 import (
+    CrawlerProviderV2Request,
+    CrawlerProviderV2Result,
+    PageCrawlResult,
+    StaticCrawlerProviderV2,
+)
 from .entity_profile import (
     EntityProfile,
     EntityProfileValidationError,
@@ -117,6 +123,10 @@ __all__ = [
     "CrawlProviderResult",
     "StaticCrawlerProvider",
     "pages_from_crawl_result",
+    "CrawlerProviderV2Request",
+    "CrawlerProviderV2Result",
+    "PageCrawlResult",
+    "StaticCrawlerProviderV2",
     "EntityProfile",
     "EntityProfileValidationError",
     "ValidationIssue",
