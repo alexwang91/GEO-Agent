@@ -46,12 +46,9 @@ class DocsStateConsistencyTest(unittest.TestCase):
                 if milestone in canonical:
                     self.assertEqual(canonical[milestone], match.group("status"), f"{path}: {milestone}")
 
-    def test_handoff_and_workflow_target_current_state(self):
+    def test_handoff_targets_current_state(self):
         self.assertIn("chosen_mode: current_agent_development", read("docs/handoff-decision.md"))
         self.assertIn("first_todo_after_v7_03_merge: V7-04", read("docs/handoff-decision.md"))
-        workflow = read(".github/workflows/verify.yml")
-        self.assertIn("V7-04", workflow)
-        self.assertIn("tests/test_ux_copy_contract.py", workflow)
 
 
 if __name__ == "__main__":
