@@ -9,7 +9,7 @@ This file records observable runner events. Keep entries compact, factual, and e
 | selected_milestone | 15 | Latest: V7-01. |
 | branch_created | 15 | Latest: `v7-01-docs-state-cleanup`. |
 | pr_opened | 16 | Latest: PR #43 for V7-01. |
-| ci_observed | 15 | Latest known merged CI evidence: PR #42 planning; V7-01 CI pending after PR #43. |
+| ci_observed | 16 | Latest: verify run #108 succeeded for PR #43. |
 | feedback_classified | 17 | Latest: F-0015 for V7-01 state repair. |
 | progress_updated | 15 | Latest: V7-01 marked DONE in branch. |
 | review_run | 15 | Latest: V7-01 state repair review. |
@@ -107,12 +107,21 @@ entries:
     decision: {summary: "State repair review passed; V7-02 remains the next TODO after merge and CI.", next_action: open_pr}
     state_after: {progress_status: DONE, blocking_feedback: false}
   - id: T-0061
-    timestamp: "2026-06-26T14:42:00Z"
+    timestamp: "2026-06-26T15:00:00Z"
     event: pr_opened
     milestone: V7-01
     branch: v7-01-docs-state-cleanup
     pr: 43
     evidence: {files: [.github/pull_request_template.md], checks: ["PR #43 opened"]}
     decision: {summary: "Opened the single V7-01 PR with acceptance criteria mapped to test and review evidence.", next_action: observe_ci}
+    state_after: {progress_status: DONE, blocking_feedback: false}
+  - id: T-0062
+    timestamp: "2026-06-26T15:03:00Z"
+    event: ci_observed
+    milestone: V7-01
+    branch: v7-01-docs-state-cleanup
+    pr: 43
+    evidence: {files: [.github/workflows/verify.yml, tests/test_docs_state_consistency.py], checks: ["verify run #108: success"]}
+    decision: {summary: "CI succeeded for V7-01 state repair and docs consistency checks.", next_action: merge_after_final_ci}
     state_after: {progress_status: DONE, blocking_feedback: false}
 ```
