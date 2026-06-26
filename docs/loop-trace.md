@@ -8,9 +8,9 @@ This file records observable runner events. Keep entries compact, factual, and e
 | --- | ---: | --- |
 | selected_milestone | 16 | Latest: V7-02. |
 | branch_created | 16 | Latest: `v7-02-product-contract-provider-status`. |
-| pr_opened | 16 | Latest merged PR: #43; V7-02 PR pending. |
-| ci_observed | 16 | Latest: verify run #110 succeeded for PR #43. |
-| feedback_classified | 18 | Latest: F-0016 for V7-02. |
+| pr_opened | 17 | Latest: PR #44 for V7-02. |
+| ci_observed | 17 | Latest: verify run #112 failed for PR #44; fix committed. |
+| feedback_classified | 19 | Latest: F-0017 for V7-02 CI failure. |
 | progress_updated | 16 | Latest: V7-02 marked DONE in branch. |
 | review_run | 16 | Latest: V7-02 contract/status review. |
 | harness_repair_run | 1 | Latest: V7-01 runner-state repair. |
@@ -60,5 +60,23 @@ entries:
     pr: null
     evidence: {files: [docs/loop-review.md, docs/feedback-log.md, tests/test_product_contract_docs.py], checks: ["review: no hard stopper", "backlog after V7-02: 36"]}
     decision: {summary: "V7-02 review passed; V7-03 remains the next TODO after merge and CI.", next_action: open_pr}
+    state_after: {progress_status: DONE, blocking_feedback: false}
+  - id: T-0067
+    timestamp: "2026-06-26T15:25:00Z"
+    event: pr_opened
+    milestone: V7-02
+    branch: v7-02-product-contract-provider-status
+    pr: 44
+    evidence: {files: [.github/pull_request_template.md], checks: ["PR #44 opened"]}
+    decision: {summary: "Opened V7-02 PR with acceptance evidence mapped to docs and structural tests.", next_action: observe_ci}
+    state_after: {progress_status: DONE, blocking_feedback: false}
+  - id: T-0068
+    timestamp: "2026-06-26T15:26:00Z"
+    event: ci_observed
+    milestone: V7-02
+    branch: v7-02-product-contract-provider-status
+    pr: 44
+    evidence: {files: [tests/test_product_contract_docs.py, docs/product-contract.md], checks: ["verify run #112: failure", "docs: success", "python-tests: failure"]}
+    decision: {summary: "Classified CI failure as a copy-contract mismatch and fixed the product-contract phrase without weakening tests.", next_action: observe_ci}
     state_after: {progress_status: DONE, blocking_feedback: false}
 ```
