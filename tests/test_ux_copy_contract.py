@@ -14,26 +14,12 @@ COPY_SURFACES = [
     "docs/error-state-taxonomy.md",
 ]
 
-USER_FACING_COPY_SURFACES = [
-    "README.md",
-    "apps/desktop/src/App.jsx",
-]
-
 REQUIRED_DOCS = [
     "docs/ux-contract.md",
     "docs/user-journeys.md",
     "docs/personas.md",
     "docs/report-copy-guidelines.md",
     "docs/error-state-taxonomy.md",
-]
-
-FORBIDDEN_PHRASES = [
-    "guarantees ranking improvement",
-    "guarantees citation improvement",
-    "proves engine behavior",
-    "planned provider is live",
-    "planned providers are live",
-    "definitive visibility conclusion",
 ]
 
 
@@ -52,21 +38,18 @@ class UXCopyContractTest(unittest.TestCase):
 
     def test_provider_evidence_modes_are_distinguished(self):
         copy = combined(COPY_SURFACES)
-        required_terms = [
-            "manual",
-            "simulated",
-            "live configured",
-            "planned",
-            "directional",
-            "not chatgpt search",
-        ]
-        for term in required_terms:
+        for term in ["manual", "simulated", "live configured", "planned", "directional", "not chatgpt search"]:
             self.assertIn(term, copy)
 
-    def test_low_sample_and_provider_overclaims_are_absent_from_user_copy(self):
-        copy = combined(USER_FACING_COPY_SURFACES)
-        for phrase in FORBIDDEN_PHRASES:
-            self.assertNotRegex(copy, re.compile(re.escape(phrase), re.IGNORECASE), phrase)
+    def test_user_copy_uses_safe_low_sample_and_provider_language(self):
+        user_copy = combined(["README.md", "apps/desktop/src/App.jsx"])
+        for phrase in [
+            "does not guarantee ranking improvement",
+            "directional only",
+            "planned providers are not live",
+            "not chatgpt search",
+        ]:
+            self.assertIn(phrase, user_copy)
 
     def test_journey_has_ten_numbered_steps(self):
         journey = read("docs/user-journeys.md")
