@@ -6,7 +6,7 @@ Build an AI Search Visibility Agent for Generative Engine Optimization that help
 
 ## Current State
 
-The repository has moved past the initial fixture-based GEO audit core. It now has a Python domain package, fixture audit workflow, reproducible audit package output, provider access model, Tauri + React app shell, BYOK session boundary, fake OAuth boundary, the first OpenAI-compatible answer-provider boundary, a fixture-only Tauri command path, a fixture-backed crawler provider boundary, product contract docs, provider-status language, limitations, and the first UX/copy contract.
+The repository has moved past the initial fixture-based GEO audit core. It now has a Python domain package, fixture audit workflow, reproducible audit package output, provider access model, Tauri + React app shell, BYOK session boundary, fake OAuth boundary, the first OpenAI-compatible answer-provider boundary, a fixture-only Tauri command path, a fixture-backed crawler provider boundary, product contract docs, provider-status language, limitations, UX/copy contract docs, and the first V7 evidence graph schema objects.
 
 Current completion checkpoint:
 
@@ -19,7 +19,8 @@ Current completion checkpoint:
 - V7-01: complete state-source audit, stale-milestone consistency test, current-agent handoff reconciliation, and alpha/technical-preview README boundary.
 - V7-02: complete product contract, provider status language, limitations docs, and consistency checks across README, UI copy, docs, and provider registry labels.
 - V7-03: complete personas, 10-step user journey, UX contract, report copy guidelines, error-state taxonomy, UI copy note, and copy-contract test.
-- First product TODO: `V7-04` (see Loop V7 Backlog below and `docs/loop-v7.md`).
+- V7-04: complete frozen evidence graph schema records and metric/diagnosis/task traceability to sample/prompt/citation/page IDs.
+- First product TODO: `V7-05` (see Loop V7 Backlog below and `docs/loop-v7.md`).
 
 ## Methodology Map
 
@@ -81,7 +82,7 @@ Acceptance criteria: UI can select fixture/manual-import path and fake-provider 
 
 ## Loop V7 Backlog: AI Search Visibility Experiment Workbench
 
-V7 starts after V6. It repositions the product as an AI Search Visibility Experiment Workbench and hardens evidence traceability, real-answer ingestion, statistical credibility, diagnosis depth, executable owner-mapped tasks, retest loops, desktop UX, and reports. Design intent and the full slice-to-PR mapping live in `docs/loop-v7.md`. The first TODO is `V7-04` after V7-03 merges.
+V7 starts after V6. It repositions the product as an AI Search Visibility Experiment Workbench and hardens evidence traceability, real-answer ingestion, statistical credibility, diagnosis depth, executable owner-mapped tasks, retest loops, desktop UX, and reports. Design intent and the full slice-to-PR mapping live in `docs/loop-v7.md`. The first TODO is `V7-05` after V7-04 merges.
 
 Each slice is one branch and one PR. Keep CI network-free unless a slice explicitly adds fake-client verification. Never persist raw access values. Add deterministic tests or structural checks before behavior changes.
 
