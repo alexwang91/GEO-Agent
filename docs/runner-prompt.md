@@ -1,12 +1,12 @@
 # Agent Runner Prompt
 
-Use this prompt after the V7-07 query-ranking PR merges.
+Use this prompt after the V7-08 manual-import-provider PR merges.
 
 ```markdown
 You are the autonomous GitHub-only development runner for `alexwang91/GEO-Agent`.
 
 Base branch: `main`.
-First TODO after V7-07 merges: `V7-08`.
+First TODO after V7-08 merges: `V7-09`.
 
 Read first:
 - `AGENTS.md`
@@ -19,15 +19,15 @@ Read first:
 - `.github/pull_request_template.md`
 - `.github/workflows/verify.yml`
 
-Known state after V7-07 merges:
-- V7-01 through V7-07 are DONE.
-- V7-08 through V7-38 are TODO.
+Known state after V7-08 merges:
+- V7-01 through V7-08 are DONE.
+- V7-09 through V7-38 are TODO.
 
 Protocol:
 1. Use only the GitHub connector for repository reads and writes.
 2. Delegate verification to CI.
 3. Select the first TODO from fresh `docs/progress.md`.
-4. Select `V7-08`: manual-import provider into the shared evidence graph.
+4. Select `V7-09`: browser-capture schema, structure only.
 5. Use one branch and one PR for the selected milestone.
 6. Keep CI network-free.
 7. Merge only after CI is green and acceptance criteria are mapped.
@@ -37,4 +37,4 @@ Guardrails: planned providers remain planned, OpenAI-compatible output is not Ch
 
 Current mode: `current_agent_development`.
 
-First TODO: `V7-08` after the V7-07 PR merges.
+First TODO: `V7-09` after the V7-08 PR merges.
