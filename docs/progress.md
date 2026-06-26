@@ -19,7 +19,7 @@
 | Loop V4 reproducible audit package | DONE | V4-0 through V4-5 are complete. |
 | Loop V5 UI and provider access | DONE | V5-0 through V5-7 are complete. |
 | Loop V6 provider-backed GEO agent | DONE | V6-1 through V6-8 are complete. |
-| Loop V7 AI visibility workbench | TODO | V7-01 through V7-25 are DONE; V7-26 through V7-38 remain TODO. |
+| Loop V7 AI visibility workbench | TODO | V7-01 through V7-26 are DONE; V7-27 through V7-38 remain TODO. |
 
 ## Progress
 
@@ -50,7 +50,7 @@
 | V7-23 | Retest comparison stats and attribution. | DONE |
 | V7-24 | Desktop Project Setup page. | DONE |
 | V7-25 | Desktop Query Space Review page. | DONE |
-| V7-26 | Desktop Evidence Source Setup page. | TODO |
+| V7-26 | Desktop Evidence Source Setup page. | DONE |
 | V7-27 | Desktop Run Audit page. | TODO |
 | V7-28 | Desktop Dashboard. | TODO |
 | V7-29 | Desktop Query Drilldown and Citation Map. | TODO |
