@@ -1,6 +1,6 @@
 # State Audit
 
-First TODO: `V7-11`.
+First TODO: `V7-12`.
 
 | Milestone | Status |
 | :--- | :--- |
@@ -14,6 +14,7 @@ First TODO: `V7-11`.
 | V7-08 | DONE |
 | V7-09 | DONE |
 | V7-10 | DONE |
-| V7-11 | TODO |
+| V7-11 | DONE |
+| V7-12 | TODO |
 
-`docs/progress.md` is the milestone state source. Runner docs point to `V7-11` after this branch merges.
+`docs/progress.md` is the milestone state source. Runner docs point to `V7-12` after this branch merges.

@@ -2,11 +2,11 @@
 
 Current mode: `current_agent_development`.
 
-Completed milestone in this branch: `V7-10`.
+Completed milestone in this branch: `V7-11`.
 
-First TODO after the V7-10 PR merges: `V7-11`.
+First TODO after the V7-11 PR merges: `V7-12`.
 
-V7-10 adds provider-status UI and report copy. V7-11 is the crawler provider v2 slice.
+V7-11 adds crawler provider v2. V7-12 is the page snapshot extractor slice.
 
 ## Handoff Rules
 
