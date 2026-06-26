@@ -6,4 +6,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: t
-        run: git clone --quiet --depth 1 --branch v7-03-ux-contract https://github.com/alexwang91/GEO-Agent repo && cd repo && PYTHONPATH=src python -m unittest discover -s tests -v 2>&1 | tail -n 80
+        run: git clone --quiet --depth 1 --branch v7-03-ux-contract https://github.com/alexwang91/GEO-Agent repo && cd repo && PYTHONPATH=src python -m unittest discover -s tests -v 2>&1 | grep -E "FAIL|ERROR|FAILED|Traceback|Assertion"
