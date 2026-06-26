@@ -11,17 +11,18 @@
 | V7-05 | Audit package manifest v2 traceability and safety tests. | DONE |
 | V7-06 | Multi-perspective query discovery and clusters. | DONE |
 | V7-07 | Query ranker, deterministic dedupe, citation likelihood, and business value scoring. | DONE |
-| V7-08 | Manual-import provider into the shared evidence graph. | TODO |
+| V7-08 | Manual-import provider into the shared evidence graph. | DONE |
+| V7-09 | Browser-capture schema. | TODO |
 
-First TODO: `V7-08`.
+First TODO: `V7-09`.
 
 ## Reconciled State Sources
 
 `docs/progress.md` remains the single milestone state source.
 
-- `AGENTS.md` names `V7-08` as the first TODO after the V7-07 PR merges.
-- `docs/handoff-decision.md` records current-agent development and the V7-08 next milestone.
-- `docs/runner-prompt.md` names `V7-08` as the next milestone.
+- `AGENTS.md` names `V7-09` as the first TODO after the V7-08 PR merges.
+- `docs/handoff-decision.md` records current-agent development and the V7-09 next milestone.
+- `docs/runner-prompt.md` names `V7-09` as the next milestone.
 
 ## Review and Repair Assessment
 
@@ -32,4 +33,4 @@ First TODO: `V7-08`.
 
 ## Verification
 
-`tests/test_query_discovery.py` verifies default 80-query output, ranking metadata, deterministic ranking, and dedupe.
+`tests/test_manual_import_provider.py` verifies manual import provider validation, shared evidence graph output, and result serialization boundaries.
