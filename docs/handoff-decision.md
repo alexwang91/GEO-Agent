@@ -2,11 +2,11 @@
 
 Current mode: `current_agent_development`.
 
-Completed milestone in this branch: `V7-14`.
+Completed milestone in this branch: `V7-15`.
 
-First TODO after the V7-14 PR merges: `V7-15`.
+First TODO after the V7-15 PR merges: `V7-16`.
 
-V7-11 and V7-13 are complete. V7-14 adds source classification. V7-15 is the citation absorption metric slice.
+V7-11 and V7-14 are complete. V7-15 adds citation absorption scoring. V7-16 is the claim fidelity audit slice.
 
 ## Handoff Rules
 
