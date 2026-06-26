@@ -8,8 +8,8 @@ This file records observable runner events. Keep entries compact, factual, and e
 | --- | ---: | --- |
 | selected_milestone | 18 | Latest: V7-04. |
 | branch_created | 18 | Latest: `v7-04-evidence-graph-schema`. |
-| pr_opened | 17 | Latest: PR #44 for V7-02; V7-04 PR pending. |
-| ci_observed | 18 | Latest: V7-04 CI pending after branch updates. |
+| pr_opened | 18 | Latest: PR #46 for V7-04. |
+| ci_observed | 19 | Latest: verify run #136 succeeded for PR #46. |
 | feedback_classified | 20 | Latest: F-0018 for V7-04 implementation preparation. |
 | progress_updated | 18 | Latest: V7-04 marked DONE in branch. |
 | review_run | 17 | Latest: V7-04 schema traceability review. |
@@ -49,7 +49,7 @@ entries:
     milestone: V7-04
     branch: v7-04-evidence-graph-schema
     pr: null
-    evidence: {files: [src/geo_agent/schema.py, src/geo_agent/audit_runner.py, src/geo_agent/__init__.py, tests/test_evidence_graph.py, docs/progress.md], checks: ["schema records frozen", "graph links metrics/diagnoses/tasks to evidence IDs", "ci: pending"]}
+    evidence: {files: [src/geo_agent/schema.py, src/geo_agent/audit_runner.py, src/geo_agent/__init__.py, tests/test_evidence_graph.py, docs/progress.md], checks: ["schema records frozen", "graph links metrics/diagnoses/tasks to evidence IDs"]}
     decision: {summary: "Marked V7-04 DONE in branch after adding schema objects and traceability tests.", next_action: open_pr}
     state_after: {progress_status: DONE, blocking_feedback: false}
   - id: T-0072
@@ -60,5 +60,23 @@ entries:
     pr: null
     evidence: {files: [tests/test_evidence_graph.py, docs/state-audit.md, docs/feedback-log.md], checks: ["review: no hard stopper", "next TODO after merge: V7-05"]}
     decision: {summary: "V7-04 review passed; CI remains VERIFY before merge.", next_action: open_pr}
+    state_after: {progress_status: DONE, blocking_feedback: false}
+  - id: T-0073
+    timestamp: "2026-06-26T16:13:00Z"
+    event: pr_opened
+    milestone: V7-04
+    branch: v7-04-evidence-graph-schema
+    pr: 46
+    evidence: {files: [.github/pull_request_template.md], checks: ["PR #46 opened"]}
+    decision: {summary: "Opened V7-04 PR with acceptance evidence mapped to schema, runner output, exports, and tests.", next_action: observe_ci}
+    state_after: {progress_status: DONE, blocking_feedback: false}
+  - id: T-0074
+    timestamp: "2026-06-26T16:14:00Z"
+    event: ci_observed
+    milestone: V7-04
+    branch: v7-04-evidence-graph-schema
+    pr: 46
+    evidence: {files: [tests/test_evidence_graph.py, src/geo_agent/schema.py], checks: ["verify run #136: success"]}
+    decision: {summary: "CI passed for V7-04; update PR evidence and merge after final CI remains green.", next_action: merge_after_final_ci}
     state_after: {progress_status: DONE, blocking_feedback: false}
 ```
