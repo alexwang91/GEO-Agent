@@ -22,9 +22,8 @@
 | Loop V3 fixture audit productization | DONE | V3-0 through V3-5 are complete. |
 | Loop V4 reproducible audit package | DONE | V4-0 through V4-5 are complete. |
 | Loop V5 UI and provider access | DONE | V5-0 through V5-7 are complete. |
-| Complete loop planning package | DONE | V6 planning, long-run growth, handoff, and runner prompt files are installed. |
 | Loop V6 provider-backed GEO agent | DONE | V6-1 through V6-8 are complete. |
-| Loop V7 AI visibility workbench | TODO | V7-01 through V7-07 are DONE in sequence; V7-08 through V7-38 remain TODO. |
+| Loop V7 AI visibility workbench | TODO | V7-01 through V7-08 are DONE in sequence; V7-09 through V7-38 remain TODO. |
 
 ## Progress
 
@@ -63,54 +62,54 @@
 | V5-2 | Add Tauri + React app shell. | DONE |
 | V5-3 | Add BYOK API key session flow. | DONE |
 | V5-4 | Add OAuth framework with fake provider. | DONE |
-| PLAN-0 | Install complete Superpowers + GitHub Loop Runner planning package: V6 evaluation, V6 loop plan, long-run growth, handoff, and runner prompt files. | DONE |
+| PLAN-0 | Install complete Superpowers plus GitHub Loop Runner planning package. | DONE |
 | V5-5 | Add first OpenAI-compatible answer provider behind explicit config. | DONE |
 | V5-5.5 | Add Tauri command path that runs the existing fixture audit. | DONE |
 | V5-6 | Add crawler provider abstraction and first crawler adapter. | DONE |
 | V5-7 | Wire UI Run Audit to provider registry, fixture/provider audit paths, and report display. | DONE |
-| V6-1 | Add provider-backed audit orchestration that converts configured answer-provider output into existing evidence records. | DONE |
-| V6-2 | Add manual import and recorded live-run import UX path with schema validation and redaction checks. | DONE |
-| V6-3 | Add provider output eval harness for answer parsing, citation extraction, redaction, and deterministic fake-provider behavior. | DONE |
-| V6-4 | Add evidence-backed report UI reading generated package artifacts and showing visibility, citation, diagnosis, and task briefs. | DONE |
-| V6-5 | Add access and artifact safety hardening across CLI, Tauri commands, report artifacts, manifests, logs, and tests. | DONE |
-| V6-6 | Add retest planning workflow that compares baseline and follow-up audit packages. | DONE |
-| V6-7 | Add release-readiness packaging checks for desktop app structure, Python package, and docs. | DONE |
-| V6-8 | Add skill-learning record for which optimization actions worked by engine, query type, vertical. | DONE |
-| V7-01 | Audit and reconcile doc state (progress, next-steps, AGENTS, handoff, runner prompt) and add a CI consistency test for stale milestones; mark the alpha/technical-preview boundary. | DONE |
-| V7-02 | Add product-contract, provider-status-language, and limitations docs with consistent provider wording across README, UI, and docs. | DONE |
-| V7-03 | Add UX contract: personas, user journeys, report copy guidelines, error-state taxonomy, and a copy-contract test. | DONE |
-| V7-04 | Add evidence graph schema objects (AuditRun, EngineSample, Citation/Mention/Recommendation, PageSnapshot, Claim, Diagnosis, Task, Retest, SkillOutcome). | DONE |
-| V7-05 | Add audit package manifest v2 with metric-to-sample-ID traceability and no-secret tests. | DONE |
-| V7-06 | Replace template query builder with STORM-style multi-perspective query discovery and clusters. | DONE |
+| V6-1 | Add provider-backed audit orchestration. | DONE |
+| V6-2 | Add manual import and recorded live-run import UX path. | DONE |
+| V6-3 | Add provider output eval harness. | DONE |
+| V6-4 | Add evidence-backed report UI. | DONE |
+| V6-5 | Add access and artifact safety hardening. | DONE |
+| V6-6 | Add retest planning workflow. | DONE |
+| V6-7 | Add release-readiness packaging checks. | DONE |
+| V6-8 | Add skill-learning records. | DONE |
+| V7-01 | Audit and reconcile doc state. | DONE |
+| V7-02 | Add product contract and provider-status language. | DONE |
+| V7-03 | Add UX contract and copy-contract test. | DONE |
+| V7-04 | Add evidence graph schema objects. | DONE |
+| V7-05 | Add audit package manifest v2. | DONE |
+| V7-06 | Add multi-perspective query discovery and clusters. | DONE |
 | V7-07 | Add query ranker, deterministic dedupe, citation-likelihood, and business value scoring. | DONE |
-| V7-08 | Add manual-import provider (ChatGPT/Perplexity/Gemini/AIO) into the shared evidence graph. | TODO |
-| V7-09 | Add browser-capture schema (structure only, no fragile scraping). | TODO |
-| V7-10 | Add provider-status UI/report copy: implemented/manual/simulated/planned/unavailable. | TODO |
-| V7-11 | Add crawler provider v2 (sitemap + manual URL + rendered-HTML fallback, per-page status). | TODO |
-| V7-12 | Add page snapshot extractor (title/meta/headings/paragraphs/tables/FAQ/JSON-LD + hashes). | TODO |
-| V7-13 | Add citation parser v1 (URL normalize, domain extract, dedupe, position). | TODO |
-| V7-14 | Add source classifier (owned/competitor/earned/review/community/directory/docs/marketplace/gov/academic/unknown). | TODO |
-| V7-15 | Add citation absorption metric (selected vs absorbed: none/weak/material/strong). | TODO |
-| V7-16 | Add claim fidelity audit (supported/partially/unsupported/contradicted + evidence span). | TODO |
-| V7-17 | Add repeated sampling plan (runs_per_prompt, engines, region/language, sample budget). | TODO |
-| V7-18 | Add bootstrap confidence intervals, volatility, noise floor, and improvement judgment. | TODO |
-| V7-19 | Add diagnosis taxonomy v3 with root-cause failure types, evidence IDs, confidence, and recommended owner. | TODO |
-| V7-20 | Add optimization task engine v2 (owner/target asset/exact change/evidence/expected metric/risk/retest). | TODO |
-| V7-21 | Add task owner mapping and Markdown/CSV/JSON export. | TODO |
-| V7-22 | Add retest plan (same prompt/engine/region/language + holdout clusters). | TODO |
-| V7-23 | Add retest comparison stats and attribution with noise-floor gate (inconclusive when below floor). | TODO |
-| V7-24 | Add desktop Project Setup page (6 fields). | TODO |
-| V7-25 | Add desktop Query Space Review page (clusters, edit, budget). | TODO |
-| V7-26 | Add desktop Evidence Source Setup page with truthful provider status. | TODO |
-| V7-27 | Add desktop Run Audit page (product-language progress, failure next steps). | TODO |
-| V7-28 | Add desktop Dashboard (four questions + metric cards + confidence). | TODO |
+| V7-08 | Add manual-import provider into the shared evidence graph. | DONE |
+| V7-09 | Add browser-capture schema. | TODO |
+| V7-10 | Add provider-status UI/report copy. | TODO |
+| V7-11 | Add crawler provider v2. | TODO |
+| V7-12 | Add page snapshot extractor. | TODO |
+| V7-13 | Add citation parser v1. | TODO |
+| V7-14 | Add source classifier. | TODO |
+| V7-15 | Add citation absorption metric. | TODO |
+| V7-16 | Add claim fidelity audit. | TODO |
+| V7-17 | Add repeated sampling plan. | TODO |
+| V7-18 | Add bootstrap confidence intervals and noise floor. | TODO |
+| V7-19 | Add diagnosis taxonomy v3. | TODO |
+| V7-20 | Add optimization task engine v2. | TODO |
+| V7-21 | Add task owner mapping and exports. | TODO |
+| V7-22 | Add retest plan. | TODO |
+| V7-23 | Add retest comparison stats and attribution. | TODO |
+| V7-24 | Add desktop Project Setup page. | TODO |
+| V7-25 | Add desktop Query Space Review page. | TODO |
+| V7-26 | Add desktop Evidence Source Setup page. | TODO |
+| V7-27 | Add desktop Run Audit page. | TODO |
+| V7-28 | Add desktop Dashboard. | TODO |
 | V7-29 | Add desktop Query Drilldown and Citation Map. | TODO |
 | V7-30 | Add desktop Diagnosis, Task Plan, and Export pages. | TODO |
-| V7-31 | Add report system v2 (executive/SEO/content/PR/engineering/appendix/retest). | TODO |
+| V7-31 | Add report system v2. | TODO |
 | V7-32 | Add secret-redaction hardening across report v2 outputs. | TODO |
-| V7-33 | Add skill-learning layer (outcome record + recommender feeding next task generation). | TODO |
-| V7-34 | Add B2B SaaS industry template (queries, source weights, tasks, sample report). | TODO |
+| V7-33 | Add skill-learning layer. | TODO |
+| V7-34 | Add B2B SaaS industry template. | TODO |
 | V7-35 | Add ecommerce industry template. | TODO |
-| V7-36 | Add local-service industry template (and media site as needed). | TODO |
-| V7-37 | Add sample audit package and design-partner alpha scaffolding (M16 validation tracked off-loop). | TODO |
-| V7-38 | Add public technical preview docs (quickstart, provider-matrix, limitations, examples). | TODO |
+| V7-36 | Add local-service industry template. | TODO |
+| V7-37 | Add sample audit package and alpha scaffolding. | TODO |
+| V7-38 | Add public technical preview docs. | TODO |

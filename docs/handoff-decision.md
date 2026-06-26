@@ -2,11 +2,11 @@
 
 Current mode: `current_agent_development`.
 
-Completed milestone in this branch: `V7-07`.
+Completed milestone in this branch: `V7-08`.
 
-First TODO after the V7-07 PR merges: `V7-08`.
+First TODO after the V7-08 PR merges: `V7-09`.
 
-V7-07 adds deterministic query ranking, dedupe, citation likelihood, and business value scoring. V7-08 is the manual-import provider evidence-graph slice.
+V7-08 adds a manual-import provider path into the shared evidence graph. V7-09 is the browser-capture schema slice.
 
 ## Handoff Rules
 

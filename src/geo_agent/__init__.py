@@ -59,6 +59,7 @@ from .provider_output_eval import (
     evaluate_provider_output_cases,
     provider_response_to_run,
 )
+from .providers import ManualImportProvider, ManualImportProviderRequest, ManualImportProviderResult
 from .query_space import INTENT_TYPES, QueryRecord, build_query_space
 from .recorded_dataset import (
     RecordedAuditDataset,
@@ -118,6 +119,9 @@ __all__ = [
     "ManualImportError",
     "ManualImportResult",
     "validate_manual_import",
+    "ManualImportProvider",
+    "ManualImportProviderRequest",
+    "ManualImportProviderResult",
     "ApiKeySession",
     "ApiKeySessionStore",
     "ProviderAccessError",

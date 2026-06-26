@@ -16,9 +16,9 @@ Read these files before development:
 
 ## State Sources
 
-`docs/progress.md` is the single milestone state source. `docs/next-steps-plan.md` contains detailed acceptance criteria, file targets, and verification notes. When they conflict, stop and run the Review and Renewal Loop instead of guessing.
+`docs/progress.md` is the single milestone state source. `docs/next-steps-plan.md` contains detailed acceptance criteria, file targets, and verification notes.
 
-Current active product loop: V7 AI Search Visibility Experiment Workbench. V7-01 through V7-07 are complete in sequence. After the V7-07 branch merges, the first TODO is `V7-08`, the manual-import provider evidence-graph slice.
+Current active product loop: V7 AI Search Visibility Experiment Workbench. V7-01 through V7-08 are complete in sequence. After the V7-08 branch merges, the first TODO is `V7-09`, the browser-capture schema slice.
 
 ## Workflow Discipline
 
@@ -26,8 +26,7 @@ Use the GitHub connector for repository work. Use one branch and one PR per mile
 
 ## Product Guardrails
 
-- Preserve fixture-only CI unless the milestone explicitly adds fake-client provider tests.
-- Do not persist raw API keys, OAuth tokens, cookies, live answers, or crawl secrets.
+- Preserve fixture-only CI unless a milestone explicitly adds fake-client provider tests.
 - Planned providers remain planned.
 - OpenAI-compatible output is not ChatGPT Search.
 - Do not weaken tests or add dummy files.
