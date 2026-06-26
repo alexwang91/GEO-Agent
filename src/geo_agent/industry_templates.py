@@ -29,3 +29,13 @@ def b2b_saas_template() -> IndustryTemplate:
         ("owned", "earned", "review", "docs", "community"),
         ("weak_citation_absorption", "claim_fidelity_gap", "competitor_displacement", "low_query_coverage"),
     )
+
+
+def ecommerce_template() -> IndustryTemplate:
+    return IndustryTemplate(
+        "industry:ecommerce",
+        "Ecommerce",
+        ("best product", "product comparison", "price and deals", "reviews and ratings", "shipping and returns"),
+        ("owned", "review", "marketplace", "community", "earned"),
+        ("weak_citation_absorption", "competitor_displacement", "claim_fidelity_gap", "missing_owned_content"),
+    )
