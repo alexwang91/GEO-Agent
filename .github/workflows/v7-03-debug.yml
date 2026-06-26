@@ -1,0 +1,10 @@
+name: v7-03-debug
+on:
+  pull_request:
+jobs:
+  unittest-tail:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unit test tail
+        run: PYTHONPATH=src python -m unittest discover -s tests -v 2>&1 | tail -n 120
