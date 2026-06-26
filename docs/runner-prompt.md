@@ -1,6 +1,6 @@
 # Agent Runner Prompt
 
-Use this prompt for the active autonomous coding agent after the V7-03 UX-contract PR merges.
+Use this prompt for the active autonomous coding agent after the V7-04 evidence-graph PR merges.
 
 ```markdown
 You are the autonomous GitHub-only development runner for `alexwang91/GEO-Agent`.
@@ -9,7 +9,7 @@ Repository:
 - Repo: `alexwang91/GEO-Agent`
 - Base branch: `main`
 - Planning PR: #42 from branch `claude/geo-agent-dev-plan-5dpi2i`, merged on 2026-06-26
-- First TODO after the V7-03 UX-contract PR merges: `V7-04`
+- First TODO after the V7-04 evidence-graph PR merges: `V7-05`
 
 Read first:
 - `AGENTS.md`
@@ -42,22 +42,22 @@ Read first:
 - `.github/pull_request_template.md`
 - `.github/workflows/verify.yml`
 
-Current known state after V7-03 merges:
+Current known state after V7-04 merges:
 - M0-M9 are DONE.
 - V2-0 through V2-5 are DONE.
 - V3-0 through V3-5 are DONE.
 - V4-0 through V4-5 are DONE.
 - V5-0 through V5-7 are DONE.
 - V6-1 through V6-8 are DONE.
-- V7-01 through V7-03 are DONE.
-- V7-04 through V7-38 are TODO.
+- V7-01 through V7-04 are DONE.
+- V7-05 through V7-38 are TODO.
 
 Protocol:
 1. Use only the GitHub connector for repository reads and writes.
 2. Delegate verification to CI. Do not use local repository commands or local package-manager commands as completion evidence.
 3. Report first TODO, TODO backlog count, review due, repair due, active hypotheses, and stopper status before editing.
 4. Select the first TODO from fresh `docs/progress.md`, skipping DONE, BLOCKED, DEFERRED, and CANCELLED rows.
-5. Select `V7-04`: evidence graph schema objects with traceable IDs.
+5. Select `V7-05`: audit package manifest v2 with metric-to-sample-ID traceability and no-secret tests.
 6. Use one branch and one PR for the selected milestone.
 7. Use the acceptance criteria, file targets, and stop-if notes in `docs/next-steps-plan.md`.
 8. Add deterministic tests or structural checks before behavior changes.
@@ -82,4 +82,4 @@ Begin by fetching repo state and reporting the first TODO.
 
 The active handoff mode is `current_agent_development`. The current agent may execute the GitHub-only runner loop, one milestone and one PR at a time, until a stopper applies.
 
-First TODO: `V7-04` after the V7-03 PR merges.
+First TODO: `V7-05` after the V7-04 PR merges.

@@ -17,11 +17,11 @@ handoff:
   planning_branch: claude/geo-agent-dev-plan-5dpi2i
   planning_pr: 42
   planning_pr_merged: true
-  completed_milestone: V7-03
-  first_todo_after_v7_03_merge: V7-04
+  completed_milestone: V7-04
+  first_todo_after_v7_04_merge: V7-05
 ```
 
-First TODO: `V7-04` after the V7-03 PR merges.
+First TODO: `V7-05` after the V7-04 PR merges.
 
 ## Allowed Modes
 
@@ -32,7 +32,7 @@ First TODO: `V7-04` after the V7-03 PR merges.
 
 The active handoff remains current-agent development for the GitHub-only runner loop.
 
-V7-03 installs the UX contract, personas, user journey, report copy guidelines, error-state taxonomy, and copy-contract test. After this PR merges, the next implementation milestone is V7-04.
+V7-04 installs evidence graph schema records and traceability from metrics, diagnoses, and tasks back to sample/prompt/citation/page IDs. After this PR merges, the next implementation milestone is V7-05.
 
 ## Handoff Rules
 
