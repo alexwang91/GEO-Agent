@@ -6,7 +6,7 @@ Build an AI Search Visibility Agent for Generative Engine Optimization that help
 
 ## Current State
 
-The repository has moved past the initial fixture-based GEO audit core. It now has a Python domain package, fixture audit workflow, reproducible audit package output, provider access model, Tauri + React app shell, BYOK session boundary, fake OAuth boundary, the first OpenAI-compatible answer-provider boundary, a fixture-only Tauri command path, a fixture-backed crawler provider boundary, product contract docs, provider-status language, limitations, UX/copy contract docs, and the first V7 evidence graph schema objects.
+The repository has moved past the initial fixture-based GEO audit core. It now has fixture audit packaging, provider access boundaries, UX contracts, evidence graph schema objects, and manifest v2 traceability.
 
 Current completion checkpoint:
 
@@ -20,7 +20,8 @@ Current completion checkpoint:
 - V7-02: complete product contract, provider status language, limitations docs, and consistency checks across README, UI copy, docs, and provider registry labels.
 - V7-03: complete personas, 10-step user journey, UX contract, report copy guidelines, error-state taxonomy, UI copy note, and copy-contract test.
 - V7-04: complete frozen evidence graph schema records and metric/diagnosis/task traceability to sample/prompt/citation/page IDs.
-- First product TODO: `V7-05` (see Loop V7 Backlog below and `docs/loop-v7.md`).
+- V7-05: complete audit package manifest v2 with metric-to-sample-ID traceability and no-secret package tests.
+- First product TODO: `V7-06` (see Loop V7 Backlog below and `docs/loop-v7.md`).
 
 ## Methodology Map
 
@@ -55,18 +56,6 @@ Current completion checkpoint:
 | V5-6 | Add crawler provider abstraction and first crawler adapter. | DONE |
 | V5-7 | Wire UI Run Audit to provider registry, fixture/provider audit paths, and report display. | DONE |
 
-## V5-6: Crawler Provider Abstraction
-
-Goal: add a crawler-provider boundary that can feed page inventory/evidence without live crawling in CI.
-
-Verification: `tests/test_crawl_provider.py` covers static crawler success, failure, unsupported provider, request validation, redaction-shaped serialization, evidence store conversion, and planned live crawler registry entries.
-
-## V5-7: UI Run Audit and Report Display
-
-Goal: connect the UI to fixture and fake-provider audit paths and display report artifacts.
-
-Acceptance criteria: UI can select fixture/manual-import path and fake-provider path, display generated report artifacts, represent export actions truthfully, distinguish provider status, and require no live credentials in CI.
-
 ## V6 Complete Development Plan
 
 | Milestone | Goal | Acceptance evidence |
@@ -82,7 +71,7 @@ Acceptance criteria: UI can select fixture/manual-import path and fake-provider 
 
 ## Loop V7 Backlog: AI Search Visibility Experiment Workbench
 
-V7 starts after V6. It repositions the product as an AI Search Visibility Experiment Workbench and hardens evidence traceability, real-answer ingestion, statistical credibility, diagnosis depth, executable owner-mapped tasks, retest loops, desktop UX, and reports. Design intent and the full slice-to-PR mapping live in `docs/loop-v7.md`. The first TODO is `V7-05` after V7-04 merges.
+V7 starts after V6. It repositions the product as an AI Search Visibility Experiment Workbench and hardens evidence traceability, real-answer ingestion, statistical credibility, diagnosis depth, executable owner-mapped tasks, retest loops, desktop UX, and reports. Design intent and the full slice-to-PR mapping live in `docs/loop-v7.md`. The first TODO is `V7-06` after V7-05 merges.
 
 Each slice is one branch and one PR. Keep CI network-free unless a slice explicitly adds fake-client verification. Never persist raw access values. Add deterministic tests or structural checks before behavior changes.
 
