@@ -60,22 +60,22 @@ entries:
     forbidden_next_actions: [skip_v6_1_without_review]
     runner_decision: {action: observe_ci, reason: "Review passed, but CI remains required before merge."}
   - id: F-0015
-    timestamp: "2026-06-26T14:55:00Z"
-    source: harness_repair
+    timestamp: "2026-06-26T15:03:00Z"
+    source: ci
     type: success
     severity: info
     milestone: V7-01
     branch: v7-01-docs-state-cleanup
-    pr: null
-    summary: "V7-01 reconciled stale runner-state pointers after the V7 planning PR merged and the current user selected current-agent development."
+    pr: 43
+    summary: "V7-01 state repair and docs consistency checks passed CI."
     evidence:
-      checks: ["ci: pending after PR creation", "test: tests/test_docs_state_consistency.py"]
+      checks: ["verify run #108: success", "tests/test_docs_state_consistency.py"]
       files: [AGENTS.md, README.md, docs/autonomous-runner.md, docs/progress.md, docs/next-steps-plan.md, docs/handoff-decision.md, docs/runner-prompt.md, docs/state-audit.md, docs/loop-review.md, .github/workflows/verify.yml, tests/test_docs_state_consistency.py]
       review_comments: []
-      trace_ids: [T-0056, T-0057, T-0058, T-0059]
+      trace_ids: [T-0056, T-0057, T-0058, T-0059, T-0060, T-0061]
       hypothesis_ids: []
-    root_cause: {layer: state_store, category: stale_runner_state, confidence: high, explanation: "Progress, next-steps, handoff, runner prompt, workflow checks, and review notes needed one consistent first-TODO pointer after V7-01."}
-    allowed_next_actions: [open_pr, observe_ci]
-    forbidden_next_actions: [merge_without_ci, skip_state_consistency_test, start_v7_02_before_merge]
-    runner_decision: {action: open_pr, reason: "The branch contains a deterministic docs-state consistency test and reconciled state docs for PR-based CI verification."}
+    root_cause: {layer: state_store, category: stale_runner_state, confidence: high, explanation: "V7-01 repaired stale first-TODO and handoff state references with a deterministic consistency test."}
+    allowed_next_actions: [merge_after_trace_update]
+    forbidden_next_actions: [merge_without_ci]
+    runner_decision: {action: merge_after_trace_update, reason: "CI is green and acceptance criteria are mapped in PR #43."}
 ```
