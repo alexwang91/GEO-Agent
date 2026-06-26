@@ -1,7 +1,7 @@
 import unittest
 
 from geo_agent.entity_profile import EntityProfile
-from geo_agent.query_discovery import DEFAULT_CLUSTERS, DEFAULT_PERSPECTIVES, discover_queries_no_llm
+from geo_agent.query_discovery import DEFAULT_CLUSTERS, DEFAULT_PERSPECTIVES, dedupe_queries, discover_queries_no_llm, rank_queries
 
 
 def profile():
@@ -20,32 +20,37 @@ def profile():
 
 
 class QueryDiscoveryTests(unittest.TestCase):
-    def test_no_llm_mode_covers_all_clusters_and_perspectives(self):
+    def test_default_no_llm_mode_yields_80_queries(self):
         result = discover_queries_no_llm(profile(), target_engine="manual")
         self.assertEqual("no_llm_fixture", result.mode)
-        self.assertEqual(len(DEFAULT_CLUSTERS) * len(DEFAULT_PERSPECTIVES), len(result.queries))
+        self.assertEqual(80, len(result.queries))
         self.assertEqual({cluster.cluster_id for cluster in DEFAULT_CLUSTERS}, {query.cluster_id for query in result.queries})
         self.assertEqual({perspective.perspective_id for perspective in DEFAULT_PERSPECTIVES}, {query.perspective_id for query in result.queries})
 
-    def test_discovered_queries_are_existing_query_records_with_metadata(self):
+    def test_discovered_queries_have_ranking_metadata(self):
         result = discover_queries_no_llm(profile(), target_engine="manual")
         first = result.queries[0]
         self.assertEqual("manual", first.query.target_engine)
-        self.assertEqual("US", first.query.region)
-        self.assertEqual("en", first.query.language)
-        self.assertTrue(first.query.query)
-        self.assertTrue(first.query.cluster)
         self.assertTrue(first.seed_source_ids)
         payload = first.to_dict()
         self.assertIn("cluster_id", payload)
         self.assertIn("perspective_id", payload)
-        self.assertIn("seed_source_ids", payload)
+        self.assertIn("business_value_score", payload)
+        self.assertIn("citation_likelihood_score", payload)
+        self.assertIn("priority_score", payload)
 
-    def test_limit_is_deterministic(self):
-        result_a = discover_queries_no_llm(profile(), limit=5)
-        result_b = discover_queries_no_llm(profile(), limit=5)
-        self.assertEqual([query.query.query for query in result_a.queries], [query.query.query for query in result_b.queries])
-        self.assertEqual(5, len(result_a.queries))
+    def test_ranker_is_deterministic_and_assigns_rank(self):
+        result = discover_queries_no_llm(profile())
+        ranked_a = rank_queries(result.queries)
+        ranked_b = rank_queries(result.queries)
+        self.assertEqual([item.discovered_query.query.query for item in ranked_a], [item.discovered_query.query.query for item in ranked_b])
+        self.assertEqual(list(range(1, len(ranked_a) + 1)), [item.rank for item in ranked_a])
+        self.assertGreaterEqual(ranked_a[0].priority_score, ranked_a[-1].priority_score)
+
+    def test_dedupe_removes_repeated_query_text(self):
+        result = discover_queries_no_llm(profile(), limit=3)
+        duplicated = result.queries + (result.queries[0],)
+        self.assertEqual(3, len(dedupe_queries(duplicated)))
 
 
 if __name__ == "__main__":

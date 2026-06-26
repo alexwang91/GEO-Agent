@@ -8,7 +8,6 @@ Read these files before development:
 - `docs/loop-v7.md`
 - `docs/project-evaluation-v7.md`
 - `docs/development-principles.md`
-- `docs/feedback-taxonomy.md`
 - `docs/feedback-log.md`
 - `docs/loop-trace.md`
 - `docs/handoff-decision.md`
@@ -19,16 +18,16 @@ Read these files before development:
 
 `docs/progress.md` is the single milestone state source. `docs/next-steps-plan.md` contains detailed acceptance criteria, file targets, and verification notes. When they conflict, stop and run the Review and Renewal Loop instead of guessing.
 
-Current active product loop: V7 AI Search Visibility Experiment Workbench. V7-01 through V7-06 are complete in sequence. After the V7-06 branch merges, the first TODO is `V7-07`, the query ranking and dedupe slice.
+Current active product loop: V7 AI Search Visibility Experiment Workbench. V7-01 through V7-07 are complete in sequence. After the V7-07 branch merges, the first TODO is `V7-08`, the manual-import provider evidence-graph slice.
 
 ## Workflow Discipline
 
-Use the GitHub connector for repository work. Use one branch and one PR per milestone. Use CI as VERIFY. Do not rely on local clone, package-manager install, or live provider access for completion evidence unless the milestone explicitly adds an approved CI-safe path.
+Use the GitHub connector for repository work. Use one branch and one PR per milestone. Use CI as VERIFY.
 
 ## Product Guardrails
 
 - Preserve fixture-only CI unless the milestone explicitly adds fake-client provider tests.
-- Do not persist raw API keys, OAuth tokens, cookies, live answers, or crawl secrets into reports, manifests, logs, audit databases, or UI state.
-- Show planned providers as planned.
+- Do not persist raw API keys, OAuth tokens, cookies, live answers, or crawl secrets.
+- Planned providers remain planned.
 - OpenAI-compatible output is not ChatGPT Search.
 - Do not weaken tests or add dummy files.
