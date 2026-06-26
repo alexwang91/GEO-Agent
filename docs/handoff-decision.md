@@ -2,11 +2,11 @@
 
 Current mode: `current_agent_development`.
 
-Completed milestone in this branch: `V7-06`.
+Completed milestone in this branch: `V7-07`.
 
-First TODO after the V7-06 PR merges: `V7-07`.
+First TODO after the V7-07 PR merges: `V7-08`.
 
-V7-06 adds deterministic no-LLM multi-perspective query discovery. V7-07 is the query ranking, dedupe, citation-likelihood, and business value slice.
+V7-07 adds deterministic query ranking, dedupe, citation likelihood, and business value scoring. V7-08 is the manual-import provider evidence-graph slice.
 
 ## Handoff Rules
 
