@@ -53,7 +53,7 @@ entries:
     branch: v7-02-product-contract-provider-status
     pr: 44
     summary: "V7-02 product contract, provider-status language, limitations docs, README/UI copy alignment, and structural consistency test were prepared."
-    evidence: {checks: ["ci: pending after PR creation", "test: tests/test_product_contract_docs.py"], files: [README.md, apps/desktop/src/App.jsx, docs/product-contract.md, docs/provider-status-language.md, docs/limitations.md, tests/test_product_contract_docs.py, docs/progress.md, docs/next-steps-plan.md], review_comments: [], trace_ids: [T-0063, T-0064, T-0065], hypothesis_ids: []}
+    evidence: {checks: ["test: tests/test_product_contract_docs.py"], files: [README.md, apps/desktop/src/App.jsx, docs/product-contract.md, docs/provider-status-language.md, docs/limitations.md, tests/test_product_contract_docs.py, docs/progress.md, docs/next-steps-plan.md], review_comments: [], trace_ids: [T-0063, T-0064, T-0065], hypothesis_ids: []}
     root_cause: {layer: governance, category: provider_claim_boundary, confidence: high, explanation: "V7-02 constrains product and provider claims before richer provider-status UI work begins."}
     allowed_next_actions: [observe_ci]
     forbidden_next_actions: [merge_without_ci, claim_live_provider_execution, call_openai_compatible_chatgpt_search]
@@ -72,4 +72,18 @@ entries:
     allowed_next_actions: [fix_true_cause, observe_ci]
     forbidden_next_actions: [weaken_test, remove_assertion, merge_without_ci]
     runner_decision: {action: fix_true_cause, reason: "The branch now adds the explicit OpenAI-compatible is not ChatGPT Search sentence required by the test."}
+  - id: F-0018
+    timestamp: "2026-06-26T16:04:00Z"
+    source: protocol
+    type: success
+    severity: info
+    milestone: V7-04
+    branch: v7-04-evidence-graph-schema
+    pr: null
+    summary: "V7-04 evidence graph schema objects, AuditRunner graph output, exports, and traceability tests were prepared."
+    evidence: {checks: ["ci: pending after PR creation", "test: tests/test_evidence_graph.py"], files: [src/geo_agent/schema.py, src/geo_agent/audit_runner.py, src/geo_agent/__init__.py, tests/test_evidence_graph.py, docs/progress.md, docs/next-steps-plan.md], review_comments: [], trace_ids: [T-0069, T-0070, T-0071, T-0072], hypothesis_ids: []}
+    root_cause: {layer: product_schema, category: evidence_traceability, confidence: high, explanation: "V7-04 creates the shared schema layer needed before manifest v2 and richer reports can trace metrics and tasks to source samples."}
+    allowed_next_actions: [open_pr, observe_ci]
+    forbidden_next_actions: [merge_without_ci, remove_traceability_assertions]
+    runner_decision: {action: open_pr, reason: "The branch is ready for PR-based CI verification."}
 ```
