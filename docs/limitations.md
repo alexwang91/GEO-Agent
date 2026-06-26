@@ -11,7 +11,7 @@ GEO-Agent is an alpha/technical-preview workbench. These limitations are product
 
 ## Statistical confidence
 
-- Single-sample outputs are directional only.
+- single-sample outputs are directional only.
 - Repeated sampling, confidence intervals, volatility, and noise-floor gates are planned V7 milestones.
 - The product must not state low-sample conclusions as definite.
 - Retest comparison must not attribute improvement to a task unless the retest layer has enough evidence and the task was actually executed.
