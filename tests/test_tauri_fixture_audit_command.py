@@ -84,13 +84,14 @@ class TauriFixtureAuditCommandTests(unittest.TestCase):
         self.assertIn("audit.sqlite", main_rs)
         self.assertIn("generate_handler![list_providers, run_fixture_audit]", main_rs)
 
-    def test_react_ui_represents_fixture_only_path_truthfully(self):
+    def test_react_ui_represents_provider_boundary_truthfully(self):
         root = Path(__file__).resolve().parents[1]
         app = (root / "apps" / "desktop" / "src" / "App.jsx").read_text(encoding="utf-8")
 
         self.assertIn("Fixture-only audit path", app)
         self.assertIn("run_fixture_audit(fixture_path, output_dir)", app)
-        self.assertIn("Provider-backed audit execution is still planned for V5-7", app)
+        self.assertIn("Provider-backed audit execution uses implemented fixture/manual boundaries only unless a provider is explicitly configured and verified", app)
+        self.assertIn("Planned providers remain planned and unavailable for live audits", app)
         self.assertIn("Run fixture audit from local file", app)
         self.assertNotIn("Live provider enabled", app)
         self.assertNotIn("Provider-backed audit is ready", app)
