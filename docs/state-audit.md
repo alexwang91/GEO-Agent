@@ -1,34 +1,35 @@
 # State Audit
 
-## V7-01 Audit Result
+## Current Audit Result
 
 | Milestone | Description | Status |
 | :--- | :--- | :--- |
 | V7-01 | Audit and reconcile doc state, add stale-milestone CI consistency test, and mark the alpha/technical-preview boundary. | DONE |
-| V7-02 | Product contract, provider status language, and limitations docs. | TODO |
+| V7-02 | Product contract, provider status language, limitations docs, and consistent README/UI/docs wording. | DONE |
+| V7-03 | UX contract, personas, user journeys, report copy guidelines, error-state taxonomy, and copy-contract test. | TODO |
 
-First TODO: `V7-02`.
+First TODO: `V7-03`.
 
 ## Reconciled State Sources
 
-`docs/progress.md` remains the single milestone state source. This audit reconciles the runner-facing references that can cause stale state selection:
+`docs/progress.md` remains the single milestone state source. This audit records the current runner-facing references:
 
-- `AGENTS.md` names `V7-02` as the first TODO after the V7-01 state-audit PR merges.
-- `docs/next-steps-plan.md` names `V7-02` as the first TODO after V7-01.
-- `docs/handoff-decision.md` records the current-agent override and keeps GitHub-only execution as the active mode.
-- `docs/runner-prompt.md` names `V7-02` as the next milestone and preserves CI-only verification.
-- `.github/workflows/verify.yml` checks the state-audit file, the docs-state consistency test, current handoff mode, and the V7-02 pointer.
+- `AGENTS.md` names `V7-03` as the first TODO after the V7-02 PR merges.
+- `docs/next-steps-plan.md` names `V7-03` as the first TODO after V7-02.
+- `docs/handoff-decision.md` records current-agent development and the V7-03 next milestone.
+- `docs/runner-prompt.md` names `V7-03` as the next milestone and preserves CI-only verification.
+- `.github/workflows/verify.yml` checks current V7 docs and tests.
 
 ## Review and Repair Assessment
 
-- Review due: no backlog-floor review is due. The V7 planning review already added V7-01 through V7-38.
-- Harness repair due: yes for V7-01 only, because stale state pointers and stale CI grep checks could select the wrong milestone.
+- Review due: no backlog-floor review is due; the backlog remains above the configured floor.
+- Harness repair due: no repeated harness defect is active.
 - Active hypotheses: none.
-- Stopper status: no hard stopper remains after this reconciliation. Stop if future docs disagree about the first TODO or if CI cannot verify state consistency.
+- Stopper status: no hard stopper remains. Stop if future docs disagree about the first TODO or if CI cannot verify state consistency.
 
-## Technical Preview Boundary
+## Product Boundary
 
-GEO-Agent is an alpha/technical preview workbench. Current CI-verifiable behavior is fixture-backed or explicit provider-boundary behavior. Planned providers stay planned. OpenAI-compatible API output is not ChatGPT Search. A low-sample result is directional only and must not read as a definitive visibility conclusion.
+GEO-Agent is an alpha/technical preview workbench. Current CI-verifiable behavior is fixture-backed, manual-import oriented, or explicit provider-boundary behavior. Planned providers stay planned. OpenAI-compatible API output is not ChatGPT Search. A low-sample result is directional only and must not read as a definitive visibility conclusion.
 
 ## Verification
 
@@ -39,3 +40,10 @@ GEO-Agent is an alpha/technical preview workbench. Current CI-verifiable behavio
 - handoff mode matches the current-agent override;
 - the verify workflow targets current V7 state;
 - README states the alpha/technical-preview boundary.
+
+`tests/test_product_contract_docs.py` verifies that:
+
+- product-contract, provider-status-language, and limitations docs exist;
+- provider-status docs match registry status literals;
+- README, UI copy, and docs use consistent provider-status wording;
+- product contract and limitations prevent provider, ranking, credential, and low-sample overclaims.

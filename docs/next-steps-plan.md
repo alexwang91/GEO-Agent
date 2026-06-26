@@ -14,10 +14,11 @@ Current completion checkpoint:
 - V2: complete evidence store, crawler seam, adapter contract, weighted scoring, operational report artifact.
 - V3: complete fixture audit runner, recorded dataset loader, evidence graph store, diagnosis V2, CLI.
 - V4: complete reproducible audit package with manifest, report, audit database, example fixture, schema docs, live adapter boundary.
-- V5: complete UI/provider plan, provider registry, Tauri + React shell, BYOK session, fake OAuth flow, OpenAI-compatible answer-provider boundary, fixture-only command path, static crawler provider boundary, and Run Audit/report display wiring (V5-0 through V5-7).
+- V5: complete UI/provider plan, provider registry, Tauri + React shell, BYOK session, fake OAuth flow, OpenAI-compatible answer-provider boundary, fixture-only Tauri command path, static crawler provider boundary, and Run Audit/report display wiring (V5-0 through V5-7).
 - V6: complete provider-backed orchestration, manual/recorded import, provider output eval harness, evidence-backed report UI, access/artifact safety hardening, retest planning, release-readiness checks, and skill-learning records (V6-1 through V6-8).
 - V7-01: complete state-source audit, stale-milestone consistency test, current-agent handoff reconciliation, and alpha/technical-preview README boundary.
-- First product TODO: `V7-02` (see Loop V7 Backlog below and `docs/loop-v7.md`).
+- V7-02: complete product contract, provider status language, limitations docs, and consistency checks across README, UI copy, docs, and provider registry labels.
+- First product TODO: `V7-03` (see Loop V7 Backlog below and `docs/loop-v7.md`).
 
 ## Methodology Map
 
@@ -130,7 +131,7 @@ V6 starts after V5-7 completes the first usable desktop loop. V6 turns the produ
 V7 starts after V6. It repositions the product as an AI Search Visibility Experiment Workbench and
 hardens evidence traceability, real-answer ingestion, statistical credibility, diagnosis depth,
 executable owner-mapped tasks, retest loops, desktop UX, and reports. Design intent and the full
-slice-to-PR mapping live in `docs/loop-v7.md`. The first TODO is `V7-02` after V7-01 merges.
+slice-to-PR mapping live in `docs/loop-v7.md`. The first TODO is `V7-03` after V7-02 merges.
 
 Each slice is one branch and one PR. Keep CI network-free unless a slice explicitly adds fake-client
 verification. Never persist raw access values. Add deterministic tests or structural checks before
@@ -154,7 +155,7 @@ behavior changes.
 | Slice | Acceptance criteria | Likely files | Verification / stop-if |
 | :--- | :--- | :--- | :--- |
 | V7-04 | Frozen dataclasses exist for AuditRun, PromptRecord, EngineSample, CitationRecord, MentionRecord, RecommendationRecord, PageSnapshot, ClaimRecord, DiagnosisRecord, OptimizationTask, RetestRecord, SkillOutcomeRecord; each metric/diagnosis/task can reference the sample/prompt/citation/page IDs it derives from. | `src/geo_agent/evidence_store.py`, `src/geo_agent/schema.py`, `src/geo_agent/audit_runner.py`, `tests/test_evidence_graph.py` | Tests prove a fixture audit produces a complete evidence package and IDs link metrics back to samples. |
-| V7-05 | Audit package manifest v2 records traceability from each metric to sample IDs; `audit.sqlite`, `manifest.json`, and `report.json` contain no secrets. | `src/geo_agent/fixture_package.py`, `src/geo_agent/report.py`, `tests/test_audit_package_manifest.py`, `tests/test_artifact_safety.py` | Manifest test asserts metric→sample-ID links; safety test asserts no credentials in any artifact. |
+| V7-05 | Audit package manifest v2 records traceability from each metric to sample IDs; `audit.sqlite`, `manifest.json`, and `report.json` contain no secrets. | `src/geo_agent/fixture_package.py`, `src/geo_agent/report.py`, `tests/test_audit_package_manifest.py`, `tests/test_artifact_safety.py` | Manifest test asserts metric-to-sample-ID links; safety test asserts no credentials in any artifact. |
 
 ### M3 - STORM-style query discovery
 

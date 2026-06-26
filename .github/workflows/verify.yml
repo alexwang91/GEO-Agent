@@ -13,6 +13,9 @@ jobs:
           test -f AGENTS.md
           test -f README.md
           test -f docs/product-brief.md
+          test -f docs/product-contract.md
+          test -f docs/provider-status-language.md
+          test -f docs/limitations.md
           test -f docs/autonomous-runner.md
           test -f docs/progress.md
           test -f docs/next-steps-plan.md
@@ -36,11 +39,14 @@ jobs:
           test -f docs/project-evaluation-v7.md
           test -f docs/loop-v7.md
           test -f tests/test_docs_state_consistency.py
+          test -f tests/test_product_contract_docs.py
           test -f .github/pull_request_template.md
-          grep -q "V7-02" docs/progress.md
-          grep -q "V7-02" docs/next-steps-plan.md
+          grep -q "V7-03" docs/progress.md
+          grep -q "V7-03" docs/next-steps-plan.md
           grep -q "current_agent_development" docs/handoff-decision.md
           grep -q "Technical preview status" README.md
+          grep -q "Product contract" README.md
+          grep -q "Provider status" README.md
           grep -q "GitHub-only" docs/runner-prompt.md
           ! find . -maxdepth 4 -type f \( -name noop -o -name dummy -o -name x -o -name y \) | grep .
   python-tests:
