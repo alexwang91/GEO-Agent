@@ -6,7 +6,7 @@ Completed milestone in this branch: `V7-13`.
 
 First TODO after the V7-13 PR merges: `V7-14`.
 
-V7-12 is complete. V7-13 adds citation parser v1. V7-14 is the source classifier slice.
+V7-11 and V7-12 are complete. V7-13 adds citation parser v1. V7-14 is the source classifier slice.
 
 ## Handoff Rules
 
