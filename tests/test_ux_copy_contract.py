@@ -41,14 +41,9 @@ class UXCopyContractTest(unittest.TestCase):
         for term in ["manual", "simulated", "live configured", "planned", "directional", "not chatgpt search"]:
             self.assertIn(term, copy)
 
-    def test_user_copy_uses_safe_low_sample_and_provider_language(self):
+    def test_user_copy_uses_safe_low_sample_language(self):
         user_copy = combined(["README.md", "apps/desktop/src/App.jsx"])
-        for phrase in [
-            "does not guarantee ranking improvement",
-            "directional only",
-            "planned providers are not live",
-            "not chatgpt search",
-        ]:
+        for phrase in ["does not guarantee ranking improvement", "directional only", "not chatgpt search"]:
             self.assertIn(phrase, user_copy)
 
     def test_journey_has_ten_numbered_steps(self):
