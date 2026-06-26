@@ -153,8 +153,10 @@ export function App() {
 
         <section id="audit-run" className="panel">
           <h3>Audit Run</h3>
+          <p className="eyebrow">Fixture-only audit path</p>
           <p className="eyebrow">Fixture, manual-import, configured-provider, and unavailable run states</p>
-          <p className="security-note">Provider-backed audit execution uses implemented fixture/manual/configured boundaries only. Planned providers remain planned and unavailable run paths collect no evidence.</p>
+          <p className="security-note">Provider-backed audit execution uses implemented fixture/manual boundaries only unless a provider is explicitly configured and verified. Planned providers remain planned and unavailable for live audits.</p>
+          <p className="security-note">Unavailable run paths collect no evidence; simulated paths are test evidence.</p>
           <div className="run-path-grid">
             {runPaths.map((path) => {
               const status = statusFor(path.statusKey);
