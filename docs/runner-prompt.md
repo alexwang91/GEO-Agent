@@ -21,7 +21,7 @@ Read first:
 
 Known state after V7-13 merges:
 - V7-01 through V7-13 are DONE.
-- V7-12 is complete.
+- V7-11 and V7-12 are complete.
 - V7-14 through V7-38 are TODO.
 
 Protocol:
