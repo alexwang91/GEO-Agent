@@ -23,8 +23,8 @@
 | Loop V4 reproducible audit package | DONE | V4-0 through V4-5 are complete. |
 | Loop V5 UI and provider access | DONE | V5-0 through V5-7 are complete. |
 | Complete loop planning package | DONE | V6 planning, long-run growth, handoff, and runner prompt files are installed. |
-| Loop V6 provider-backed GEO agent | DONE | V6-1 through V6-8 are complete in branch. |
-| Loop V7 AI visibility workbench | TODO | V7-01 through V7-38 planned in `docs/loop-v7.md`; first TODO is V7-01. |
+| Loop V6 provider-backed GEO agent | DONE | V6-1 through V6-8 are complete. |
+| Loop V7 AI visibility workbench | TODO | V7-01 is DONE in this branch; V7-02 through V7-38 remain TODO. |
 
 ## Progress
 
@@ -76,7 +76,7 @@
 | V6-6 | Add retest planning workflow that compares baseline and follow-up audit packages. | DONE |
 | V6-7 | Add release-readiness packaging checks for desktop app structure, Python package, and docs. | DONE |
 | V6-8 | Add skill-learning record for which optimization actions worked by engine, query type, and vertical. | DONE |
-| V7-01 | Audit and reconcile doc state (progress, next-steps, AGENTS, handoff, runner prompt) and add a CI consistency test for stale milestones; mark the alpha/technical-preview boundary. | TODO |
+| V7-01 | Audit and reconcile doc state (progress, next-steps, AGENTS, handoff, runner prompt) and add a CI consistency test for stale milestones; mark the alpha/technical-preview boundary. | DONE |
 | V7-02 | Add product-contract, provider-status-language, and limitations docs with consistent provider wording across README, UI, and docs. | TODO |
 | V7-03 | Add UX contract: personas, user journeys, report copy guidelines, error-state taxonomy, and a copy-contract test. | TODO |
 | V7-04 | Add evidence graph schema objects (AuditRun, EngineSample, Citation/Mention/Recommendation, PageSnapshot, Claim, Diagnosis, Task, Retest, SkillOutcome). | TODO |
