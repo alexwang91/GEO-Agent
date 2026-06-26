@@ -5,6 +5,8 @@ Read these files before development:
 - `docs/autonomous-runner.md`
 - `docs/progress.md`
 - `docs/next-steps-plan.md`
+- `docs/loop-v7.md`
+- `docs/project-evaluation-v7.md`
 - `docs/loop-v6.md`
 - `docs/project-evaluation-v6.md`
 - `docs/loop-v5.md`
@@ -28,7 +30,7 @@ Read these files before development:
 
 `docs/progress.md` is the single milestone state source. `docs/next-steps-plan.md` contains detailed acceptance criteria, file targets, and verification notes. When they conflict, stop and run the Review and Renewal Loop instead of guessing.
 
-Current active product loop: V5 provider-connected desktop product entry. The first product TODO after this planning branch is `V5-5`, the OpenAI-compatible answer provider behind explicit configuration.
+Current active product loop: V7 AI Search Visibility Experiment Workbench. V5 and V6 are complete. The first product TODO after this planning branch is `V7-01`, the doc state-source repair and product contract (see `docs/loop-v7.md` and `docs/next-steps-plan.md`).
 
 ## Workflow Discipline
 
