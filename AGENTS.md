@@ -18,7 +18,7 @@ Read these files before development:
 
 `docs/progress.md` is the single milestone state source. `docs/next-steps-plan.md` contains detailed acceptance criteria, file targets, and verification notes.
 
-Current active product loop: V7 AI Search Visibility Experiment Workbench. V7-01 through V7-08 are complete in sequence. After the V7-08 branch merges, the first TODO is `V7-09`, the browser-capture schema slice.
+Current active product loop: V7 AI Search Visibility Experiment Workbench. V7-01 through V7-09 are complete in sequence. After the V7-09 branch merges, the first TODO is `V7-10`, the provider-status copy slice.
 
 ## Workflow Discipline
 
