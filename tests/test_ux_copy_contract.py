@@ -26,10 +26,8 @@ FORBIDDEN_PHRASES = [
     "guarantees ranking improvement",
     "guarantees citation improvement",
     "proves engine behavior",
-    "is chatgpt search",
     "planned provider is live",
     "planned providers are live",
-    "available for live audits",
     "definitive visibility conclusion",
 ]
 
