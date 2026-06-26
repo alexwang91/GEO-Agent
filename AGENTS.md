@@ -30,7 +30,7 @@ Read these files before development:
 
 `docs/progress.md` is the single milestone state source. `docs/next-steps-plan.md` contains detailed acceptance criteria, file targets, and verification notes. When they conflict, stop and run the Review and Renewal Loop instead of guessing.
 
-Current active product loop: V7 AI Search Visibility Experiment Workbench. V5 and V6 are complete. V7-01 is the state-audit and technical-preview boundary slice. After the V7-01 branch merges, the first TODO is `V7-02`, the product contract and provider-status language slice.
+Current active product loop: V7 AI Search Visibility Experiment Workbench. V5 and V6 are complete. V7-01 and V7-02 are complete in sequence. After the V7-02 branch merges, the first TODO is `V7-03`, the UX contract, user journey, report copy, and error taxonomy slice.
 
 ## Workflow Discipline
 
