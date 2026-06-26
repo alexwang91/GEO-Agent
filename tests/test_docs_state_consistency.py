@@ -11,12 +11,12 @@ def read(path):
 class DocsStateConsistencyTest(unittest.TestCase):
     def test_progress_marks_current_next_state(self):
         progress = read("docs/progress.md")
-        self.assertIn("V7-08", progress)
         self.assertIn("V7-09", progress)
+        self.assertIn("V7-10", progress)
 
-    def test_runner_docs_name_v7_09_as_next(self):
+    def test_runner_docs_name_v7_10_as_next(self):
         for path in ["AGENTS.md", "docs/handoff-decision.md", "docs/runner-prompt.md", "docs/state-audit.md"]:
-            self.assertIn("V7-09", read(path), path)
+            self.assertIn("V7-10", read(path), path)
 
 
 if __name__ == "__main__":
