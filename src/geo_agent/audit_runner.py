@@ -14,6 +14,7 @@ from .optimization_tasks import OptimizationTaskBrief, generate_task_brief
 from .page_inventory import PageInventoryRecord, StaticPageFetcher, crawl_inventory
 from .query_space import QueryRecord, build_query_space
 from .report import ReportView, build_report_view, render_report_json, render_report_markdown
+from .schema import EvidenceGraph, build_evidence_graph
 from .visibility_scoring import WeightedVisibilityScore, score_weighted_visibility
 
 
@@ -34,6 +35,7 @@ class AuditArtifacts:
     report: ReportView
     report_json: str
     report_markdown: str
+    evidence_graph: EvidenceGraph
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -45,6 +47,7 @@ class AuditArtifacts:
             "diagnoses": [diagnosis.__dict__.copy() for diagnosis in self.diagnoses],
             "tasks": [task.__dict__.copy() for task in self.tasks],
             "report": self.report.to_dict(),
+            "evidence_graph": self.evidence_graph.to_dict(),
         }
 
 
@@ -156,6 +159,16 @@ class AuditRunner:
         )
         report_json = render_report_json(report)
         report_markdown = render_report_markdown(report)
+        evidence_graph = build_evidence_graph(
+            brand=profile.brand,
+            domain=profile.domain,
+            queries=queries,
+            pages=page_records,
+            runs=runs,
+            score=score,
+            diagnoses=diagnoses,
+            tasks=tasks,
+        )
         self.store.save_diagnoses(diagnoses)
         self.store.save_tasks(tasks)
         self.store.save_report_artifact(ReportArtifact("report", "json", report_json))
@@ -171,6 +184,7 @@ class AuditRunner:
             report=report,
             report_json=report_json,
             report_markdown=report_markdown,
+            evidence_graph=evidence_graph,
         )
 
 
