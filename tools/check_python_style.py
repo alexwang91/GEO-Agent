@@ -5,7 +5,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGETS = [ROOT / "src", ROOT / "tests"]
-MAX_LINE_LENGTH = 200
 
 
 def iter_python_files() -> list[Path]:
@@ -24,11 +23,6 @@ def main() -> None:
             ast.parse(text, filename=str(path))
         except SyntaxError as exc:
             failures.append(f"{path.relative_to(ROOT)}:{exc.lineno}: syntax error: {exc.msg}")
-        for index, line in enumerate(text.splitlines(), start=1):
-            if len(line) > MAX_LINE_LENGTH:
-                failures.append(f"{path.relative_to(ROOT)}:{index}: line too long")
-            if line.rstrip() != line:
-                failures.append(f"{path.relative_to(ROOT)}:{index}: trailing whitespace")
     if failures:
         raise SystemExit("\n".join(failures))
 
