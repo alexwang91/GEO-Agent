@@ -2,11 +2,11 @@
 
 Current mode: `current_agent_development`.
 
-Completed milestone in this branch: `V7-16`.
+Completed milestone before this branch: `V7-38`.
 
-First TODO after the V7-16 PR merges: `V7-17`.
+First TODO selected for this branch: `V8-01`.
 
-V7-11 and V7-15 are complete. V7-16 adds claim fidelity audit. V7-17 is the repeated sampling plan slice.
+V8-01 hardens CI and the test harness while keeping CI network-free.
 
 ## Handoff Rules
 

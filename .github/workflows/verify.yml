@@ -40,13 +40,13 @@ jobs:
           test -f docs/loop-v7.md
           test -f tests/test_docs_state_consistency.py
           test -f tests/test_product_contract_docs.py
+          test -f tests/test_v8_01_foundation_invariants.py
+          test -f tools/check_coverage.py
+          test -f tools/check_python_style.py
+          test -f tools/check_type_annotations.py
           test -f .github/pull_request_template.md
-          grep -q "V7-03" docs/progress.md
-          grep -q "V7-03" docs/next-steps-plan.md
-          grep -q "current_agent_development" docs/handoff-decision.md
-          grep -q "Technical preview status" README.md
-          grep -q "Product contract" README.md
-          grep -q "Provider status" README.md
+          grep -q "V8-01" docs/progress.md
+          grep -q "V8-01" docs/next-steps-plan.md
           grep -q "GitHub-only" docs/runner-prompt.md
           ! find . -maxdepth 4 -type f \( -name noop -o -name dummy -o -name x -o -name y \) | grep .
   python-tests:
@@ -58,3 +58,16 @@ jobs:
           python-version: "3.11"
       - name: Run unit tests
         run: PYTHONPATH=src python -m unittest discover -s tests -v
+  python-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Lint with network-free Python style gate
+        run: python tools/check_python_style.py
+      - name: Type-check with network-free annotation gate
+        run: python tools/check_type_annotations.py
+      - name: Run unit tests with coverage gate
+        run: python tools/check_coverage.py
