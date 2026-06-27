@@ -41,6 +41,16 @@ V9-2 is not marked DONE in this branch because the real manual capture evidence 
 
 Do not paste private data, API keys, cookies, tokens, or credential labels.
 
+## Follow-up Evidence Priorities
+
+These items are the required supplement before V9 can continue to DONE:
+
+1. Capture one or two real AI answers for the GEO-Agent brand and record sanitized metadata only.
+2. Run the manual-capture import and confirm conversion into `EngineRun` evidence.
+3. Generate the real audit package and load its `manifest.json` plus `report.json` in desktop.
+4. Run the extraction trust gate and record precision/recall before trusting the report.
+5. Perform one retest and record measured delta, confidence, findings, surprises, extraction errors, diagnosis quality, task usefulness, and limitations.
+
 ## Remaining V9 Evidence To Collect
 
 - V9-2: manually captured real AI answers and citations.
