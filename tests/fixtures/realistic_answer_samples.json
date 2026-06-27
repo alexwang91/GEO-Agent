@@ -1,0 +1,34 @@
+[
+  {
+    "name": "brand_mention_with_owned_and_third_party_citations",
+    "brand": "Acme Cloud",
+    "aliases": ["Acme"],
+    "answer": "For mid-market teams, Acme Cloud is often compared with Globex Suite. Sources include https://www.acme.com/customers and https://research.example.org/cloud-buyers-guide.",
+    "expected_mentions": ["Acme Cloud", "Acme"],
+    "expected_urls": ["https://www.acme.com/customers", "https://research.example.org/cloud-buyers-guide"]
+  },
+  {
+    "name": "competitor_only_answer",
+    "brand": "Acme Cloud",
+    "aliases": ["Acme"],
+    "answer": "Globex Suite and Contoso Ops are common recommendations. The answer cites https://globex.com/guide and https://contoso.example/case-study.",
+    "expected_mentions": [],
+    "expected_urls": ["https://globex.com/guide", "https://contoso.example/case-study"]
+  },
+  {
+    "name": "substring_false_positive_guard",
+    "brand": "Acme",
+    "aliases": [],
+    "answer": "Acmeology Labs is a different company and should not count as Acme. Source: https://acmeology.example/about.",
+    "expected_mentions": [],
+    "expected_urls": ["https://acmeology.example/about"]
+  },
+  {
+    "name": "diacritic_brand_answer",
+    "brand": "Café Nova",
+    "aliases": ["Cafe Nova"],
+    "answer": "Café Nova is mentioned in local retail comparisons, with supporting pages at https://cafenova.example/reviews.",
+    "expected_mentions": ["Café Nova"],
+    "expected_urls": ["https://cafenova.example/reviews"]
+  }
+]
