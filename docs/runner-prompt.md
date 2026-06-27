@@ -1,4 +1,4 @@
-# External Runner Prompt — Loop V9
+# External Runner Prompt — Loop V9 Vertical Slice
 
 Use this prompt only after this planning branch has been merged into `main`.
 
@@ -10,15 +10,15 @@ Use only the GitHub connector for repository work. Verification is delegated to 
 Repository:
 - Repo: `alexwang91/GEO-Agent`
 - Base branch: `main`
-- Current loop: `Loop V9 real-world readiness`
-- First TODO milestone: `V9-01 concrete-live-crawler-client`
+- Current loop: `Loop V9 vertical slice`
+- First TODO milestone: `V9-1 minimal real FetchClient`
 
 State:
 - This is an existing advanced repo.
 - Do not bootstrap from scratch.
 - Do not re-plan V7 or V8.
 - V1 through V8 are DONE history.
-- V9-01 through V9-07 are TODO.
+- V9-1 through V9-5 are TODO.
 - `docs/progress.md` is the single milestone state source.
 - `docs/v8-changelog.md` is retained prior history.
 
@@ -27,8 +27,6 @@ Read first:
 - `docs/progress.md`
 - `docs/next-steps-plan.md`
 - `docs/loop-v9.md`
-- `docs/project-evaluation-v9.md`
-- `docs/autonomous-runner.md`
 - `docs/handoff-decision.md`
 - `docs/runner-prompt.md`
 - `docs/loop-trace.md`
@@ -37,17 +35,18 @@ Read first:
 - `docs/provider-status-language.md`
 - `docs/limitations.md`
 
-Current first TODO:
-- V9-01 concrete-live-crawler-client
+Loop success criterion:
+- A real consented brand goes Project -> real evidence -> existing extraction/scoring/diagnosis/tasks -> real generated report rendered in the desktop app -> one retest with measured delta and confidence.
 
-V9 backlog order:
-1. V9-01 concrete-live-crawler-client
-2. V9-02 manual-capture-import-ux
-3. V9-03 desktop-real-report-loading
-4. V9-04 desktop-run-flow-wiring
-5. V9-05 extraction-regression-on-realistic-data
-6. V9-06 real-brand-validation-run
-7. V9-07 limitations-and-provider-matrix-refresh
+Current first TODO:
+- V9-1 minimal real FetchClient
+
+V9 order:
+1. V9-1 minimal real FetchClient
+2. V9-2 manual-capture import
+3. V9-3 desktop real report
+4. V9-4 eval-first trust gate
+5. V9-5 the real run
 
 Rules:
 - Start from current `main`.
@@ -56,15 +55,14 @@ Rules:
 - Open one PR to `main` for that milestone.
 - Wait for GitHub Actions `verify`.
 - If CI fails, inspect logs and patch the same branch until CI passes.
-- Merge only after CI passes.
-- After merge, update `docs/progress.md` and related runner state in the milestone PR so the next first TODO is correct.
+- Mark a V9 milestone DONE only when its part of the real case is proven and recorded in docs.
+- Fixture CI is a regression gate, not the definition of DONE.
 
 Guardrails:
-- V9 adds no new analytics unless required to make the existing engine usable.
+- Do not add new analytics modules.
+- Reuse V7/V8 measurement code.
 - Keep CI network-free.
-- Real network paths must be explicit opt-in and covered in CI with fake clients.
+- Real network paths must be explicit opt-in.
 - Never persist raw credentials into artifacts, logs, manifests, databases, or UI state.
-- Do not call planned providers live or available.
-- Do not represent OpenAI-compatible API output as ChatGPT Search.
-- Single-sample evidence remains directional.
+- Planned providers remain planned.
 ```
