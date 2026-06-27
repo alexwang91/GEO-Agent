@@ -1,53 +1,42 @@
 # Autonomous Progress
 
-> Base branch: `main`.
->
-> State source rule: this file is the single milestone state source for the runner loop.
->
-> Planning branch for this review-and-renewal: `v9-readiness-plan`.
+## Loop Success Criterion
 
-## Status Legend
+Loop V9 is one thin vertical slice, not a module backlog. Success means one consented brand goes from project setup to real evidence, existing extraction/scoring/diagnosis/tasks, a real generated report rendered in the desktop app, and one retest with a measured delta and confidence.
 
-- TODO
-- DONE
+## Branch State
 
-## Current Completion Summary
-
-| Loop | State | Evidence |
-| :--- | :--- | :--- |
-| V1 bootstrap / MVP foundation | DONE | Historical foundation completed before retained V8 changelog. |
-| V2 evidence/report hardening | DONE | Historical loop completed before retained V8 changelog. |
-| V3 fixture audit productization | DONE | Historical loop completed before retained V8 changelog. |
-| V4 reproducible audit package | DONE | Historical loop completed before retained V8 changelog. |
-| V5 UI and provider access | DONE | Historical loop completed before retained V8 changelog. |
-| V6 provider-backed GEO agent | DONE | Historical loop completed before retained V8 changelog. |
-| V7 AI visibility workbench | DONE | Completed before V8; do not re-plan or redo. |
-| V8 measurement foundation hardening | DONE | See `docs/v8-changelog.md`. |
-| Loop V9 real-world readiness | DONE | V9-01 through V9-07 are DONE; see `docs/v9-changelog.md`. |
+- Base branch: `main`
+- Requested planning branch: `v9-vertical-slice-plan`
+- Actual planning branch: `v9-slice-plan`
+- State source: this file
+- First TODO: V9-1
 
 ## Milestone State
 
 | Milestone | Status | Title |
 | :--- | :--- | :--- |
-| V1 | DONE | Bootstrap MVP / initial audit foundation history |
-| V2 | DONE | Evidence and report hardening history |
-| V3 | DONE | Fixture audit productization history |
-| V4 | DONE | Reproducible audit package history |
-| V5 | DONE | UI and provider access history |
-| V6 | DONE | Provider-backed GEO agent history |
+| V1 | DONE | Historical foundation |
+| V2 | DONE | Historical evidence/report hardening |
+| V3 | DONE | Historical fixture audit productization |
+| V4 | DONE | Historical reproducible audit package |
+| V5 | DONE | Historical UI/provider access |
+| V6 | DONE | Historical provider-backed agent |
 | V7 | DONE | AI visibility workbench history |
 | V8 | DONE | Measurement foundation hardening; see `docs/v8-changelog.md` |
-| V9-01 | DONE | concrete-live-crawler-client |
-| V9-02 | DONE | manual-capture-import-ux |
-| V9-03 | DONE | desktop-real-report-loading |
-| V9-04 | DONE | desktop-run-flow-wiring |
-| V9-05 | DONE | extraction-regression-on-realistic-data |
-| V9-06 | DONE | real-brand-validation-run |
-| V9-07 | DONE | limitations-and-provider-matrix-refresh |
+| V9-1 | TODO | Minimal real FetchClient for the one brand site |
+| V9-2 | TODO | Manual capture import for real AI answers |
+| V9-3 | TODO | Desktop real report path |
+| V9-4 | TODO | Eval-first trust gate |
+| V9-5 | TODO | Real vertical-slice run and retest |
 
-## Invariants
+## Done Rule
 
-- V9 is complete.
-- V1 through V8 are DONE history and must not be re-planned.
-- CI remains deterministic.
-- Real web access remains opt-in.
+A V9 milestone is DONE only when its part of the real case is proven and recorded in docs. Fixture CI is a regression gate, not the definition of DONE.
+
+## Guardrails
+
+- No new analytics modules.
+- Reuse V7/V8 measurement code.
+- Real network access is opt-in and never runs in CI.
+- No raw credentials in artifacts, logs, manifests, databases, or UI state.
