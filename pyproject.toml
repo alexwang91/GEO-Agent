@@ -9,3 +9,9 @@ geo-agent = "geo_agent.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.v8_01.verify]
+coverage_gate = "tools/check_coverage.py"
+lint_gate = "tools/check_python_style.py"
+type_gate = "tools/check_type_annotations.py"
+network_free = true
