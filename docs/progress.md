@@ -20,7 +20,7 @@
 | Loop V5 UI and provider access | DONE | V5-0 through V5-7 are complete. |
 | Loop V6 provider-backed GEO agent | DONE | V6-1 through V6-8 are complete. |
 | Loop V7 AI visibility workbench | DONE | V7-01 through V7-38 are DONE through PR #80. |
-| Loop V8 foundation hardening | TODO | V8-01 through V8-07 are planned; first TODO is V8-01. |
+| Loop V8 foundation hardening | TODO | V8-01 is DONE; V8-02 through V8-07 remain TODO. |
 
 ## Progress
 
@@ -64,7 +64,7 @@
 | V7-36 | DONE |
 | V7-37 | DONE |
 | V7-38 | DONE |
-| V8-01 | TODO |
+| V8-01 | DONE |
 | V8-02 | TODO |
 | V8-03 | TODO |
 | V8-04 | TODO |
