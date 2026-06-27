@@ -1,12 +1,16 @@
 # Handoff Decision
 
-Current mode: `current_agent_development`.
+Current mode: `external_agent_development`.
 
-Completed milestone in this branch: `V7-16`.
+decided_at: `2026-06-27`
 
-First TODO after the V7-16 PR merges: `V7-17`.
+planning_branch: `v8-foundation-hardening-plan`
 
-V7-11 and V7-15 are complete. V7-16 adds claim fidelity audit. V7-17 is the repeated sampling plan slice.
+first_todo_milestone: `V8-01`
+
+V7-01 through V7-38 are DONE through PR #80. Loop V8 starts from current `main` and hardens the foundation under the V7 workbench. The first product TODO is `V8-01`.
+
+Merge `v8-foundation-hardening-plan` into `main` before starting the runner because the runner reads milestone state from `main`.
 
 ## Handoff Rules
 
