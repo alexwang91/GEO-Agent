@@ -2,7 +2,7 @@
 
 ## Summary
 
-Loop V8 hardens the completed V7 workbench foundation.
+Loop V8 hardened the completed V7 workbench foundation and was followed by repository cleanup that removed external runner planning and record files.
 
 ## Completed slices
 
@@ -16,8 +16,8 @@ Loop V8 hardens the completed V7 workbench foundation.
 
 ## Cleanup
 
-Old V7 planning language is superseded by this file, `docs/progress.md`, and the V8 test/code changes. Do not merge stale V8 planning branches.
+External autonomous-runner planning, progress, handoff, loop-trace, and evaluation records were removed after V8 completion. This changelog is the retained implementation history file.
 
 ## Verification
 
-Final VERIFY is GitHub Actions `verify` on the merged V8 completion branch.
+GitHub Actions `verify` is the current repository verification gate.
