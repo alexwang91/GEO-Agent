@@ -1,0 +1,8 @@
+{
+  "package_id": "sample:alpha:fixture",
+  "project": "Alpha Fixture Brand",
+  "queries": ["best workflow software", "workflow software alternatives"],
+  "metrics": {"visibility": 0.42, "citation_absorption": 0.36, "claim_fidelity": 0.71},
+  "guardrails": ["fixture only", "no live provider calls", "directional low sample"],
+  "artifacts": ["report_v2", "task_export", "retest_plan"]
+}
