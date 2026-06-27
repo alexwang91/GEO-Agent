@@ -7,6 +7,8 @@ Read these files before development:
 - `docs/next-steps-plan.md`
 - `docs/loop-v7.md`
 - `docs/project-evaluation-v7.md`
+- `docs/loop-v8.md`
+- `docs/project-evaluation-v8.md`
 - `docs/development-principles.md`
 - `docs/feedback-log.md`
 - `docs/loop-trace.md`
@@ -16,9 +18,9 @@ Read these files before development:
 
 ## State Sources
 
-`docs/progress.md` is the single milestone state source. `docs/next-steps-plan.md` contains detailed acceptance criteria, file targets, and verification notes.
+`docs/progress.md` is the single milestone state source. `docs/next-steps-plan.md` contains detailed acceptance criteria, file targets, and verification notes. `docs/loop-v8.md` contains current loop design intent. `docs/project-evaluation-v8.md` contains the code-grounded Review-and-Renewal evaluation.
 
-Current active product loop: V7 AI Search Visibility Experiment Workbench. V7-01 through V7-16 are complete in sequence. V7-11 and V7-15 are complete. After the V7-16 branch merges, the first TODO is `V7-17`, the repeated sampling plan slice.
+Current active product loop: V8 foundation hardening. V7-01 through V7-38 are DONE through PR #80. The first product TODO is `V8-01`, the CI and test harness hardening slice.
 
 ## Workflow Discipline
 
