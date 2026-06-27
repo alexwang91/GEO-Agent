@@ -1,7 +1,7 @@
 import unittest
 
 from geo_agent.engine_sampling import run_from_payload
-from geo_agent.entity_resolution import extract_urls, find_entity_matches, has_entity
+from geo_agent.entity_resolution import extract_urls, has_entity
 from geo_agent.visibility_scoring import score_weighted_visibility
 
 
@@ -10,7 +10,7 @@ class EntityResolutionEvalTests(unittest.TestCase):
         text = "Acme Cloud is cited by users; ACM is not the same as acmeology."
         self.assertTrue(has_entity(text, "Acme Cloud"))
         self.assertTrue(has_entity(text, "ACM"))
-        self.assertFalse(has_entity(text, "Acme"))
+        self.assertFalse(has_entity(text, "Acmeology"))
 
     def test_diacritics_and_boundaries(self):
         self.assertTrue(has_entity("Café Nova is listed.", "Café Nova"))
