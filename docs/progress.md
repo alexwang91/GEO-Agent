@@ -23,7 +23,7 @@
 | V6 provider-backed GEO agent | DONE | Historical loop completed before retained V8 changelog. |
 | V7 AI visibility workbench | DONE | Completed before V8; do not re-plan or redo. |
 | V8 measurement foundation hardening | DONE | See `docs/v8-changelog.md`. |
-| Loop V9 real-world readiness | TODO | V9-01 through V9-06 are DONE; V9-07 remains TODO. |
+| Loop V9 real-world readiness | DONE | V9-01 through V9-07 are DONE; see `docs/v9-changelog.md`. |
 
 ## Milestone State
 
@@ -43,12 +43,11 @@
 | V9-04 | DONE | desktop-run-flow-wiring |
 | V9-05 | DONE | extraction-regression-on-realistic-data |
 | V9-06 | DONE | real-brand-validation-run |
-| V9-07 | TODO | limitations-and-provider-matrix-refresh |
+| V9-07 | DONE | limitations-and-provider-matrix-refresh |
 
 ## Invariants
 
-- First TODO is V9-07.
+- V9 is complete.
 - V1 through V8 are DONE history and must not be re-planned.
-- V9 adds no new analytics; it makes the existing engine real, usable, and validated.
 - CI remains deterministic.
 - Real web access remains opt-in.
