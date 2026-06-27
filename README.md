@@ -8,7 +8,7 @@ GEO-Agent is an alpha/technical-preview workbench for evidence-backed AI search 
 
 The repository has moved out of the external runner planning-loop format. Historical implementation notes are consolidated in `docs/v8-changelog.md`; obsolete loop, progress, handoff, and runner-state documents have been removed.
 
-Current CI-verifiable behavior is fixture-backed, manual-import oriented, or routed through explicit provider-boundary code. Live crawling is available only through an explicit opt-in fetch seam and is tested with fake clients in CI.
+Current CI-verifiable behavior is fixture-backed, manual-import oriented, or routed through explicit provider-boundary code. Live crawling is available only through an explicit opt-in fetch seam and is tested with fake clients in CI. OpenAI-compatible API output is not ChatGPT Search.
 
 ## Product contract
 
