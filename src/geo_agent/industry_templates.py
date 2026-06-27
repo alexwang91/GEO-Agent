@@ -39,3 +39,13 @@ def ecommerce_template() -> IndustryTemplate:
         ("owned", "review", "marketplace", "community", "earned"),
         ("weak_citation_absorption", "competitor_displacement", "claim_fidelity_gap", "missing_owned_content"),
     )
+
+
+def local_service_template() -> IndustryTemplate:
+    return IndustryTemplate(
+        "industry:local_service",
+        "Local Service",
+        ("near me intent", "service cost", "booking process", "reviews and reputation", "emergency availability"),
+        ("owned", "directory", "review", "community", "earned"),
+        ("missing_owned_content", "weak_citation_absorption", "competitor_displacement", "claim_fidelity_gap"),
+    )
