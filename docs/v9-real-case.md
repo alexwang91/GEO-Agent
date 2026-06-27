@@ -24,6 +24,23 @@ Real-case verification record:
 - No raw credentials or private data are required for this crawl.
 - This milestone does not add analytics; it only enables the vertical-slice evidence acquisition path.
 
+## V9-2 Evidence Gate
+
+Manual-capture import code exists and supports pasted answer text, citations, engine, captured_at, region, language, brand, and aliases.
+
+V9-2 is not marked DONE in this branch because the real manual capture evidence is not present in this repository state. To complete V9-2, record sanitized capture metadata here:
+
+| Field | Value |
+| :--- | :--- |
+| Engine | TODO |
+| Query | TODO |
+| Captured at | TODO |
+| Citation URLs | TODO |
+| Redaction checked | TODO |
+| Converted to EngineRun | TODO |
+
+Do not paste private data, API keys, cookies, tokens, or credential labels.
+
 ## Remaining V9 Evidence To Collect
 
 - V9-2: manually captured real AI answers and citations.
