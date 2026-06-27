@@ -10,7 +10,7 @@ Loop V9 is one thin vertical slice, not a module backlog. Success means one cons
 - Requested planning branch: `v9-vertical-slice-plan`
 - Actual planning branch: `v9-slice-plan`
 - State source: this file
-- First TODO: V9-1
+- First TODO: V9-2
 
 ## Milestone State
 
@@ -24,7 +24,7 @@ Loop V9 is one thin vertical slice, not a module backlog. Success means one cons
 | V6 | DONE | Historical provider-backed agent |
 | V7 | DONE | AI visibility workbench history |
 | V8 | DONE | Measurement foundation hardening; see `docs/v8-changelog.md` |
-| V9-1 | TODO | Minimal real FetchClient for the one brand site |
+| V9-1 | DONE | Minimal real FetchClient for the one brand site |
 | V9-2 | TODO | Manual capture import for real AI answers |
 | V9-3 | TODO | Desktop real report path |
 | V9-4 | TODO | Eval-first trust gate |
