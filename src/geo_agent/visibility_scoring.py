@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from .engine_sampling import EngineRun
+from .entity_resolution import domain_matches, find_entity_matches, has_entity
 
 @dataclass(frozen=True)
 class VisibilityScore:
@@ -76,14 +77,12 @@ def compute_visibility_components(
 ) -> VisibilityComponents:
     if not runs:
         return VisibilityComponents(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-    name = brand.lower()
-    competitor_names = tuple(item.lower() for item in competitors)
     total = len(runs)
-    mentioned = [run for run in runs if _has_brand(run, name)]
-    cited = [run for run in runs if any(brand_domain in domain for domain in run.source_domains)]
-    recommended = [run for run in runs if name in {item.lower() for item in run.recommendations}]
+    mentioned = [run for run in runs if _has_brand(run, brand)]
+    cited = [run for run in runs if any(domain_matches(domain, brand_domain) for domain in run.source_domains)]
+    recommended = [run for run in runs if any(_same_entity(item, brand) for item in run.recommendations)]
     answered = [run for run in runs if run.raw_answer.strip()]
-    competitor_only = [run for run in runs if not _has_brand(run, name) and any(item in run.raw_answer.lower() for item in competitor_names)]
+    competitor_only = [run for run in runs if not _has_brand(run, brand) and any(has_entity(run.raw_answer, item) for item in competitors)]
     return VisibilityComponents(
         mention_share=round(len(mentioned) / total, 4),
         citation_share=round(len(cited) / total, 4),
@@ -96,7 +95,11 @@ def compute_visibility_components(
 
 
 def _has_brand(run: EngineRun, name: str) -> bool:
-    return name in run.raw_answer.lower() or name in {item.lower() for item in run.mentions}
+    return has_entity(run.raw_answer, name) or any(_same_entity(item, name) for item in run.mentions)
+
+
+def _same_entity(value: str, name: str) -> bool:
+    return bool(find_entity_matches(value, name)) and len(value.strip()) == len(find_entity_matches(value, name)[0].matched)
 
 
 def _answer_rank_score(runs: list[EngineRun], brand: str) -> float:
@@ -104,7 +107,8 @@ def _answer_rank_score(runs: list[EngineRun], brand: str) -> float:
         return 0.0
     scores = []
     for run in runs:
-        index = run.raw_answer.lower().find(brand.lower())
+        matches = find_entity_matches(run.raw_answer, brand)
+        index = matches[0].start if matches else -1
         scores.append(0.0 if index < 0 else min(1.0, 1 / (1 + index / 20)))
     return round(sum(scores) / len(scores), 4)
 
@@ -116,7 +120,7 @@ def _source_diversity_score(domains: set[str]) -> float:
 def _legacy_avg_rank(runs: list[EngineRun], brand: str) -> float:
     ranks = []
     for run in runs:
-        index = run.raw_answer.lower().find(brand.lower())
-        if index >= 0:
-            ranks.append(1 / (1 + index))
+        matches = find_entity_matches(run.raw_answer, brand)
+        if matches:
+            ranks.append(1 / (1 + matches[0].start))
     return round(sum(ranks) / len(ranks), 4) if ranks else 0.0
