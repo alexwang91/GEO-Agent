@@ -8,46 +8,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify runner docs
+      - name: Verify repository docs
         run: |
-          test -f AGENTS.md
           test -f README.md
           test -f docs/product-brief.md
           test -f docs/product-contract.md
           test -f docs/provider-status-language.md
           test -f docs/limitations.md
-          test -f docs/autonomous-runner.md
-          test -f docs/progress.md
-          test -f docs/next-steps-plan.md
-          test -f docs/development-principles.md
-          test -f docs/long-run-growth-loop.md
-          test -f docs/feedback-taxonomy.md
-          test -f docs/feedback-log.md
-          test -f docs/loop-trace.md
-          test -f docs/handoff-decision.md
-          test -f docs/review-and-renewal-loop.md
-          test -f docs/harness-repair-loop.md
-          test -f docs/loop-hypotheses.md
-          test -f docs/stopper-policy.md
-          test -f docs/loop-review.md
-          test -f docs/runner-prompt.md
-          test -f docs/state-audit.md
-          test -f docs/project-evaluation-v5.md
-          test -f docs/loop-v5.md
-          test -f docs/project-evaluation-v6.md
-          test -f docs/loop-v6.md
-          test -f docs/project-evaluation-v7.md
-          test -f docs/loop-v7.md
-          test -f tests/test_docs_state_consistency.py
+          test -f docs/v8-changelog.md
           test -f tests/test_product_contract_docs.py
           test -f tests/test_v8_01_foundation_invariants.py
+          test -f tests/test_v8_02_03_entity_resolution.py
+          test -f tests/test_v8_04_statistics_wiring.py
+          test -f tests/test_v8_05_live_crawler.py
           test -f tools/check_coverage.py
           test -f tools/check_python_style.py
           test -f tools/check_type_annotations.py
-          test -f .github/pull_request_template.md
-          grep -q "V8-01" docs/progress.md
-          grep -q "V8-01" docs/next-steps-plan.md
-          grep -q "GitHub-only" docs/runner-prompt.md
           ! find . -maxdepth 4 -type f \( -name noop -o -name dummy -o -name x -o -name y \) | grep .
   python-tests:
     runs-on: ubuntu-latest
