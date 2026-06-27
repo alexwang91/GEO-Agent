@@ -6,6 +6,8 @@ from datetime import datetime, timezone
 from typing import Protocol
 from urllib.parse import urlparse
 
+from .entity_resolution import extract_urls, find_entity_matches, normalize_domain
+
 
 @dataclass(frozen=True)
 class EngineRun:
@@ -76,21 +78,35 @@ def sample_with_adapter(adapter: EngineAdapter, query: str, *, region: str, lang
 def run_from_payload(
     payload: dict[str, object], *, engine: str, query: str, region: str, language: str, timestamp: str | None = None
 ) -> EngineRun:
-    citations = tuple(str(item) for item in payload.get("citations", []))
+    raw_answer = str(payload.get("raw_answer", ""))
+    citations = _payload_tuple(payload.get("citations", ())) or extract_urls(raw_answer)
     domains = tuple(domain for item in citations if (domain := _domain(item)))
+    mentions = _payload_tuple(payload.get("mentions", ()))
+    brand = str(payload.get("brand", ""))
+    aliases = tuple(str(item) for item in payload.get("brand_aliases", ())) if isinstance(payload.get("brand_aliases", ()), (list, tuple)) else ()
+    if not mentions and brand:
+        mentions = tuple(match.matched for match in find_entity_matches(raw_answer, brand, aliases))
     return EngineRun(
         engine=engine,
         query=query,
         timestamp=timestamp or str(payload.get("timestamp") or datetime.now(timezone.utc).isoformat()),
         region=region,
         language=language,
-        raw_answer=str(payload.get("raw_answer", "")),
+        raw_answer=raw_answer,
         citations=citations,
-        mentions=tuple(str(item) for item in payload.get("mentions", [])),
-        recommendations=tuple(str(item) for item in payload.get("recommendations", [])),
+        mentions=mentions,
+        recommendations=_payload_tuple(payload.get("recommendations", ())),
         source_domains=domains,
     )
 
 
+def _payload_tuple(value: object) -> tuple[str, ...]:
+    if isinstance(value, (list, tuple)):
+        return tuple(str(item) for item in value)
+    if value:
+        return (str(value),)
+    return ()
+
+
 def _domain(value: str) -> str:
-    return (urlparse(value).hostname or "").removeprefix("www.")
+    return normalize_domain(urlparse(value).hostname or value) if value else ""
