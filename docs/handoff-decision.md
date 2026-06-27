@@ -5,12 +5,13 @@
 - Mode: `external_agent_development`
 - Repository: `alexwang91/GEO-Agent`
 - Base branch: `main`
-- Planning branch: `v9-readiness-plan`
-- First TODO: V9-01 concrete-live-crawler-client
+- Requested planning branch: `v9-vertical-slice-plan`
+- Actual planning branch: `v9-slice-plan`
+- First TODO: V9-1 minimal real FetchClient
 
 ## Reason
 
-The repository is an existing advanced project. V7 and V8 are DONE history. The cleanup removed runner state files, so this planning branch re-establishes the minimum state source needed for the external runner.
+This is an existing advanced repo. V7 and V8 are DONE. Loop V9 is redefined as one thin real-data vertical slice, not a module backlog.
 
 ## Required Merge Before Execution
 
@@ -18,4 +19,4 @@ The external runner reads state from `main`. Merge this planning branch into `ma
 
 ## No Bootstrap
 
-Do not bootstrap from scratch. Do not re-plan V7 or V8. Use `docs/progress.md` and `docs/next-steps-plan.md` as the V9 source of truth.
+Do not bootstrap from scratch. Do not re-plan V7 or V8. Use `docs/progress.md` as the state source.
