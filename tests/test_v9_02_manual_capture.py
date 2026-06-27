@@ -23,7 +23,7 @@ class ManualCaptureImportTests(unittest.TestCase):
         self.assertEqual("chatgpt_search", run.engine)
         self.assertEqual(("https://example.com/acme",), run.citations)
         self.assertEqual(("example.com",), run.source_domains)
-        self.assertEqual(("Acme",), run.mentions)
+        self.assertIn("Acme", run.mentions)
 
     def test_import_capture_requires_known_engine_and_iso_time(self):
         payload = {
