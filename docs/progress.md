@@ -23,7 +23,7 @@
 | V6 provider-backed GEO agent | DONE | Historical loop completed before retained V8 changelog. |
 | V7 AI visibility workbench | DONE | Completed before V8; do not re-plan or redo. |
 | V8 measurement foundation hardening | DONE | See `docs/v8-changelog.md`. |
-| Loop V9 real-world readiness | TODO | Backlog V9-01 through V9-07 below. |
+| Loop V9 real-world readiness | TODO | V9-01 is DONE; V9-02 through V9-07 remain TODO. |
 
 ## Milestone State
 
@@ -37,7 +37,7 @@
 | V6 | DONE | Provider-backed GEO agent history |
 | V7 | DONE | AI visibility workbench history |
 | V8 | DONE | Measurement foundation hardening; see `docs/v8-changelog.md` |
-| V9-01 | TODO | concrete-live-crawler-client |
+| V9-01 | DONE | concrete-live-crawler-client |
 | V9-02 | TODO | manual-capture-import-ux |
 | V9-03 | TODO | desktop-real-report-loading |
 | V9-04 | TODO | desktop-run-flow-wiring |
@@ -47,8 +47,8 @@
 
 ## Invariants
 
-- First TODO is V9-01.
+- First TODO is V9-02.
 - V1 through V8 are DONE history and must not be re-planned.
 - V9 adds no new analytics; it makes the existing engine real, usable, and validated.
-- Real network paths must be opt-in and excluded from CI via fake clients.
-- Never persist raw credentials into artifacts, logs, manifests, databases, or UI state.
+- CI remains deterministic.
+- Real web access remains opt-in.
