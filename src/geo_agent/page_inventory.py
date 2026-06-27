@@ -7,8 +7,9 @@ from email.utils import parsedate_to_datetime
 import re
 from typing import Protocol
 from urllib.parse import urljoin, urlparse
-from urllib.request import urlopen
 from xml.etree import ElementTree
+
+from .http_fetch_client import FetchClientError, UrlLibFetchClient
 
 
 @dataclass(frozen=True)
@@ -58,12 +59,20 @@ class StaticPageFetcher:
 
 
 class UrlLibPageFetcher:
-    """Minimal real fetcher seam. Tests should use StaticPageFetcher."""
+    """Compatibility wrapper around the concrete urllib fetch client."""
+
+    def __init__(self, fetch_client: UrlLibFetchClient | None = None, *, timeout_seconds: float = 10.0) -> None:
+        self.fetch_client = fetch_client or UrlLibFetchClient()
+        self.timeout_seconds = timeout_seconds
 
     def fetch(self, url: str) -> FetchResponse:
-        with urlopen(url, timeout=10) as response:
-            body = response.read().decode(response.headers.get_content_charset() or "utf-8", errors="replace")
-            return FetchResponse(url=response.geturl(), body=body, content_type=response.headers.get_content_type())
+        try:
+            status_code, body = self.fetch_client.get(url, timeout_seconds=self.timeout_seconds)
+        except FetchClientError as exc:
+            raise PageInventoryError(str(exc)) from exc
+        if status_code >= 400:
+            raise PageInventoryError(f"HTTP {status_code} for URL: {url}")
+        return FetchResponse(url=url, body=body, content_type=_content_type(url))
 
 
 class PageInventoryError(ValueError):
