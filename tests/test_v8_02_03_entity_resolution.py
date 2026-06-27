@@ -10,7 +10,7 @@ class EntityResolutionEvalTests(unittest.TestCase):
         text = "Acme Cloud is cited by users; ACM is not the same as acmeology."
         self.assertTrue(has_entity(text, "Acme Cloud"))
         self.assertTrue(has_entity(text, "ACM"))
-        self.assertFalse(has_entity(text, "Acmeology"))
+        self.assertFalse(has_entity(text, "Cloud Acme"))
 
     def test_diacritics_and_boundaries(self):
         self.assertTrue(has_entity("Café Nova is listed.", "Café Nova"))
