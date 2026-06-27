@@ -7,6 +7,7 @@ from typing import Literal, Protocol
 from urllib.parse import urlparse
 from xml.etree import ElementTree
 
+from .http_fetch_client import FetchClientError, UrlLibFetchClient
 from .page_inventory import PageInventoryError, PageInventoryRecord, parse_page
 from .provider_access import ProviderAccessError
 
@@ -95,8 +96,8 @@ class StaticCrawlerProviderV2:
 class LiveCrawlerProviderV2:
     provider_id = "live_crawler_v2"
 
-    def __init__(self, fetch_client: FetchClient) -> None:
-        self.fetch_client = fetch_client
+    def __init__(self, fetch_client: FetchClient | None = None) -> None:
+        self.fetch_client = fetch_client or UrlLibFetchClient()
 
     def crawl(self, request: CrawlerProviderV2Request) -> CrawlerProviderV2Result:
         if request.provider_id != self.provider_id:
@@ -105,13 +106,19 @@ class LiveCrawlerProviderV2:
             raise ProviderAccessError("Live fetch requires allow_live_fetch=True.")
         pages: dict[str, str] = {}
         results: list[PageCrawlResult] = []
+        candidates: dict[str, PageCrawlSource] = {}
         for url in request.manual_urls:
-            status_code, html = self.fetch_client.get(url, timeout_seconds=request.timeout_seconds)
+            try:
+                status_code, html = self.fetch_client.get(url, timeout_seconds=request.timeout_seconds)
+            except FetchClientError as exc:
+                results.append(PageCrawlResult(url, "failed", "live", message=str(exc)))
+                continue
             if status_code >= 400:
                 results.append(PageCrawlResult(url, "failed", "live", message=f"HTTP {status_code}"))
-            else:
-                pages[url] = html
-        crawled = _crawl_candidates(request.provider_id, {url: "live" for url in request.manual_urls}, pages, {}, request.chunk_size)
+                continue
+            pages[url] = html
+            candidates[url] = "live"
+        crawled = _crawl_candidates(request.provider_id, candidates, pages, {}, request.chunk_size)
         return CrawlerProviderV2Result(request.provider_id, crawled.pages, tuple([*results, *crawled.page_results]))
 
 
