@@ -1,4 +1,5 @@
-import { buildReportArtifactView, sampleManifestArtifact, sampleReportArtifact } from './reportArtifacts';
+import { useState } from 'react';
+import { demoReportArtifactView, emptyReportArtifactView, loadReportArtifactViewFromFiles } from './reportArtifacts';
 
 const navItems = [
   'Providers',
@@ -60,9 +61,6 @@ const runPaths = [
   { label: 'Provider access issue', statusKey: 'unavailable', command: 'resolve_provider_access()' },
 ];
 
-const reportView = buildReportArtifactView(sampleManifestArtifact, sampleReportArtifact);
-const packageFiles = ['manifest.json', ...reportView.files];
-
 function statusClass(status) {
   return status.toLowerCase().replaceAll(' ', '-').replaceAll('/', '-');
 }
@@ -75,7 +73,7 @@ function MetricCard({ label, value }) {
   return (
     <article className="metric-card">
       <span>{label}</span>
-      <strong>{value}</strong>
+      <strong>{value ?? 'n/a'}</strong>
     </article>
   );
 }
@@ -95,6 +93,31 @@ function ListBlock({ title, values }) {
 }
 
 export function App() {
+  const [reportView, setReportView] = useState(emptyReportArtifactView());
+  const [loadState, setLoadState] = useState('empty');
+  const [loadError, setLoadError] = useState('');
+  const packageFiles = reportView.files.length ? ['manifest.json', ...reportView.files] : [];
+
+  async function handlePackageFiles(event) {
+    setLoadState('loading');
+    setLoadError('');
+    try {
+      const view = await loadReportArtifactViewFromFiles(event.target.files || []);
+      setReportView(view);
+      setLoadState('loaded');
+    } catch (error) {
+      setReportView(emptyReportArtifactView());
+      setLoadState('error');
+      setLoadError(error.message);
+    }
+  }
+
+  function loadDemoPackage() {
+    setReportView(demoReportArtifactView());
+    setLoadState('demo');
+    setLoadError('');
+  }
+
   return (
     <main className="app-shell">
       <aside className="sidebar" aria-label="Workflow navigation">
@@ -174,22 +197,18 @@ export function App() {
           </div>
           <button disabled>Run fixture audit from local file</button>
           <button disabled>Run selected audit path</button>
-          <ol>
-            <li>Build query space</li>
-            <li>Crawl owned pages from fixture or fake/static provider data</li>
-            <li>Read recorded or fake answer runs</li>
-            <li>Store evidence</li>
-            <li>Score visibility</li>
-            <li>Diagnose failures</li>
-            <li>Generate tasks</li>
-            <li>Write audit package</li>
-          </ol>
         </section>
 
         <section id="report" className="panel">
           <h3>Report</h3>
-          <p>No audit report yet for a new project. Run or import an audit package to generate visibility evidence.</p>
-          <p className="eyebrow">Generated package artifact: {reportView.source}</p>
+          <p className="security-note">Load a real generated audit package by selecting its manifest.json and report.json files. Demo data is available only through the explicit demo button.</p>
+          <input type="file" multiple accept="application/json,.json" onChange={handlePackageFiles} aria-label="Load generated audit package" />
+          <button type="button" onClick={loadDemoPackage}>Load labeled demo package</button>
+          {loadState === 'loading' && <p className="eyebrow">Loading package...</p>}
+          {loadState === 'error' && <p className="security-note">Package load error: {loadError}</p>}
+          {loadState === 'empty' && <p>No audit report loaded. Select a generated audit package to render real evidence.</p>}
+          <p className="eyebrow">Artifact source: {reportView.sourceLabel}</p>
+          <p className="eyebrow">Artifact kind: {reportView.artifactKind}</p>
           <p>Package: {reportView.packageId} generated at {reportView.generatedAt}</p>
           <p className="security-note">Report provider notes must preserve status: manual import is imported evidence, simulated paths are test evidence, planned providers collect no evidence, and unavailable providers did not run.</p>
           {reportView.warnings.map((warning) => (
@@ -209,20 +228,19 @@ export function App() {
             <ListBlock title="Recommended tasks" values={reportView.recommendedActions} />
             <ListBlock title="Retest plan" values={reportView.retestPlan} />
           </div>
-          <div className="download-actions" aria-label="Report export actions">
-            <button disabled>Download report.json</button>
-            <button disabled>Download report.md</button>
-            <button disabled>Download audit package</button>
-          </div>
         </section>
 
         <section id="evidence-package" className="panel">
           <h3>Evidence Package</h3>
-          <ul>
-            {packageFiles.map((output) => (
-              <li key={output}>{output}</li>
-            ))}
-          </ul>
+          {packageFiles.length ? (
+            <ul>
+              {packageFiles.map((output) => (
+                <li key={output}>{output}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No package files loaded.</p>
+          )}
         </section>
       </section>
     </main>
