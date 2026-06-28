@@ -41,6 +41,15 @@ V9-2 is not marked DONE in this branch because the real manual capture evidence 
 
 Do not paste private data, API keys, cookies, tokens, or credential labels.
 
+## V9-3 Desktop Readiness
+
+The desktop report-loading path is implementation-ready:
+
+- `apps/desktop/src/reportArtifacts.js` loads a real generated package from `manifest.json` and `report.json`.
+- It keeps demo data behind an explicit demo path and labels demo output as demo.
+- `apps/desktop/src/App.jsx` exposes empty, loading, error, demo, and loaded report states.
+- V9-3 remains real-case pending until a generated package from the real V9 evidence path is loaded and recorded.
+
 ## Remaining V9 Evidence To Collect
 
 - V9-2: manually captured real AI answers and citations.
