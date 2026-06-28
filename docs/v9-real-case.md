@@ -61,15 +61,15 @@ The desktop report-loading path is implementation-ready:
 
 Realistic extraction regression coverage exists in `tests/test_v9_05_extraction_regression.py` and `tests/fixtures/realistic_answer_samples.json`.
 
-Minimum bar:
+Fixture-level result:
 
-| Metric | Bar |
-| :--- | :--- |
-| Entity precision | 0.75 |
-| Entity recall | 0.80 |
-| URL recall | 0.95 |
+| Metric | Bar | Measured | Result |
+| :--- | :--- | :--- | :--- |
+| Entity precision | 0.75 | 0.75 | pass |
+| Entity recall | 0.80 | 1.00 | pass |
+| URL recall | 0.95 | 1.00 | pass |
 
-If this gate fails, extraction must be fixed before generated reports are used as trusted evidence. This gate reuses existing extraction code and does not add analytics modules.
+This is the fixture-level gate result only. The real-run eval under V9-5 is still pending. If this gate fails in future changes, extraction must be fixed before generated reports are used as trusted evidence. This gate reuses existing extraction code and does not add analytics modules.
 
 ## V9-5 Run Checklist
 
@@ -93,5 +93,4 @@ Recovery path: once the real captures are provided, resume at V9-2, generate the
 - V9-1: successful one-off real crawl with sanitized result fields.
 - V9-2: manually captured real AI answers and citations.
 - V9-3: real generated package rendered in desktop.
-- V9-4: extraction precision/recall gate on realistic samples.
 - V9-5: full run, task usefulness review, retest delta, and confidence record.
