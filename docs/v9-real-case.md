@@ -50,6 +50,20 @@ The desktop report-loading path is implementation-ready:
 - `apps/desktop/src/App.jsx` exposes empty, loading, error, demo, and loaded report states.
 - V9-3 remains real-case pending until a generated package from the real V9 evidence path is loaded and recorded.
 
+## V9-4 Eval Gate
+
+Realistic extraction regression coverage exists in `tests/test_v9_05_extraction_regression.py` and `tests/fixtures/realistic_answer_samples.json`.
+
+Minimum bar:
+
+| Metric | Bar |
+| :--- | :--- |
+| Entity precision | 0.75 |
+| Entity recall | 0.80 |
+| URL recall | 0.95 |
+
+If this gate fails, extraction must be fixed before generated reports are used as trusted evidence. This gate reuses existing extraction code and does not add analytics modules.
+
 ## Remaining V9 Evidence To Collect
 
 - V9-2: manually captured real AI answers and citations.
