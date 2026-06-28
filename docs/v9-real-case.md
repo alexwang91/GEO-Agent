@@ -64,6 +64,23 @@ Minimum bar:
 
 If this gate fails, extraction must be fixed before generated reports are used as trusted evidence. This gate reuses existing extraction code and does not add analytics modules.
 
+## V9-5 Run Checklist
+
+V9-5 remains blocked until the real capture and retest inputs exist. Do not mark V9-5 DONE until every item below is filled with sanitized evidence:
+
+| Required item | Status |
+| :--- | :--- |
+| Real manual capture imported | TODO |
+| Real generated package created | TODO |
+| Desktop real package render recorded | TODO |
+| Eval gate result recorded | TODO |
+| Task usefulness reviewed | TODO |
+| Retest delta recorded | TODO |
+| Confidence statement recorded | TODO |
+| Limitations updated | TODO |
+
+Recovery path: once the real captures are provided, resume at V9-2, generate the package, load it in desktop, run the eval gate, then record the retest result here.
+
 ## Remaining V9 Evidence To Collect
 
 - V9-2: manually captured real AI answers and citations.
