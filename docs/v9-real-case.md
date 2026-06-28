@@ -10,19 +10,26 @@
 
 ## V9-1 Evidence
 
-The minimal real FetchClient part of the vertical slice is satisfied by the current code path:
+The minimal real FetchClient code path is engineering-ready:
 
 - `UrlLibFetchClient` implements concrete HTTP fetch behavior using stdlib urllib.
 - It validates http/https URLs, supports timeout, retry, HTTP error handling, and robots.txt checks.
 - `LiveCrawlerProviderV2` uses that client only behind `allow_live_fetch=True`.
 - CI coverage uses fake clients and does not perform network access.
 
-Real-case verification record:
+Real-crawl attempt record:
 
-- The selected brand and site are public and consented.
-- The crawler boundary is ready for an opt-in crawl of the selected site.
-- No raw credentials or private data are required for this crawl.
-- This milestone does not add analytics; it only enables the vertical-slice evidence acquisition path.
+| Field | Value |
+| :--- | :--- |
+| Attempted URL | `https://github.com/alexwang91/GEO-Agent` |
+| Fetched at | `2026-06-28T14:35:00+02:00` |
+| Credentials/private data | none |
+| robots.txt | fetched successfully; observed `User-agent: *` rules do not block the repository root path |
+| URL fetch result | failed in this execution environment: target page returned fetch error `Cache miss` |
+| HTTP status | unavailable because the target HTML fetch did not complete |
+| Extracted title/hash | unavailable because the target HTML fetch did not complete |
+
+V9-1 is therefore not marked DONE. It is engineering-ready and real-crawl pending until the project-owned URL is fetched successfully with the opt-in live client and sanitized result fields are recorded here.
 
 ## V9-2 Evidence Gate
 
@@ -83,6 +90,7 @@ Recovery path: once the real captures are provided, resume at V9-2, generate the
 
 ## Remaining V9 Evidence To Collect
 
+- V9-1: successful one-off real crawl with sanitized result fields.
 - V9-2: manually captured real AI answers and citations.
 - V9-3: real generated package rendered in desktop.
 - V9-4: extraction precision/recall gate on realistic samples.
