@@ -6,7 +6,7 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v10-geo-research-integration-plan`
-- First TODO: `V10-07 citation-level-feature-schema`
+- First TODO: `V10-08 content-feature-taxonomy-diagnosis`
 
 ## 2026-06-29 STEP 0 — Re-established Runner State
 
@@ -69,9 +69,19 @@
 ## 2026-06-29 V10-06 — Report Selection Absorption Attribution
 
 - Branch: `v10-06-report-decomposition`
+- PR: #120
 - Added report v2 per-engine decomposition for selection, absorption, and attribution.
-- Added a dedicated `Selection Absorption Attribution` report section and carried the three-layer breakdown into the aggregate metric summary.
+- Kept report section order compatible while carrying the three-layer breakdown in per-engine JSON and aggregate summary.
 - Added V10 regression coverage in `tests/test_v10_06_report_decomposition.py`.
+- CI: GitHub Actions `verify` run 347 passed.
+- Merged to `main`.
+
+## 2026-06-29 V10-07 — Citation-Level Feature Schema
+
+- Branch: `v10-07-citation-feature-schema`
+- Extended evidence graph citation records with citation-level selection, absorption, attribution, claim-fidelity, context, and feature-record fields.
+- Added deterministic citation feature extraction for owned-source attribution and answer absorption.
+- Added V10 regression coverage in `tests/test_v10_07_citation_features.py`.
 
 ## Guardrails
 
