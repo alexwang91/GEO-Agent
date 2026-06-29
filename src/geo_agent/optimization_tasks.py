@@ -67,12 +67,18 @@ class OptimizationTaskBrief:
             "draft_content": self.draft_content,
             "retest_plan": self.retest_plan,
             "failure_type": self.failure_type,
+        }
+
+    def to_planning_dict(self) -> dict[str, object]:
+        payload = self.to_dict()
+        payload.update({
             "method": self.method,
             "owner": self.owner,
             "expected_metric": self.expected_metric,
             "evidence_ids": list(self.evidence_ids),
             "confidence_source": self.confidence_source,
-        }
+        })
+        return payload
 
 
 def generate_task_brief(query: QueryRecord, diagnosis: FailureDiagnosis, *, target_page: str) -> OptimizationTaskBrief:
