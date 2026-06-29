@@ -4,21 +4,20 @@
 
 - Loop: V10 GEO-research integration
 - Base branch: `main`
-- First TODO: `V10-17 yao-governance-evals-release-guards`
+- First TODO: `NONE`
 
 ## Completed
 
-- V10-01 through V10-15 are merged to `main`.
+- V10-01 through V10-16 are merged to `main`.
 
-## V10-16
+## V10-17
 
-- Branch: `v10-16-skill-packaging`
-- Added `skills/geo-rewrite-skill/skill.json`.
-- Added `skills/geo-rewrite-skill/skill.md`.
-- Added `src/geo_agent/skill_packaging.py`.
-- Added `tests/test_v10_16_skill_packaging.py`.
+- Branch: `v10-17-release-guards`
+- Added `docs/release-guards.md`.
+- Added `src/geo_agent/release_guards.py`.
+- Added `tests/test_v10_17_release_guards.py`.
 
 ## Guardrails
 
-- Skill package stays outside GEO-Agent core execution.
+- Release requires all V10 milestones DONE.
 - CI remains network-free.
