@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { emptyManualCaptureView, loadManualCaptureViewFromFile } from './manualCaptureArtifacts';
 import { demoReportArtifactView, emptyReportArtifactView, loadReportArtifactViewFromFiles } from './reportArtifacts';
 
 const navItems = [
   'Providers',
   'Brand Profile',
   'Queries',
+  'Manual Capture',
   'Audit Run',
   'Report',
   'Evidence Package',
@@ -172,9 +174,41 @@ function EngineBreakdown({ engines }) {
   );
 }
 
+function ManualCaptureSummary({ view }) {
+  return (
+    <div className="report-grid">
+      <article className="evidence-block">
+        <h4>Package status</h4>
+        <p>State: {view.state}</p>
+        <p>Source: {view.sourceLabel}</p>
+        <p>Captures: {view.captureCount}</p>
+      </article>
+      <article className="evidence-block">
+        <h4>Profile</h4>
+        <p>Brand: {view.profile?.brand || 'n/a'}</p>
+        <p>Domain: {view.profile?.domain || 'n/a'}</p>
+      </article>
+      <article className="evidence-block">
+        <h4>Engines</h4>
+        <ul>
+          {(view.engines.length ? view.engines : ['No engines detected']).map((engine) => (
+            <li key={engine}>{engine}</li>
+          ))}
+        </ul>
+      </article>
+      <article className="evidence-block">
+        <h4>Package command</h4>
+        <code>{view.command}</code>
+      </article>
+    </div>
+  );
+}
+
 export function App() {
   const [brandProfile, setBrandProfile] = useState(defaultBrandProfile);
   const [queryPreview, setQueryPreview] = useState([]);
+  const [manualCaptureView, setManualCaptureView] = useState(emptyManualCaptureView());
+  const [manualCaptureError, setManualCaptureError] = useState('');
   const [reportView, setReportView] = useState(emptyReportArtifactView());
   const [loadState, setLoadState] = useState('empty');
   const [loadError, setLoadError] = useState('');
@@ -188,6 +222,21 @@ export function App() {
   function handleGenerateQueries(event) {
     event.preventDefault();
     setQueryPreview(buildQueryPreview(brandProfile));
+  }
+
+  async function handleManualCaptureFile(event) {
+    setManualCaptureError('');
+    try {
+      const view = await loadManualCaptureViewFromFile(event.target.files?.[0]);
+      setManualCaptureView(view);
+    } catch (error) {
+      setManualCaptureView({
+        ...emptyManualCaptureView(),
+        state: 'error',
+        errors: [error.message],
+      });
+      setManualCaptureError(error.message);
+    }
   }
 
   async function handlePackageFiles(event) {
@@ -291,6 +340,26 @@ export function App() {
           ) : (
             <p>No queries generated yet. Complete your brand profile first.</p>
           )}
+        </section>
+
+        <section id="manual-capture" className="panel">
+          <div className="card-header">
+            <div>
+              <h3>Manual Capture</h3>
+              <p>Import a captures.json file to validate pasted or recorded answer evidence before creating a package.</p>
+            </div>
+            <span className="status manual-import">Manual import</span>
+          </div>
+          <p className="security-note">Google AIO remains manual-only: AIO share links are gated and not auto-capturable. This UI validates evidence metadata; it does not run live providers.</p>
+          <input type="file" accept="application/json,.json" onChange={handleManualCaptureFile} aria-label="Load manual capture JSON" />
+          {manualCaptureError && <p className="security-note">Manual capture load error: {manualCaptureError}</p>}
+          {manualCaptureView.errors.map((error) => (
+            <p className="security-note" key={error}>Validation error: {error}</p>
+          ))}
+          {manualCaptureView.warnings.map((warning) => (
+            <p className="security-note" key={warning}>Evidence note: {warning}</p>
+          ))}
+          <ManualCaptureSummary view={manualCaptureView} />
         </section>
 
         <section id="audit-run" className="panel">
