@@ -1,15 +1,9 @@
 # Autonomous Progress
 
-## Loop V10 GEO-Research Integration
-
-State source for Loop V10.
-
 ## Branch State
 
 - Base branch: `main`
-- Loop: `Loop V10 GEO-research integration`
-- First TODO: `V10-13 ui-brand-form-query-preview`
-- Runner mode: GitHub-only development; CI verifies.
+- First TODO: `V10-14 ui-reproducible-preview-artifact`
 
 ## Milestone State
 
@@ -36,19 +30,8 @@ State source for Loop V10.
 | V10-10 | DONE | optimization-task-action-taxonomy |
 | V10-11 | DONE | optimization-execution-plugin-boundary |
 | V10-12 | DONE | geoflow-interface |
-| V10-13 | TODO | ui-brand-form-query-preview |
+| V10-13 | DONE | ui-brand-form-query-preview |
 | V10-14 | TODO | ui-reproducible-preview-artifact |
 | V10-15 | TODO | ui-capture-package-import-wizard |
 | V10-16 | TODO | yao-skill-packaging |
 | V10-17 | TODO | yao-governance-evals-release-guards |
-
-## Done Rule
-
-One milestone equals one branch, one PR, and CI verification before merge.
-
-## Guardrails
-
-- Implement V10 milestones in priority order.
-- Keep CI network-free.
-- Keep per-engine results primary.
-- Do not store secrets in artifacts, logs, manifests, databases, or UI state.
