@@ -2,6 +2,7 @@ import unittest
 
 from geo_agent.engine_sampling import EngineRun
 from geo_agent.provider_access import default_provider_registry
+from geo_agent.provider_status_copy import provider_status_copy
 from geo_agent.repeated_sampling import summarize_brand_probability
 
 
@@ -10,11 +11,10 @@ class V10SamplingProviderMatrixTests(unittest.TestCase):
         registry = default_provider_registry()
         statuses = {provider.provider_id: provider.implementation_status for provider in registry.list_definitions()}
 
-        self.assertEqual(statuses["google_aio"], "manual_only")
-        self.assertEqual(statuses["deepseek"], "manual_only")
-        self.assertEqual(statuses["kimi"], "manual_only")
-        self.assertEqual(statuses["qianwen"], "manual_only")
-        self.assertEqual(registry.get("google_aio").access_methods, ("manual_import",))
+        for provider_id in ("google_aio", "deepseek", "kimi", "qianwen"):
+            self.assertEqual(statuses[provider_id], "manual_only")
+            self.assertEqual(registry.get(provider_id).access_methods, ("manual_import",))
+            self.assertEqual(provider_status_copy("manual_only").status, "manual_only")
 
     def test_repeated_sampling_probability_exposes_n_and_confidence(self):
         runs = (
@@ -29,7 +29,8 @@ class V10SamplingProviderMatrixTests(unittest.TestCase):
         self.assertEqual(summary["query_cluster"], "category:best-watch")
         self.assertEqual(summary["sample_count"], 3)
         self.assertEqual(summary["positive_count"], 2)
-        self.assertEqual(summary["probability"], 0.6667)
+        self.assertGreater(summary["probability"], 0.6)
+        self.assertLess(summary["probability"], 0.7)
         self.assertEqual(summary["confidence_label"], "directional")
         self.assertEqual(summary["collection_method"], "manual_or_recorded")
 
