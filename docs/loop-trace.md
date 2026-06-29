@@ -6,7 +6,7 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v9f-real-case-fixes`
-- First TODO: `V9F-7 query-template-cleanup`
+- First TODO: `NONE - V9F complete`
 
 ## 2026-06-29 STEP 0 — Re-established Runner State
 
@@ -67,7 +67,18 @@
 - Documented Google AIO as manual-only because AIO share links are gated and not auto-capturable.
 - Preserved existing runtime provider status tables while recording manual-only as an evidence-boundary note.
 - Clarified small-n and aggregate-score results as directional context, not verdicts.
-- CI: GitHub Actions `verify` run 308 passed on commit `f1de7dd299cf3a7c7c5202fa4167951c36401145` before docs status update.
+- CI: GitHub Actions `verify` run 310 passed on final PR head.
+- Merged to `main`.
+
+## 2026-06-29 V9F-7 — Query Template Cleanup
+
+- Branch: `v9f7-query-cleanup`
+- PR: #112
+- Cleaned comparison query grammar from `Compare brand vs competitors for same product` to `Compare brand with competitors`.
+- Cleaned alternatives query grammar from `including A, and B` to a colon form with natural two-competitor joining.
+- Kept category template stable to avoid unrelated fixture churn.
+- Regression coverage checks natural Huawei Watch Fit 5 comparison and alternatives query output.
+- CI: GitHub Actions `verify` run 320 passed on commit `f8097bd217902cbf8b4a913451e18ab89b0379bf` before docs status update.
 - Final docs update committed after CI pass; re-run CI on final head before merging.
 
 ## Guardrails
