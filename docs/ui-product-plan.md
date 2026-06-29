@@ -9,7 +9,7 @@ Move the desktop shell from a report viewer preview toward an operable audit wor
 | Milestone | Status | Scope |
 | :--- | :--- | :--- |
 | UI-P1 | DONE | Editable Brand Profile form and query preview in the desktop shell. |
-| UI-P2 | TODO | Manual capture/package import workflow with validation states and manual-only evidence copy. |
+| UI-P2 | DONE | Manual capture/package import workflow with validation states and manual-only evidence copy. |
 | UI-P3 | TODO | Reproducible UI preview or screenshot artifact for product review. |
 
 ## UI-P1 Acceptance
@@ -26,6 +26,7 @@ Move the desktop shell from a report viewer preview toward an operable audit wor
 - Google AIO remains manual-only.
 - UI distinguishes generated package loading from demo data.
 - Validation errors are clear before any report render.
+- The UI summarizes capture count, profile, engines, warnings, errors, and the `geo-agent capture-package` command without running providers.
 
 ## UI-P3 Acceptance
 
