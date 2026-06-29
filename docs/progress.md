@@ -14,7 +14,7 @@ Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on 
 - Planning branch: `v9f-real-case-fixes`
 - Loop: `UI productization after V9F`
 - State source: this file plus `docs/ui-product-plan.md`
-- First TODO: `UI-P2 manual-capture-package-import-workflow`
+- First TODO: `UI-P3 reproducible-ui-preview-artifact`
 - Runner mode: GitHub-only development; CI verifies; no local repository operations required.
 
 ## Milestone State
@@ -38,7 +38,7 @@ Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on 
 | V9F-6 | DONE | record-evidence-and-honesty |
 | V9F-7 | DONE | query-template-cleanup |
 | UI-P1 | DONE | brand-profile-query-preview |
-| UI-P2 | TODO | manual-capture-package-import-workflow |
+| UI-P2 | DONE | manual-capture-package-import-workflow |
 | UI-P3 | TODO | reproducible-ui-preview-artifact |
 
 ## Done Rule

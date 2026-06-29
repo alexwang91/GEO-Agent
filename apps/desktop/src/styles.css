@@ -30,6 +30,14 @@ input {
   width: 100%;
 }
 
+code {
+  background: #f1f5f9;
+  border-radius: 6px;
+  display: inline-block;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.5rem;
+}
+
 .app-shell {
   display: grid;
   grid-template-columns: 260px 1fr;
@@ -170,6 +178,11 @@ input {
 .status.planned {
   background: #fef3c7;
   color: #92400e;
+}
+
+.status.manual-import {
+  background: #dbeafe;
+  color: #1e40af;
 }
 
 .status.implemented,
