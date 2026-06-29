@@ -10,7 +10,7 @@ Loop V10 integrates GEO measurement research into GEO-Agent's core while preserv
 - Planning branch: `v10-geo-research-integration-plan`
 - Loop: `Loop V10 GEO-research integration`
 - State source: this file plus `docs/loop-v10.md`
-- First TODO: `V10-07 citation-level-feature-schema`
+- First TODO: `V10-08 content-feature-taxonomy-diagnosis`
 - Runner mode: GitHub-only development; CI verifies; no local repository operations required.
 
 ## Milestone State
@@ -32,7 +32,7 @@ Loop V10 integrates GEO measurement research into GEO-Agent's core while preserv
 | V10-04 | DONE | capture-to-package-bridge |
 | V10-05 | DONE | position-adjusted-visibility |
 | V10-06 | DONE | report-v2-selection-absorption-attribution |
-| V10-07 | TODO | citation-level-feature-schema |
+| V10-07 | DONE | citation-level-feature-schema |
 | V10-08 | TODO | content-feature-taxonomy-diagnosis |
 | V10-09 | TODO | repeated-sampling-and-manual-only-provider-matrix |
 | V10-10 | TODO | optimization-task-action-taxonomy |
@@ -57,6 +57,6 @@ A milestone is DONE only when its deterministic regression test/check passes, CI
 - Keep CI network-free.
 - Use only explicit manual captures or sanctioned provider paths as real engine evidence.
 - Keep Google AIO manual-only; AIO share links are gated and not auto-capturable.
-- Keep DeepSeek, Kimi, Qianwen, and other Chinese AI engines manual-only unless a sanctioned provider path is explicitly added later.
+- Keep DeepSeek, Kimi, Qianwen, and other Chinese AI search engines manual-only unless a sanctioned provider path is explicitly added later.
 - Keep per-engine results primary and label single-sample or aggregate results as directional.
 - Do not store secrets in artifacts, logs, manifests, databases, or UI state.
