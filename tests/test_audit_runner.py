@@ -32,8 +32,8 @@ def recorded_runs():
     profile = validate_entity_profile(PROFILE)
     queries = [
         f"What is {profile.brand} for {profile.target_customer}?",
-        f"Best {profile.category} tools for {profile.target_customer} in US",
-        f"Compare {profile.brand} vs Globex for {profile.main_product}",
+        f"Best {profile.category} options for {profile.target_customer} in US",
+        f"Compare {profile.brand} with Globex",
     ]
     return {
         queries[0]: {
