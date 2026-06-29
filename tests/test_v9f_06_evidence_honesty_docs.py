@@ -29,12 +29,13 @@ class EvidenceHonestyDocsTests(unittest.TestCase):
         limitations = read("docs/limitations.md")
 
         for content in (real_case, limitations):
-            self.assertIn("single aggregate score", content)
-            self.assertIn("directional", content)
-            self.assertIn("manual capture", content)
-        self.assertIn("manual-only capture", real_case)
-        self.assertIn("per-engine and per-component", limitations)
-        self.assertIn("not a verdict", limitations)
+            normalized = content.lower()
+            self.assertIn("single aggregate score", normalized)
+            self.assertIn("directional", normalized)
+            self.assertIn("manual capture", normalized)
+        self.assertIn("manual-only capture", real_case.lower())
+        self.assertIn("per-engine and per-component", limitations.lower())
+        self.assertIn("not a verdict", limitations.lower())
 
 
 if __name__ == "__main__":
