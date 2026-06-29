@@ -43,7 +43,7 @@ class V10OptimizationTaxonomyTests(unittest.TestCase):
         )
 
         task = generate_task_brief(query, diagnosis, target_page="http://owned.test/acme-watch")
-        payload = task.to_dict()
+        payload = task.to_planning_dict()
 
         self.assertEqual(payload["method"], "quotation_addition")
         self.assertEqual(payload["owner"], "content_strategy")
