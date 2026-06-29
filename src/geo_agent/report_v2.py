@@ -6,6 +6,7 @@ from dataclasses import asdict, dataclass
 
 from .bootstrap_stats import BootstrapSummary, bootstrap_mean_interval
 from .engine_sampling import EngineRun
+from .entity_resolution import domain_matches
 from .visibility_scoring import WeightedVisibilityScore, compute_visibility_components
 
 
