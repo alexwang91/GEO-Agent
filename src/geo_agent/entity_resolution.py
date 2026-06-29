@@ -65,6 +65,23 @@ def find_entity_matches(text: str, canonical: str, aliases: tuple[str, ...] = ()
     return tuple(deduped)
 
 
+def dedupe_entity_matches(matches: tuple[EntityMatch, ...]) -> tuple[EntityMatch, ...]:
+    """Prefer the longest non-overlapping entity spans and one copy per normalized match."""
+
+    output: list[EntityMatch] = []
+    seen_normalized: set[str] = set()
+    for item in sorted(matches, key=lambda match: (match.start, -(match.end - match.start))):
+        normalized = normalize_text(item.matched)
+        if not normalized or normalized in seen_normalized:
+            continue
+        if any(_overlaps(item, kept) for kept in output):
+            continue
+        seen_normalized.add(normalized)
+        output.append(item)
+    output.sort(key=lambda item: item.start)
+    return tuple(output)
+
+
 def has_entity(text: str, canonical: str, aliases: tuple[str, ...] = ()) -> bool:
     return bool(find_entity_matches(text, canonical, aliases))
 
@@ -76,3 +93,7 @@ def _term_pattern(term: str) -> str:
     separator = r"[\s\-_\.]+"
     body = separator.join(re.escape(token) for token in tokens)
     return rf"(?<![\wÀ-ÖØ-öø-ÿ]){body}(?![\wÀ-ÖØ-öø-ÿ])"
+
+
+def _overlaps(left: EntityMatch, right: EntityMatch) -> bool:
+    return left.start < right.end and right.start < left.end

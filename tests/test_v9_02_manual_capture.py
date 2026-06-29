@@ -1,7 +1,9 @@
 import unittest
 
+from geo_agent.engine_sampling import run_from_payload
 from geo_agent.manual_capture import import_manual_capture, import_manual_captures, manual_captures_to_engine_runs
 from geo_agent.provider_access import ProviderAccessError
+from geo_agent.visibility_scoring import compute_visibility_components
 
 
 class ManualCaptureImportTests(unittest.TestCase):
@@ -24,6 +26,27 @@ class ManualCaptureImportTests(unittest.TestCase):
         self.assertEqual(("https://example.com/acme",), run.citations)
         self.assertEqual(("example.com",), run.source_domains)
         self.assertIn("Acme", run.mentions)
+
+    def test_import_capture_preserves_recommendations_for_scoring(self):
+        record = import_manual_capture(
+            {
+                "engine": "perplexity",
+                "query": "best smartwatches for Android",
+                "answer_text": "The answer recommends Huawei and alternatives.",
+                "citations": ["https://consumer.huawei.com/en/wearables/"],
+                "captured_at": "2026-06-29T12:00:00+00:00",
+                "region": "HU",
+                "language": "en",
+                "brand": "Huawei",
+                "recommendations": ["Huawei Watch GT 6 Pro"],
+            }
+        )
+
+        run = record.to_engine_run()
+        components = compute_visibility_components([run], brand="Huawei", brand_domain="consumer.huawei.com")
+
+        self.assertEqual(("Huawei Watch GT 6 Pro",), run.recommendations)
+        self.assertEqual(1.0, components.recommendation_share)
 
     def test_import_capture_requires_known_engine_and_iso_time(self):
         payload = {
@@ -72,6 +95,22 @@ class ManualCaptureImportTests(unittest.TestCase):
         self.assertEqual(2, len(runs))
         self.assertEqual(("https://source.example/page",), runs[0].citations)
         self.assertEqual("manual_import", runs[1].engine)
+
+    def test_fallback_mentions_are_deduplicated_by_normalized_entity(self):
+        run = run_from_payload(
+            {
+                "raw_answer": "Huawei Watch Fit 5 leads. Huawei Watch Fit 5 also beats generic trackers.",
+                "brand": "Huawei",
+                "brand_aliases": ["Watch Fit 5", "Huawei Watch Fit 5"],
+            },
+            engine="manual_import",
+            query="best fitness watch",
+            region="HU",
+            language="en",
+            timestamp="2026-06-29T12:01:00+00:00",
+        )
+
+        self.assertEqual(("Huawei Watch Fit 5",), run.mentions)
 
 
 if __name__ == "__main__":

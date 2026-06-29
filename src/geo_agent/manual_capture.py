@@ -26,6 +26,7 @@ class ManualCaptureRecord:
     language: str = "unknown"
     brand: str | None = None
     brand_aliases: tuple[str, ...] = ()
+    recommendations: tuple[str, ...] = ()
 
     def to_payload(self) -> dict[str, object]:
         payload: dict[str, object] = {
@@ -41,6 +42,8 @@ class ManualCaptureRecord:
             payload["brand"] = self.brand
         if self.brand_aliases:
             payload["brand_aliases"] = list(self.brand_aliases)
+        if self.recommendations:
+            payload["recommendations"] = list(self.recommendations)
         return payload
 
     def to_engine_run(self) -> EngineRun:
@@ -68,10 +71,22 @@ def import_manual_capture(payload: dict[str, object], *, forbidden_values: tuple
     answer_text = _non_empty(payload["answer_text"], "answer_text")
     citations = _string_tuple(payload.get("citations", ()), "citations")
     brand_aliases = _string_tuple(payload.get("brand_aliases", ()), "brand_aliases")
+    recommendations = _string_tuple(payload.get("recommendations", ()), "recommendations")
     brand = str(payload.get("brand", "")).strip() or None
     region = str(payload.get("region", "unknown")).strip() or "unknown"
     language = str(payload.get("language", "unknown")).strip() or "unknown"
-    record = ManualCaptureRecord(engine, query, answer_text, citations, captured_at, region, language, brand, brand_aliases)
+    record = ManualCaptureRecord(
+        engine,
+        query,
+        answer_text,
+        citations,
+        captured_at,
+        region,
+        language,
+        brand,
+        brand_aliases,
+        recommendations,
+    )
     assert_artifacts_safe({"manual_capture_normalized": record.to_payload()}, forbidden_values=forbidden_values)
     return record
 
