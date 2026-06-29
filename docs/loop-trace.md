@@ -2,23 +2,28 @@
 
 ## Current Loop
 
-- Loop: V9 vertical slice
+- Loop: V9F evidence-driven real-case fixes
 - State source: `docs/progress.md`
 - Base branch: `main`
-- First TODO: V9-1 real crawl pending, then V9-2
+- Planning branch: `v9f-real-case-fixes`
+- First TODO: `V9F-1 fix-recommendation-matching`
 
-## 2026-06-28 V9-1 Real Crawl Attempt
+## 2026-06-29 STEP 0 — Re-established Runner State
 
-- Branch: `v9-1-real-crawl`
-- Target URL: `https://github.com/alexwang91/GEO-Agent`
-- Credentials: none
-- Private data: none
-- robots.txt: fetched; repository root path not blocked by observed `User-agent: *` rules
-- Target HTML fetch: failed in this execution environment with `Cache miss`
-- Outcome: V9-1 relabeled from DONE to `engineering-ready (real crawl pending)` so the DONE bar remains consistent.
+- Created planning branch `v9f-real-case-fixes` from current `main`.
+- Re-established `docs/progress.md` as the V9F state source with V1 through V9 marked DONE and V9F-1 through V9F-7 marked TODO.
+- Added `docs/loop-v9f.md` as the loop directive.
+- Replaced `docs/v9-real-case.md` with the sanitized Huawei three-engine real-case evidence.
+- Refreshed `AGENTS.md`, `docs/handoff-decision.md`, and `docs/runner-prompt.md` so the first TODO is `V9F-1 fix-recommendation-matching`.
+- Guardrails preserved: one milestone/one PR, CI verifies, network-free CI, reuse V7/V8 code, no fabricated engine samples, Google AIO manual-only, directional labeling for small samples and aggregate scores, no raw credentials.
+
+## Next External Runner Action
+
+After `v9f-real-case-fixes` is merged into `main`, start `V9F-1 fix-recommendation-matching` from current `main`.
 
 ## Guardrails
 
 - CI remains network-free.
-- Real network work must remain explicit opt-in and one-off.
-- Do not mark V9-2, V9-3, or V9-5 DONE without real human capture evidence.
+- Real AI-engine evidence must come from explicit manual capture or sanctioned provider paths, not fabricated model/web-search output.
+- Do not mark a V9F milestone DONE without the deterministic test/check and CI verification.
+- Do not add new analytics modules.

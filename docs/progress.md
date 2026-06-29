@@ -1,16 +1,21 @@
 # Autonomous Progress
 
-## Loop Success Criterion
+## Loop V9F Real-Case Fix Loop
 
-Loop V9 is one thin vertical slice, not a module backlog. Success means one consented brand goes from project setup to real evidence, existing extraction/scoring/diagnosis/tasks, a real generated report rendered in the desktop app, and one retest with a measured delta and confidence.
+Brand Huawei, single Perplexity/ChatGPT session + manually pasted Google AIO (AIO share links are gated and NOT auto-capturable). 15 real answers. Per-engine Huawei visibility (directional, n small):
+- Perplexity n=6: mention 0.83, owned-citation 0.17, competitor-only 0.17, aggregate 0.48
+- ChatGPT n=5: mention 0.60, owned-citation 0.40, competitor-only 0.40, aggregate 0.49
+- Google AIO n=4: mention 1.00, owned-citation 1.00, competitor-only 0.00, aggregate 0.72
+Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on AIO, third-party-driven on Perplexity, dropped from "best smartwatches" category queries on ChatGPT). A single-engine audit or a single aggregate score MISLEADS. Huawei is absent from high-intent "best smartwatches for Android/fitness" queries on Perplexity/ChatGPT. consumer.huawei.com (owned) shapes AIO (4/4) and ChatGPT (2/5) far more than Perplexity (1/6).
 
 ## Branch State
 
 - Base branch: `main`
-- Requested planning branch: `v9-vertical-slice-plan`
-- Actual planning branch: `v9-slice-plan`
+- Planning branch: `v9f-real-case-fixes`
+- Loop: `Loop V9F evidence-driven real-case fixes`
 - State source: this file
-- First TODO: V9-1 real crawl pending, then V9-2
+- First TODO: `V9F-1 fix-recommendation-matching`
+- Runner mode: GitHub-only development; CI verifies; no local repository operations required.
 
 ## Milestone State
 
@@ -23,20 +28,27 @@ Loop V9 is one thin vertical slice, not a module backlog. Success means one cons
 | V5 | DONE | Historical UI/provider access |
 | V6 | DONE | Historical provider-backed agent |
 | V7 | DONE | AI visibility workbench history |
-| V8 | DONE | Measurement foundation hardening; see `docs/v8-changelog.md` |
-| V9-1 | engineering-ready (real crawl pending) | Minimal real FetchClient for the one brand site |
-| V9-2 | TODO | Manual capture import for real AI answers |
-| V9-3 | TODO | Desktop real report path |
-| V9-4 | TODO | Eval-first trust gate |
-| V9-5 | TODO | Real vertical-slice run and retest |
+| V8 | DONE | Measurement foundation hardening |
+| V9 | DONE | Historical real vertical-slice loop |
+| V9F-1 | TODO | fix-recommendation-matching |
+| V9F-2 | TODO | fix-manual-capture-recommendations-and-mention-dedup |
+| V9F-3 | TODO | capture-to-package-bridge |
+| V9F-4 | TODO | report-per-engine-and-component |
+| V9F-5 | TODO | desktop-render-multi-engine |
+| V9F-6 | TODO | record-evidence-and-honesty |
+| V9F-7 | TODO | query-template-cleanup |
 
 ## Done Rule
 
-A V9 milestone is DONE only when its part of the real case is proven and recorded in docs. Fixture CI is a regression gate, not the definition of DONE.
+A V9F milestone is DONE only when its deterministic regression test fails before the fix, passes after the fix, CI is green, and the milestone state plus evidence trail are updated. One milestone equals one branch, one PR, and CI verification before merge.
 
 ## Guardrails
 
-- No new analytics modules.
-- Reuse V7/V8 measurement code.
-- Real network access is opt-in and never runs in CI.
+- Fix backlog priority order is mandatory.
+- Do not add new analytics modules.
+- Reuse existing V7/V8 code and `entity_resolution` paths.
+- Keep CI network-free.
+- Never fabricate AI-engine answers or treat model/web-search output as a real engine sample.
+- Keep Google AIO `manual_only`; AIO share links are gated and not auto-capturable.
+- Keep single-sample and aggregate results labeled directional.
 - No raw credentials in artifacts, logs, manifests, databases, or UI state.

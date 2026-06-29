@@ -3,8 +3,8 @@
 ## Required read list
 
 1. `docs/progress.md`
-2. `docs/next-steps-plan.md`
-3. `docs/loop-v9.md`
+2. `docs/loop-v9f.md`
+3. `docs/v9-real-case.md`
 4. `docs/handoff-decision.md`
 5. `docs/runner-prompt.md`
 6. `docs/loop-trace.md`
@@ -15,18 +15,22 @@
 
 ## Current state
 
-- V1 through V8 are DONE history.
-- V9 is one vertical slice.
-- First TODO is V9-1 minimal real FetchClient.
+- This is an existing advanced repo. Do not bootstrap from scratch.
+- V1 through V9 are DONE history.
+- Current loop is Loop V9F: evidence-driven real-case fixes from the Huawei three-engine validation run.
+- First TODO is `V9F-1 fix-recommendation-matching`.
 - State source is `docs/progress.md`.
-- Actual planning branch is `v9-slice-plan`.
-- Requested planning branch was `v9-vertical-slice-plan`.
+- Planning branch is `v9f-real-case-fixes`.
+- External implementation branches must start from current `main` after the planning branch is merged.
 
 ## Guardrails
 
-- Do not bootstrap from scratch.
-- Do not re-plan V7 or V8.
-- Do not add analytics modules.
-- Real network access is opt-in and never in CI.
-- DONE requires real-case evidence in docs.
+- One milestone equals one branch, one PR, and CI verification.
+- Fix V9F milestones in priority order.
+- Do not add new analytics modules.
+- Reuse existing V7/V8 code and entity-resolution helpers.
+- CI must remain network-free.
+- Never fabricate AI-engine answers or treat model/web-search output as a real engine sample.
+- Google AIO remains `manual_only`; AIO share links are gated and not auto-capturable.
+- Single-sample and aggregate results must be labeled directional.
 - No raw credentials in artifacts, logs, manifests, databases, or UI state.
