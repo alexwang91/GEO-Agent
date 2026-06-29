@@ -15,7 +15,7 @@ class V10ReportDecompositionTests(unittest.TestCase):
                 "HU",
                 "en",
                 "Huawei Watch Fit 5 is mentioned with Apple Watch alternatives.",
-                ("https://example.com/android-watch",),
+                ("source-a",),
                 ("Huawei Watch Fit 5",),
                 ("Huawei Watch Fit 5",),
                 ("example.com",),
@@ -27,7 +27,7 @@ class V10ReportDecompositionTests(unittest.TestCase):
                 "HU",
                 "en",
                 "Huawei Watch Fit 5 is cited from Huawei.",
-                ("https://consumer.huawei.com/en/wearables/",),
+                ("source-b",),
                 ("Huawei Watch Fit 5",),
                 ("Huawei Watch Fit 5",),
                 ("consumer.huawei.com",),
@@ -38,18 +38,16 @@ class V10ReportDecompositionTests(unittest.TestCase):
         report = build_report_v2_from_runs(runs, brand="Huawei", brand_domain="consumer.huawei.com", score=score).to_dict()
 
         titles = [section["title"] for section in report["sections"]]
-        self.assertIn("Per-Engine Breakdown", titles)
-        self.assertIn("Selection Absorption Attribution", titles)
-        self.assertIn("Directional Aggregate", titles)
-        decomposition = report["sections"][1]["items"][0]
+        self.assertEqual(["Per-Engine Breakdown", "Directional Aggregate", "Diagnoses", "Optimization Tasks", "Retest Plan"], titles)
+        per_engine = report["sections"][0]["items"][0]
+        decomposition = per_engine["decomposition"]
         self.assertEqual(set(decomposition), {"selection", "absorption", "attribution"})
         self.assertEqual({item["layer"] for item in decomposition["selection"]}, {"selection"})
         self.assertEqual({item["layer"] for item in decomposition["absorption"]}, {"absorption"})
         self.assertEqual({item["layer"] for item in decomposition["attribution"]}, {"attribution"})
-        per_engine = report["sections"][0]["items"][0]
-        self.assertIn("decomposition", per_engine)
-        aggregate = report["sections"][2]["items"][0]["aggregate_score"]
-        self.assertEqual(aggregate["label"], "directional_not_verdict")
+        aggregate_summary = report["sections"][1]["items"][0]
+        self.assertEqual(aggregate_summary["aggregate_score"]["label"], "directional_not_verdict")
+        self.assertIn("selection_absorption_attribution", aggregate_summary)
 
 
 if __name__ == "__main__":
