@@ -1,7 +1,7 @@
 import unittest
 
 from geo_agent.engine_sampling import EngineRun
-from geo_agent.provider_access import manual_only_provider_matrix
+from geo_agent.manual_only_providers import manual_only_provider_matrix
 from geo_agent.provider_status_copy import provider_status_copy
 from geo_agent.repeated_sampling import summarize_brand_probability
 
@@ -9,11 +9,11 @@ from geo_agent.repeated_sampling import summarize_brand_probability
 class V10SamplingProviderMatrixTests(unittest.TestCase):
     def test_manual_only_provider_statuses_are_registered(self):
         statuses = {provider.provider_id: provider.implementation_status for provider in manual_only_provider_matrix()}
-        methods = {provider.provider_id: provider.access_methods for provider in manual_only_provider_matrix()}
+        methods = {provider.provider_id: provider.access_method for provider in manual_only_provider_matrix()}
 
         for provider_id in ("google_aio", "deepseek", "kimi", "qianwen"):
             self.assertEqual(statuses[provider_id], "manual_only")
-            self.assertEqual(methods[provider_id], ("manual_import",))
+            self.assertEqual(methods[provider_id], "manual_import")
             self.assertEqual(provider_status_copy("manual_only").status, "manual_only")
 
     def test_repeated_sampling_probability_exposes_n_and_confidence(self):
