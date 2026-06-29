@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from typing import Protocol
 from urllib.parse import urlparse
 
-from .entity_resolution import extract_urls, find_entity_matches, normalize_domain
+from .entity_resolution import dedupe_entity_matches, extract_urls, find_entity_matches, normalize_domain
 
 
 @dataclass(frozen=True)
@@ -85,7 +85,8 @@ def run_from_payload(
     brand = str(payload.get("brand", ""))
     aliases = tuple(str(item) for item in payload.get("brand_aliases", ())) if isinstance(payload.get("brand_aliases", ()), (list, tuple)) else ()
     if not mentions and brand:
-        mentions = tuple(match.matched for match in find_entity_matches(raw_answer, brand, aliases))
+        matches = dedupe_entity_matches(find_entity_matches(raw_answer, brand, aliases))
+        mentions = tuple(match.matched for match in matches)
     return EngineRun(
         engine=engine,
         query=query,
