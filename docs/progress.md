@@ -3,7 +3,7 @@
 ## Branch State
 
 - Base branch: `main`
-- First TODO: `V10-17 yao-governance-evals-release-guards`
+- First TODO: `NONE`
 
 ## Milestone State
 
@@ -34,4 +34,4 @@
 | V10-14 | DONE | ui-reproducible-preview-artifact |
 | V10-15 | DONE | ui-capture-package-import-wizard |
 | V10-16 | DONE | yao-skill-packaging |
-| V10-17 | TODO | yao-governance-evals-release-guards |
+| V10-17 | DONE | yao-governance-evals-release-guards |
