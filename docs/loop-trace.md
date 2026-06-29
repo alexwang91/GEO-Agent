@@ -6,7 +6,7 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v9f-real-case-fixes`
-- First TODO: `V9F-2 fix-manual-capture-recommendations-and-mention-dedup`
+- First TODO: `V9F-3 capture-to-package-bridge`
 
 ## 2026-06-29 STEP 0 — Re-established Runner State
 
@@ -15,25 +15,29 @@
 - Added `docs/loop-v9f.md` as the loop directive.
 - Replaced `docs/v9-real-case.md` with the sanitized Huawei three-engine real-case evidence.
 - Refreshed `AGENTS.md`, `docs/handoff-decision.md`, and `docs/runner-prompt.md` so the first TODO is `V9F-1 fix-recommendation-matching`.
-- Guardrails preserved: one milestone/one PR, CI verifies, network-free CI, reuse V7/V8 code, no fabricated engine samples, Google AIO manual-only, directional labeling for small samples and aggregate scores, no raw credentials.
+- Guardrails preserved.
 
 ## 2026-06-29 V9F-1 — Recommendation Matching
 
 - Branch: `v9f-1-fix-recommendation-matching`
 - PR: #105
-- Files changed: `src/geo_agent/visibility_scoring.py`, `tests/test_v9f_01_recommendation_matching.py`, `docs/progress.md`, `docs/loop-trace.md`
-- Bug fixed: recommendation matching no longer requires exact full-string equality.
-- Implementation: `_same_entity` now delegates to existing token-boundary entity matching through `has_entity`.
-- Regression coverage:
-  - `Huawei` matches `Huawei Watch GT 6 Pro` as a recommendation.
-  - `Apple Watch` still matches as a recommendation.
-  - `Huawei` does not match inside unrelated token `MegaHuaweiX`.
-- CI: GitHub Actions `verify` run 272 passed on commit `11de3337b2bc95242e8841689ae40b6a7df0cd23` before docs status update.
+- CI: GitHub Actions `verify` run 274 passed on final PR head.
+- Merged to `main`.
+
+## 2026-06-29 V9F-2 — Manual Capture Recommendations and Mention Dedup
+
+- Branch: `v9f-2-manual-capture-recommendations-dedup`
+- PR: #106
+- Files changed: `src/geo_agent/manual_capture.py`, `src/geo_agent/engine_sampling.py`, `src/geo_agent/entity_resolution.py`, `tests/test_v9_02_manual_capture.py`, `docs/progress.md`, `docs/loop-trace.md`
+- Manual captures now preserve `recommendations` through `EngineRun` conversion.
+- Fallback mention extraction now returns unique longest mention text for overlapping aliases.
+- Regression coverage checks recommendation scoring through manual capture and deduped Huawei Watch Fit 5 fallback mentions.
+- CI: GitHub Actions `verify` run 277 passed on commit `a35a0ab50348b1cd50fefe53db9738d1449274ac` before docs status update.
 - Final docs update committed after CI pass; re-run CI on final head before merging.
 
 ## Guardrails
 
 - CI remains network-free.
-- Real AI-engine evidence must come from explicit manual capture or sanctioned provider paths, not fabricated model/web-search output.
+- Real AI-engine evidence must come from explicit manual capture or sanctioned provider paths.
 - Do not mark a V9F milestone DONE without the deterministic test/check and CI verification.
 - Do not add new analytics modules.
