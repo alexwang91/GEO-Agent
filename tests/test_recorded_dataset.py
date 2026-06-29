@@ -34,7 +34,7 @@ def dataset():
                     "mentions": ["Acme AI"],
                     "recommendations": ["Acme AI"],
                 },
-                "Best GEO software tools for marketing teams in US": {
+                "Best GEO software options for marketing teams in US": {
                     "timestamp": "2026-06-24T00:01:00Z",
                     "raw_answer": "Globex appears in category lists.",
                     "citations": ["https://globex.com/"],
