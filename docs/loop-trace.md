@@ -6,7 +6,7 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v9f-real-case-fixes`
-- First TODO: `V9F-5 desktop-render-multi-engine`
+- First TODO: `V9F-6 record-evidence-and-honesty`
 
 ## 2026-06-29 STEP 0 — Re-established Runner State
 
@@ -46,10 +46,19 @@
 
 - Branch: `v9f-4-report-per-engine-component`
 - PR: #108
-- Added report v2 per-engine component summary for mention, owned citation, recommendation, and competitor-only shares.
-- Added a report v2 builder that leads with `Per-Engine Breakdown` and labels aggregate score as `directional_not_verdict`.
-- Regression coverage asserts per-engine report sections, component keys, engine-level directionality, and aggregate directionality labeling.
-- CI: GitHub Actions `verify` run 286 passed on commit `89f4d75c92204c98510dcf195b7bcb796dda1741` before docs status update.
+- Added report v2 per-engine component summary and directional aggregate labeling.
+- CI: GitHub Actions `verify` run 288 passed on final PR head.
+- Merged to `main`.
+
+## 2026-06-29 V9F-5 — Desktop Multi-Engine Render
+
+- Branch: `v9f-5-desktop-render-multi-engine`
+- PR: #109
+- Desktop artifact loader now parses report v2 `Per-Engine Breakdown` and `Directional Aggregate` sections.
+- Desktop report view renders per-engine component metrics before legacy score cards.
+- Demo artifacts remain explicitly labeled as demo and emit demo warnings.
+- Regression coverage structurally checks per-engine parsing and render ordering.
+- CI: GitHub Actions `verify` run 290 passed on commit `4914b1662703e7abb818cc81c803ef1480869848` before docs status update.
 - Final docs update committed after CI pass; re-run CI on final head before merging.
 
 ## Guardrails
