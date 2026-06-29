@@ -21,6 +21,15 @@ button:disabled {
   color: #64748b;
 }
 
+input {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #0f172a;
+  font: inherit;
+  padding: 0.625rem 0.75rem;
+  width: 100%;
+}
+
 .app-shell {
   display: grid;
   grid-template-columns: 260px 1fr;
@@ -78,7 +87,8 @@ button:disabled {
 .provider-grid,
 .run-path-grid,
 .metric-grid,
-.report-grid {
+.report-grid,
+.query-list {
   display: grid;
   gap: 1rem;
 }
@@ -92,18 +102,41 @@ button:disabled {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
-.report-grid {
+.report-grid,
+.query-list {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   margin-top: 1rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-top: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.field span {
+  color: #475569;
+  font-size: 0.85rem;
 }
 
 .provider-card,
 .run-path-card,
 .metric-card,
-.evidence-block {
+.evidence-block,
+.query-card {
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 1rem;
+}
+
+.query-card p {
+  margin-bottom: 0;
 }
 
 .metric-card {
@@ -139,6 +172,7 @@ button:disabled {
   color: #92400e;
 }
 
+.status.implemented,
 .status.available,
 .status.available-for-local-fixtures,
 .status.recorded-evidence-available,
