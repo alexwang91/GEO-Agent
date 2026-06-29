@@ -5,21 +5,21 @@
 - Mode: `external_agent_development`
 - Repository: `alexwang91/GEO-Agent`
 - Base branch: `main`
-- Planning branch: `v9f-real-case-fixes`
-- Current loop: `Loop V9F evidence-driven real-case fixes`
-- First TODO: `V9F-1 fix-recommendation-matching`
+- Planning branch: `v10-geo-research-integration-plan`
+- Current loop: `Loop V10 GEO-research integration`
+- First TODO: `V10-01 evidence-and-integration-map`
 
 ## Reason
 
-A real three-engine Huawei validation run surfaced concrete product bugs and reporting gaps. The next loop must fix those bugs in priority order using existing V7/V8 code, deterministic tests, and CI verification. This is not a new analytics-module loop.
+Loop V10 integrates GEO measurement research into the core product while preserving GEO-Agent as a measurement, diagnosis, experiment, task-planning, and retest workbench. The loop starts with documentation-only evidence mapping before code changes.
 
 ## Required Merge Before Execution
 
-The external runner reads state from `main`. Merge `v9f-real-case-fixes` into `main` before starting the V9F implementation loop.
+The external runner reads state from `main`. Merge `v10-geo-research-integration-plan` into `main` before starting the V10 implementation loop.
 
 ## No Bootstrap
 
-Do not bootstrap from scratch. Do not re-plan V7, V8, or V9. Use `docs/progress.md` as the state source and implement only the first TODO milestone.
+Do not bootstrap from scratch. Do not re-plan V1 through V9. Use `docs/progress.md` as the state source and implement only the first TODO milestone.
 
 ## Guardrails
 
@@ -27,8 +27,9 @@ Do not bootstrap from scratch. Do not re-plan V7, V8, or V9. Use `docs/progress.
 - CI is VERIFY; never weaken tests.
 - Keep CI network-free.
 - Reuse existing V7/V8 code and `entity_resolution` helpers.
-- Do not add new analytics modules.
 - Do not fabricate engine samples.
-- Keep Google AIO `manual_only`.
-- Keep single-sample and aggregate results labeled directional.
-- No raw credentials in artifacts.
+- Keep per-engine results primary; aggregates are directional.
+- Keep single-sample results labeled directional.
+- Keep Google AIO and Chinese AI engines manual-only unless sanctioned provider paths are added later.
+- Keep content rewriting and GEOFlow behind plugin or downstream executor interfaces.
+- Do not store secrets in artifacts.
