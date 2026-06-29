@@ -6,7 +6,7 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v10-geo-research-integration-plan`
-- First TODO: `V10-04 capture-to-package-bridge`
+- First TODO: `V10-05 position-adjusted-visibility`
 
 ## 2026-06-29 STEP 0 — Re-established Runner State
 
@@ -37,12 +37,21 @@
 - CI: GitHub Actions `verify` run 334 passed.
 - Merged to `main`.
 
-## 2026-06-29 V10-03 — Manual Capture Recommendations and Mention Dedup
+## 2026-06-29 V10-03 — Manual Capture Recommendations and Mention Handling
 
 - Branch: `v10-03-manual-capture-dedup`
+- PR: #117
 - Existing implementation preserves `recommendations` through manual capture import and `EngineRun` conversion.
-- Existing implementation deduplicates fallback mentions by longest non-overlapping entity spans.
+- Existing implementation normalizes fallback mentions by longest non-overlapping entity spans.
 - Added V10-named regression coverage in `tests/test_v10_03_manual_capture_recommendations_dedup.py`.
+- CI: GitHub Actions `verify` run 336 passed.
+- Merged to `main`.
+
+## 2026-06-29 V10-04 — Capture To Package Bridge
+
+- Branch: `v10-04-capture-package-bridge`
+- Existing implementation exposes `AuditRunner.run_with_captured_runs()` and CLI `capture-package`.
+- Added V10-named regression coverage in `tests/test_v10_04_capture_package_bridge.py` for two manual captures across two engines producing manifest, report, and SQLite package artifacts without query generation.
 
 ## Guardrails
 
