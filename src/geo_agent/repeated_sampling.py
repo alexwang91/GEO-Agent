@@ -1,9 +1,13 @@
-"""Repeated sampling plan records for reproducible GEO audits."""
+"""Repeated sampling plan records and probability summaries for reproducible GEO audits."""
 
 from __future__ import annotations
 
 import hashlib
 from dataclasses import asdict, dataclass
+
+from .bootstrap_stats import bootstrap_mean_interval
+from .engine_sampling import EngineRun
+from .entity_resolution import has_entity
 
 
 @dataclass(frozen=True)
@@ -34,6 +38,22 @@ class RepeatedSamplingPlan:
         }
 
 
+@dataclass(frozen=True)
+class RepeatedSamplingSummary:
+    engine: str
+    query_cluster: str
+    sample_count: int
+    positive_count: int
+    probability: float
+    lower: float
+    upper: float
+    confidence_label: str
+    collection_method: str
+
+    def to_dict(self) -> dict[str, object]:
+        return asdict(self)
+
+
 def build_repeated_sampling_plan(
     queries: tuple[str, ...] | list[str],
     provider_ids: tuple[str, ...] | list[str],
@@ -54,6 +74,32 @@ def build_repeated_sampling_plan(
                 items.append(SamplingPlanItem(query, provider_id, sample_index + 1, item_seed, time_window))
     plan_id = _plan_id(queries, provider_ids, sample_count, seed, time_window)
     return RepeatedSamplingPlan(plan_id, sample_count, tuple(items), _directionality(sample_count))
+
+
+def summarize_brand_probability(
+    runs: tuple[EngineRun, ...] | list[EngineRun], *, brand: str, query_cluster: str, collection_method: str = "manual_or_recorded"
+) -> RepeatedSamplingSummary:
+    if not runs:
+        raise ValueError("runs are required")
+    engines = {run.engine for run in runs}
+    engine = next(iter(engines)) if len(engines) == 1 else "multi_engine"
+    values = tuple(1.0 if _has_brand(run, brand) else 0.0 for run in runs)
+    interval = bootstrap_mean_interval(values, iterations=200, seed=17)
+    return RepeatedSamplingSummary(
+        engine=engine,
+        query_cluster=query_cluster,
+        sample_count=interval.sample_count,
+        positive_count=int(sum(values)),
+        probability=interval.mean,
+        lower=interval.lower,
+        upper=interval.upper,
+        confidence_label=interval.directionality,
+        collection_method=collection_method,
+    )
+
+
+def _has_brand(run: EngineRun, brand: str) -> bool:
+    return has_entity(run.raw_answer, brand) or any(has_entity(item, brand) for item in run.mentions)
 
 
 def _stable_seed(seed: int, query: str, provider_id: str, sample_index: int) -> int:
