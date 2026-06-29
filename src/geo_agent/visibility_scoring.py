@@ -99,7 +99,7 @@ def _has_brand(run: EngineRun, name: str) -> bool:
 
 
 def _same_entity(value: str, name: str) -> bool:
-    return bool(find_entity_matches(value, name)) and len(value.strip()) == len(find_entity_matches(value, name)[0].matched)
+    return has_entity(value, name)
 
 
 def _answer_rank_score(runs: list[EngineRun], brand: str) -> float:
@@ -113,8 +113,10 @@ def _answer_rank_score(runs: list[EngineRun], brand: str) -> float:
     return round(sum(scores) / len(scores), 4)
 
 
+
 def _source_diversity_score(domains: set[str]) -> float:
     return round(min(len(domains) / 5, 1.0), 4)
+
 
 
 def _legacy_avg_rank(runs: list[EngineRun], brand: str) -> float:
