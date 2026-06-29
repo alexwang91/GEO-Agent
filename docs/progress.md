@@ -3,7 +3,10 @@
 ## Branch State
 
 - Base branch: `main`
+- Current loop: `post-V10 audit`
 - First TODO: `NONE`
+- V10 completion report: `docs/v10-completion-report.md`
+- Recommended next loop: V11 real-case reliability smoke run.
 
 ## Milestone State
 
@@ -35,3 +38,9 @@
 | V10-15 | DONE | ui-capture-package-import-wizard |
 | V10-16 | DONE | yao-skill-packaging |
 | V10-17 | DONE | yao-governance-evals-release-guards |
+
+## Post-V10 Audit Notes
+
+- Stale V9 notes PR #98 was closed as superseded.
+- V10 is complete, but production confidence still depends on a real-case smoke run with sanitized manual capture evidence.
+- Do not open V11 feature work until the V10 completion report and trace audit are merged.
