@@ -8,11 +8,10 @@
 4. `docs/handoff-decision.md`
 5. `docs/runner-prompt.md`
 6. `docs/loop-trace.md`
-7. `docs/next-steps-plan.md`
-8. `docs/v8-changelog.md`
-9. `docs/product-contract.md`
-10. `docs/provider-status-language.md`
-11. `docs/limitations.md`
+7. `docs/v8-changelog.md`
+8. `docs/product-contract.md`
+9. `docs/provider-status-language.md`
+10. `docs/limitations.md`
 
 ## Current state
 
