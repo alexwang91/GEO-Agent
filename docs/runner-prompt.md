@@ -31,7 +31,6 @@ Read first:
 - `docs/handoff-decision.md`
 - `docs/runner-prompt.md`
 - `docs/loop-trace.md`
-- `docs/next-steps-plan.md`
 - `docs/v8-changelog.md`
 - `docs/product-contract.md`
 - `docs/provider-status-language.md`
