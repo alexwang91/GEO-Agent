@@ -6,87 +6,27 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v10-geo-research-integration-plan`
-- First TODO: `V10-10 optimization-task-action-taxonomy`
+- First TODO: `V10-11 optimization-execution-plugin-boundary`
 
-## 2026-06-29 STEP 0 — Re-established Runner State
+## Completed V10 Milestones
 
-- Created planning branch `v10-geo-research-integration-plan` from current `main` after the exact requested branch name was blocked by the connector safety layer.
-- Re-established `docs/progress.md` as the V10 state source with V1 through V9 marked DONE and V10-01 through V10-17 marked TODO.
-- Added `docs/loop-v10.md` as the loop directive.
-- Added `docs/v10-real-case.md` with the sanitized Huawei three-engine real-case evidence.
-- Added `docs/geo-research-integration.md` with source-to-module mapping and the identity boundary.
-- Refreshed `AGENTS.md`, `docs/handoff-decision.md`, and `docs/runner-prompt.md` so the first TODO is `V10-01 evidence-and-integration-map`.
-- Preserved guardrails: per-engine first, directional labels, manual-only AIO/Chinese engines, no fabricated answers, network-free CI, reuse V7/V8 modules, and plugin-only optimization execution.
+- V10-01 PR #115: evidence map, verify 332, merged.
+- V10-02 PR #116: recommendation matching coverage, verify 334, merged.
+- V10-03 PR #117: manual capture recommendation and mention coverage, verify 336, merged.
+- V10-04 PR #118: capture package bridge coverage, verify 338, merged.
+- V10-05 PR #119: position-adjusted visibility metrics, verify 340, merged.
+- V10-06 PR #120: report selection/absorption/attribution decomposition, verify 347, merged.
+- V10-07 PR #121: citation-level feature schema, verify 349, merged.
+- V10-08 PR #122: content feature taxonomy diagnosis, verify 351, merged.
+- V10-09 PR #123: repeated sampling summaries and standalone manual-only provider matrix, verify 365, merged.
 
-## 2026-06-29 V10-01 — Evidence and Integration Map
+## 2026-06-29 V10-10 — Optimization Task Action Taxonomy
 
-- Branch: `v10-geo-research-integration-plan`
-- PR: #115
-- CI: GitHub Actions `verify` run 332 passed.
-- Merged to `main`.
-
-## 2026-06-29 V10-02 — Recommendation Matching
-
-- Branch: `v10-02-recommendation-matching`
-- PR: #116
-- Added V10-named recommendation containment regression coverage.
-- CI: GitHub Actions `verify` run 334 passed.
-- Merged to `main`.
-
-## 2026-06-29 V10-03 — Manual Capture Recommendations and Mention Handling
-
-- Branch: `v10-03-manual-capture-dedup`
-- PR: #117
-- Added V10-named regression coverage for manual capture recommendations and mention handling.
-- CI: GitHub Actions `verify` run 336 passed.
-- Merged to `main`.
-
-## 2026-06-29 V10-04 — Capture To Package Bridge
-
-- Branch: `v10-04-capture-package-bridge`
-- PR: #118
-- Added V10-named capture-package bridge coverage.
-- CI: GitHub Actions `verify` run 338 passed.
-- Merged to `main`.
-
-## 2026-06-29 V10-05 — Position-Adjusted Visibility
-
-- Branch: `v10-05-visibility-metrics`
-- PR: #119
-- Added position-adjusted word-count visibility and deterministic subjective-impression-style scoring.
-- CI: GitHub Actions `verify` run 340 passed.
-- Merged to `main`.
-
-## 2026-06-29 V10-06 — Report Selection Absorption Attribution
-
-- Branch: `v10-06-report-decomposition`
-- PR: #120
-- Added report v2 per-engine decomposition for selection, absorption, and attribution.
-- CI: GitHub Actions `verify` run 347 passed.
-- Merged to `main`.
-
-## 2026-06-29 V10-07 — Citation-Level Feature Schema
-
-- Branch: `v10-07-citation-feature-schema`
-- PR: #121
-- Added citation-level feature records in the evidence graph.
-- CI: GitHub Actions `verify` run 349 passed.
-- Merged to `main`.
-
-## 2026-06-29 V10-08 — Content Feature Taxonomy Diagnosis
-
-- Branch: `v10-08-feature-gap-diagnosis`
-- PR: #122
-- Added content feature taxonomy gaps to diagnosis.
-- CI: GitHub Actions `verify` run 351 passed.
-- Merged to `main`.
-
-## 2026-06-29 V10-09 — Repeated Sampling and Provider Matrix
-
-- Branch: `v10-09-sampling-provider-matrix`
-- Added repeated-sampling probability summaries with n, positive count, interval, collection method, and confidence label.
-- Added a separate `manual_only` provider matrix for Google AIO, DeepSeek, Kimi, and Qianwen, without treating them as default live providers.
-- Updated provider status documentation and V10 regression coverage.
+- Branch: `v10-10-optimization-taxonomy`
+- Registered the nine GEO optimization methods.
+- Mapped diagnosis failure types to method-backed task actions, expected metrics, owner, evidence IDs, risk, and retest plan.
+- Kept confidence evidence-derived by setting generated task confidence to `0.0` instead of a hardcoded optimistic score.
+- Added V10 regression coverage in `tests/test_v10_10_optimization_taxonomy.py`.
 
 ## Guardrails
 
