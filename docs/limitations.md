@@ -13,7 +13,7 @@ GEO-Agent is an alpha/technical-preview workbench. These limitations are product
 
 ## Statistical confidence
 
-- Single-sample outputs are directional only.
+- single-sample outputs are directional only.
 - Small-n multi-engine slices are directional only; they can reveal evidence gaps and engine differences but not final market truth.
 - A single aggregate score is directional context, not a verdict; per-engine and per-component breakdowns must lead interpretation.
 - Repeated sampling, confidence intervals, volatility, and noise-floor language exist where repeated samples are available.
