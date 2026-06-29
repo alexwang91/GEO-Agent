@@ -61,12 +61,69 @@ const runPaths = [
   { label: 'Provider access issue', statusKey: 'unavailable', command: 'resolve_provider_access()' },
 ];
 
+const defaultBrandProfile = {
+  brand: 'Huawei',
+  domain: 'consumer.huawei.com',
+  competitors: 'Apple Watch, Samsung Galaxy Watch',
+  region: 'HU',
+  language: 'en',
+  targetCustomer: 'Android fitness watch buyers',
+  mainProduct: 'Huawei Watch Fit 5',
+  category: 'smartwatches',
+  businessGoal: 'increase AI visibility',
+};
+
+const brandProfileFields = [
+  ['brand', 'Brand'],
+  ['domain', 'Domain'],
+  ['competitors', 'Competitors'],
+  ['region', 'Region'],
+  ['language', 'Language'],
+  ['targetCustomer', 'Target customer'],
+  ['mainProduct', 'Main product'],
+  ['category', 'Category'],
+  ['businessGoal', 'Business goal'],
+];
+
 function statusClass(status) {
   return status.toLowerCase().replaceAll(' ', '-').replaceAll('/', '-');
 }
 
 function statusFor(statusKey) {
   return providerStatusCopy[statusKey];
+}
+
+function splitList(value) {
+  return String(value || '')
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function formatCompetitors(value) {
+  const competitors = splitList(value);
+  if (competitors.length === 0) {
+    return 'competitors';
+  }
+  if (competitors.length === 1) {
+    return competitors[0];
+  }
+  if (competitors.length === 2) {
+    return `${competitors[0]} and ${competitors[1]}`;
+  }
+  return `${competitors.slice(0, -1).join(', ')}, and ${competitors[competitors.length - 1]}`;
+}
+
+function buildQueryPreview(profile) {
+  const competitors = formatCompetitors(profile.competitors);
+  const region = profile.region || 'target region';
+  return [
+    { intent: 'brand', query: `What is ${profile.brand} for ${profile.targetCustomer}?` },
+    { intent: 'category', query: `Best ${profile.category} tools for ${profile.targetCustomer} in ${region}` },
+    { intent: 'comparison', query: `Compare ${profile.brand} with ${competitors}` },
+    { intent: 'buying_intent', query: `Should ${profile.targetCustomer} choose ${profile.brand} for ${profile.businessGoal}?` },
+    { intent: 'alternatives', query: `Best alternatives to ${profile.brand}: ${competitors}` },
+  ];
 }
 
 function MetricCard({ label, value }) {
@@ -116,10 +173,22 @@ function EngineBreakdown({ engines }) {
 }
 
 export function App() {
+  const [brandProfile, setBrandProfile] = useState(defaultBrandProfile);
+  const [queryPreview, setQueryPreview] = useState([]);
   const [reportView, setReportView] = useState(emptyReportArtifactView());
   const [loadState, setLoadState] = useState('empty');
   const [loadError, setLoadError] = useState('');
   const packageFiles = reportView.files.length ? ['manifest.json', ...reportView.files] : [];
+
+  function handleBrandProfileChange(event) {
+    const { name, value } = event.target;
+    setBrandProfile((current) => ({ ...current, [name]: value }));
+  }
+
+  function handleGenerateQueries(event) {
+    event.preventDefault();
+    setQueryPreview(buildQueryPreview(brandProfile));
+  }
 
   async function handlePackageFiles(event) {
     setLoadState('loading');
@@ -184,17 +253,44 @@ export function App() {
           </div>
         </section>
 
-        <section id="brand-profile" className="panel split">
-          <div>
-            <h3>Brand Profile</h3>
-            <p>Brand name, domain, competitors, regions, languages, target customer, product, category, and business goal.</p>
+        <section id="brand-profile" className="panel">
+          <div className="card-header">
+            <div>
+              <h3>Brand Profile</h3>
+              <p>Enter the brand context used to generate query previews. This step does not run providers or write credentials.</p>
+            </div>
+            <span className="status implemented">Editable</span>
           </div>
-          <button>Generate Queries</button>
+          <form className="profile-form" onSubmit={handleGenerateQueries}>
+            <div className="form-grid">
+              {brandProfileFields.map(([name, label]) => (
+                <label className="field" key={name}>
+                  <span>{label}</span>
+                  <input name={name} value={brandProfile[name]} onChange={handleBrandProfileChange} />
+                </label>
+              ))}
+            </div>
+            <div className="download-actions">
+              <button type="submit">Generate query preview</button>
+              <button type="button" onClick={() => setBrandProfile(defaultBrandProfile)}>Reset Huawei example</button>
+            </div>
+          </form>
         </section>
 
         <section id="queries" className="panel">
           <h3>Queries</h3>
-          <p>No queries generated yet. Complete your brand profile first.</p>
+          {queryPreview.length ? (
+            <div className="query-list">
+              {queryPreview.map((item) => (
+                <article className="query-card" key={item.intent}>
+                  <span className="eyebrow">{item.intent}</span>
+                  <p>{item.query}</p>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p>No queries generated yet. Complete your brand profile first.</p>
+          )}
         </section>
 
         <section id="audit-run" className="panel">

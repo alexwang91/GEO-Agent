@@ -12,9 +12,9 @@ Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on 
 
 - Base branch: `main`
 - Planning branch: `v9f-real-case-fixes`
-- Loop: `Loop V9F evidence-driven real-case fixes`
-- State source: this file
-- First TODO: `NONE - V9F complete`
+- Loop: `UI productization after V9F`
+- State source: this file plus `docs/ui-product-plan.md`
+- First TODO: `UI-P2 manual-capture-package-import-workflow`
 - Runner mode: GitHub-only development; CI verifies; no local repository operations required.
 
 ## Milestone State
@@ -37,10 +37,13 @@ Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on 
 | V9F-5 | DONE | desktop-render-multi-engine |
 | V9F-6 | DONE | record-evidence-and-honesty |
 | V9F-7 | DONE | query-template-cleanup |
+| UI-P1 | DONE | brand-profile-query-preview |
+| UI-P2 | TODO | manual-capture-package-import-workflow |
+| UI-P3 | TODO | reproducible-ui-preview-artifact |
 
 ## Done Rule
 
-A V9F milestone is DONE only when its deterministic regression test fails before the fix, passes after the fix, CI is green, and the milestone state plus evidence trail are updated. One milestone equals one branch, one PR, and CI verification before merge.
+A milestone is DONE only when its deterministic regression test/check passes, CI is green, and the milestone state plus evidence trail are updated. One milestone equals one branch, one PR, and CI verification before merge.
 
 ## Guardrails
 
