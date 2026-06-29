@@ -20,10 +20,13 @@ class ProviderAccessTests(unittest.TestCase):
         self.assertIn("openai_compatible", definitions)
         self.assertIn("google_search_console", definitions)
         self.assertIn("manual_import", definitions)
+        self.assertIn("google_aio", definitions)
         self.assertEqual(definitions["openai_compatible"].access_methods, ("api_key", "platform_managed"))
         self.assertEqual(definitions["openai_compatible"].implementation_status, "implemented")
         self.assertEqual(definitions["google_search_console"].access_methods, ("oauth",))
         self.assertEqual(definitions["manual_import"].implementation_status, "implemented")
+        self.assertEqual(definitions["google_aio"].implementation_status, "manual_only")
+        self.assertEqual(definitions["google_aio"].access_methods, ("manual_import",))
 
     def test_registry_rejects_unsupported_access_method(self):
         registry = default_provider_registry()
@@ -39,6 +42,16 @@ class ProviderAccessTests(unittest.TestCase):
         payload = connection.to_dict()
         self.assertEqual(payload["redacted_label"], "sk…ue")
         self.assertNotIn("sk-secret-value", str(payload))
+
+    def test_manual_only_provider_connects_only_through_manual_import(self):
+        registry = default_provider_registry()
+
+        connection = registry.connect("google_aio", "manual_import")
+
+        self.assertEqual(connection.auth_status, "connected")
+        self.assertEqual(connection.access_method, "manual_import")
+        with self.assertRaisesRegex(ProviderAccessError, "does not support"):
+            registry.connect("google_aio", "api_key")
 
     def test_implemented_openai_provider_can_connect_with_redacted_credential(self):
         registry = default_provider_registry()
