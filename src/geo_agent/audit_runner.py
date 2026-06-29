@@ -120,6 +120,25 @@ class AuditRunner:
         )
         return self._persist_and_report(profile, queries, page_records, runs)
 
+    def run_with_captured_runs(
+        self,
+        profile: EntityProfile,
+        *,
+        pages: Mapping[str, str],
+        runs: tuple[EngineRun, ...],
+        sitemap_urls: list[str] | None = None,
+        manual_urls: list[str] | None = None,
+    ) -> AuditArtifacts:
+        """Build an audit package from already-captured runs without generating queries."""
+
+        if not runs:
+            raise ValueError("runs must contain at least one captured engine run")
+        page_records = tuple(
+            crawl_inventory(StaticPageFetcher(dict(pages)), sitemap_urls=sitemap_urls, manual_urls=manual_urls)
+        )
+        queries = tuple(_query_for_captured_run(run, profile, index) for index, run in enumerate(runs, start=1))
+        return self._persist_and_report(profile, queries, page_records, runs)
+
     def _persist_and_report(
         self,
         profile: EntityProfile,
@@ -186,6 +205,21 @@ class AuditRunner:
             report_markdown=report_markdown,
             evidence_graph=evidence_graph,
         )
+
+
+def _query_for_captured_run(run: EngineRun, profile: EntityProfile, index: int) -> QueryRecord:
+    return QueryRecord(
+        query=run.query,
+        intent_type="manual_capture",
+        funnel_stage="captured_evidence",
+        language=run.language,
+        region=run.region,
+        target_engine=run.engine,
+        competitor_entities=profile.competitors,
+        expected_answer_format="captured_answer",
+        priority_score=1.0,
+        cluster=f"manual_capture:{run.engine}:{index}",
+    )
 
 
 def _first_page_url(pages: tuple[PageInventoryRecord, ...], profile: EntityProfile) -> str:
