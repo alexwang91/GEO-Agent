@@ -6,7 +6,7 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v10-geo-research-integration-plan`
-- First TODO: `V10-05 position-adjusted-visibility`
+- First TODO: `V10-06 report-v2-selection-absorption-attribution`
 
 ## 2026-06-29 STEP 0 — Re-established Runner State
 
@@ -50,8 +50,18 @@
 ## 2026-06-29 V10-04 — Capture To Package Bridge
 
 - Branch: `v10-04-capture-package-bridge`
+- PR: #118
 - Existing implementation exposes `AuditRunner.run_with_captured_runs()` and CLI `capture-package`.
 - Added V10-named regression coverage in `tests/test_v10_04_capture_package_bridge.py` for two manual captures across two engines producing manifest, report, and SQLite package artifacts without query generation.
+- CI: GitHub Actions `verify` run 338 passed.
+- Merged to `main`.
+
+## 2026-06-29 V10-05 — Position-Adjusted Visibility
+
+- Branch: `v10-05-visibility-metrics`
+- Replaced the naive character-position rank score with sentence-level position-adjusted word-count visibility.
+- Added a deterministic subjective-impression-style component based on mention, owned citation, recommendation, and prominence signals.
+- Added V10 regression coverage in `tests/test_v10_05_visibility_metrics.py`.
 
 ## Guardrails
 
