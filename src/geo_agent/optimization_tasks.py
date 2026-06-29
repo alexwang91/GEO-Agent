@@ -17,6 +17,16 @@ GEO_OPTIMIZATION_METHODS = (
     "technical_terms",
 )
 
+_FAILURE_ACTION_MAP = {
+    "retrieval": "strengthen_page_evidence",
+    "reranking": "improve_source_authority",
+    "synthesis": "add_comparison_context",
+    "attribution": "add_citable_claims",
+    "trust": "add_third_party_evidence",
+    "entity": "clarify_entity_profile",
+    "intent_mismatch": "align_page_to_intent",
+}
+
 _FAILURE_METHOD_MAP = {
     "retrieval": "cite_sources",
     "reranking": "authoritative",
@@ -44,6 +54,7 @@ class OptimizationTaskBrief:
     owner: str = "content_strategy"
     expected_metric: str = "citation_share"
     evidence_ids: tuple[str, ...] = ()
+    confidence_source: str = "legacy_default_requires_retest"
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -60,13 +71,14 @@ class OptimizationTaskBrief:
             "owner": self.owner,
             "expected_metric": self.expected_metric,
             "evidence_ids": list(self.evidence_ids),
+            "confidence_source": self.confidence_source,
         }
 
 
 def generate_task_brief(query: QueryRecord, diagnosis: FailureDiagnosis, *, target_page: str) -> OptimizationTaskBrief:
     failure = diagnosis.failure_types[0]
     method = _method_for_failure(failure)
-    action = _action_for_method(method)
+    action = _FAILURE_ACTION_MAP.get(failure, "review_page")
     expected_metric = _expected_metric_for_method(method)
     evidence_ids = diagnosis.evidence or (query.query,)
     return OptimizationTaskBrief(
@@ -74,34 +86,21 @@ def generate_task_brief(query: QueryRecord, diagnosis: FailureDiagnosis, *, targ
         target_page,
         query.cluster,
         "medium",
-        0.0,
+        0.72,
         "draft_only_no_auto_publish",
-        f"Optimization brief for {query.intent_type}: {query.query}",
+        f"Draft update for {query.intent_type}: {query.query}",
         f"Retest {query.cluster} on {query.target_engine} and compare {expected_metric}.",
         failure,
         method,
         "content_strategy",
         expected_metric,
         evidence_ids,
+        "legacy_default_requires_retest",
     )
 
 
 def _method_for_failure(failure: str) -> str:
     return _FAILURE_METHOD_MAP.get(failure, "fluency_optimization")
-
-
-def _action_for_method(method: str) -> str:
-    return {
-        "authoritative": "increase_authority_signals",
-        "statistics_addition": "add_statistics",
-        "keyword_stuffing": "review_keyword_coverage",
-        "cite_sources": "add_citable_sources",
-        "quotation_addition": "add_quotations",
-        "easy_to_understand": "simplify_explanation",
-        "fluency_optimization": "improve_fluency",
-        "unique_words": "add_distinctive_terms",
-        "technical_terms": "clarify_technical_entities",
-    }[method]
 
 
 def _expected_metric_for_method(method: str) -> str:
