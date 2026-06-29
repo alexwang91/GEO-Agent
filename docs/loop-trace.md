@@ -6,7 +6,7 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v10-geo-research-integration-plan`
-- First TODO: `V10-06 report-v2-selection-absorption-attribution`
+- First TODO: `V10-07 citation-level-feature-schema`
 
 ## 2026-06-29 STEP 0 — Re-established Runner State
 
@@ -59,9 +59,19 @@
 ## 2026-06-29 V10-05 — Position-Adjusted Visibility
 
 - Branch: `v10-05-visibility-metrics`
+- PR: #119
 - Replaced the naive character-position rank score with sentence-level position-adjusted word-count visibility.
 - Added a deterministic subjective-impression-style component based on mention, owned citation, recommendation, and prominence signals.
 - Added V10 regression coverage in `tests/test_v10_05_visibility_metrics.py`.
+- CI: GitHub Actions `verify` run 340 passed.
+- Merged to `main`.
+
+## 2026-06-29 V10-06 — Report Selection Absorption Attribution
+
+- Branch: `v10-06-report-decomposition`
+- Added report v2 per-engine decomposition for selection, absorption, and attribution.
+- Added a dedicated `Selection Absorption Attribution` report section and carried the three-layer breakdown into the aggregate metric summary.
+- Added V10 regression coverage in `tests/test_v10_06_report_decomposition.py`.
 
 ## Guardrails
 
