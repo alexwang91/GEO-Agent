@@ -1,6 +1,9 @@
 import unittest
+from pathlib import Path
 
 from geo_agent.provider_status_copy import provider_report_status_line, provider_status_copy
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class ProviderStatusCopyTests(unittest.TestCase):
@@ -27,6 +30,14 @@ class ProviderStatusCopyTests(unittest.TestCase):
         self.assertEqual(copy.label, "Manual only")
         self.assertIn("explicit manual capture", copy.summary)
         self.assertIn("no automated provider run", copy.report_note)
+
+    def test_manual_only_docs_name_google_aio(self):
+        provider_doc = (ROOT / "docs" / "provider-status-language.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("google_aio", provider_doc)
+        self.assertIn("manual_only", provider_doc)
+        self.assertIn("Google AIO", readme)
+        self.assertIn("Manual only", readme)
 
     def test_report_line_preserves_provider_boundary(self):
         line = provider_report_status_line("Perplexity", "planned")
