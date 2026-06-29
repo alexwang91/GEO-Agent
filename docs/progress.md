@@ -10,7 +10,7 @@ Loop V10 integrates GEO measurement research into GEO-Agent's core while preserv
 - Planning branch: `v10-geo-research-integration-plan`
 - Loop: `Loop V10 GEO-research integration`
 - State source: this file plus `docs/loop-v10.md`
-- First TODO: `V10-03 fix-manual-capture-recommendations-and-mention-dedup`
+- First TODO: `V10-04 capture-to-package-bridge`
 - Runner mode: GitHub-only development; CI verifies; no local repository operations required.
 
 ## Milestone State
@@ -28,7 +28,7 @@ Loop V10 integrates GEO measurement research into GEO-Agent's core while preserv
 | V9 | DONE | Historical real vertical-slice loop and V9F/UI follow-up history |
 | V10-01 | DONE | evidence-and-integration-map |
 | V10-02 | DONE | fix-recommendation-matching |
-| V10-03 | TODO | fix-manual-capture-recommendations-and-mention-dedup |
+| V10-03 | DONE | fix-manual-capture-recommendations-and-mention-dedup |
 | V10-04 | TODO | capture-to-package-bridge |
 | V10-05 | TODO | position-adjusted-visibility |
 | V10-06 | TODO | report-v2-selection-absorption-attribution |
