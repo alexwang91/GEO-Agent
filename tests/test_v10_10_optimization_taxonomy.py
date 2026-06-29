@@ -51,7 +51,8 @@ class V10OptimizationTaxonomyTests(unittest.TestCase):
         self.assertEqual(payload["risk"], "draft_only_no_auto_publish")
         self.assertIn("citation:1", payload["evidence_ids"])
         self.assertIn("Retest category:fitness-watch", payload["retest_plan"])
-        self.assertEqual(payload["confidence"], 0.0)
+        self.assertEqual(payload["confidence_source"], "legacy_default_requires_retest")
+        self.assertGreater(payload["confidence"], 0.0)
 
 
 if __name__ == "__main__":
