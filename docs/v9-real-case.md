@@ -10,11 +10,11 @@ Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on 
 
 ## Matrix
 
-| Engine | Evidence path | n | Mention | Owned citation | Competitor-only | Aggregate | Interpretation |
-| :--- | :--- | ---: | ---: | ---: | ---: | ---: | :--- |
-| Perplexity | manual capture | 6 | 0.83 | 0.17 | 0.17 | 0.48 | Directional, third-party-driven sample. |
-| ChatGPT | manual capture | 5 | 0.60 | 0.40 | 0.40 | 0.49 | Directional, category-query weakness sample. |
-| Google AIO | manual-only capture | 4 | 1.00 | 1.00 | 0.00 | 0.72 | Directional, owned-source-heavy sample. |
+| Engine | n | Mention | Owned citation | Competitor-only | Aggregate |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| Perplexity | 6 | 0.83 | 0.17 | 0.17 | 0.48 |
+| ChatGPT | 5 | 0.60 | 0.40 | 0.40 | 0.49 |
+| Google AIO | 4 | 1.00 | 1.00 | 0.00 | 0.72 |
 
 ## Findings To Preserve
 
@@ -25,7 +25,7 @@ Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on 
 - A single-engine audit can mislead.
 - A single aggregate score can mislead.
 - This sample is directional because n is small.
-- Google AIO is `manual_only` because AIO share links are gated and not auto-capturable.
+- Google AIO is manual-only because AIO share links are gated and not auto-capturable.
 - Manual capture is the evidence path for multi-engine validation.
 
 ## Evidence Boundaries
