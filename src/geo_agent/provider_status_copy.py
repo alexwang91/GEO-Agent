@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Literal
 
-ProviderRuntimeStatus = Literal["implemented", "manual", "manual_only", "simulated", "planned", "unavailable"]
+ProviderRuntimeStatus = Literal["implemented", "manual", "simulated", "planned", "unavailable"]
 
 
 @dataclass(frozen=True)
@@ -36,14 +36,6 @@ _PROVIDER_STATUS_COPY: dict[ProviderRuntimeStatus, ProviderStatusCopy] = {
         "Manual or recorded evidence path is implemented; it is not automated live coverage.",
         "Manual import evidence; results reflect the imported records.",
         "Import evidence",
-        True,
-    ),
-    "manual_only": ProviderStatusCopy(
-        "manual_only",
-        "Manual only",
-        "Evidence can be included only through explicit manual capture; automated collection is not available.",
-        "Manual-only evidence; no automated provider run was performed.",
-        "Import manual capture",
         True,
     ),
     "simulated": ProviderStatusCopy(
