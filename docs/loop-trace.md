@@ -6,7 +6,7 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v9f-real-case-fixes`
-- First TODO: `V9F-3 capture-to-package-bridge`
+- First TODO: `V9F-4 report-per-engine-and-component`
 
 ## 2026-06-29 STEP 0 — Re-established Runner State
 
@@ -28,11 +28,19 @@
 
 - Branch: `v9f-2-manual-capture-recommendations-dedup`
 - PR: #106
-- Files changed: `src/geo_agent/manual_capture.py`, `src/geo_agent/engine_sampling.py`, `src/geo_agent/entity_resolution.py`, `tests/test_v9_02_manual_capture.py`, `docs/progress.md`, `docs/loop-trace.md`
 - Manual captures now preserve `recommendations` through `EngineRun` conversion.
 - Fallback mention extraction now returns unique longest mention text for overlapping aliases.
-- Regression coverage checks recommendation scoring through manual capture and deduped Huawei Watch Fit 5 fallback mentions.
-- CI: GitHub Actions `verify` run 277 passed on commit `a35a0ab50348b1cd50fefe53db9738d1449274ac` before docs status update.
+- CI: GitHub Actions `verify` run 279 passed on final PR head.
+- Merged to `main`.
+
+## 2026-06-29 V9F-3 — Capture To Package Bridge
+
+- Branch: `v9f-3-capture-to-package-bridge`
+- PR: #107
+- Added `AuditRunner.run_with_captured_runs()` so captured `EngineRun` records can use the existing persist, score, report, task, and evidence graph path without query generation.
+- Added CLI subcommand `capture-package` to write `manifest.json`, `report.json`, `report.md`, and `audit.sqlite` from manual captures.
+- Regression coverage writes a package from two captures across `perplexity` and `chatgpt_search` and verifies the stored runs and query records preserve the captured queries per engine.
+- CI: GitHub Actions `verify` run 281 passed on commit `ee654a09864a7972e2fb87f5698b3a4540fd3d01` before docs status update.
 - Final docs update committed after CI pass; re-run CI on final head before merging.
 
 ## Guardrails
