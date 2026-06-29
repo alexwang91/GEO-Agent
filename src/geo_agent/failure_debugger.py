@@ -1,4 +1,5 @@
 from __future__ import annotations
+import re
 from dataclasses import dataclass
 from .engine_sampling import EngineRun
 from .page_inventory import PageInventoryRecord
@@ -13,6 +14,16 @@ FAILURE_TYPES = (
     "trust",
     "entity",
     "intent_mismatch",
+)
+
+CONTENT_FEATURE_TAXONOMY = (
+    "statistics",
+    "quotations",
+    "authoritative_sources",
+    "schema",
+    "entity_clarity",
+    "faq",
+    "freshness",
 )
 
 @dataclass(frozen=True)
@@ -63,6 +74,7 @@ def diagnose_failure_v2(
     linked = any(brand_domain in domain for domain in run.source_domains)
     competitor_hits = tuple(competitor for competitor in competitors if competitor.lower() in answer)
     owned_page_hits = _owned_page_hits(pages, brand, brand_domain)
+    feature_gaps = _content_feature_gaps(pages, brand)
 
     labels: list[str] = []
     proof: list[str] = [
@@ -92,15 +104,21 @@ def diagnose_failure_v2(
     if run.source_domains and not seen and not competitor_hits:
         labels.append("reranking")
         proof.append("sources exist but answer omits brand and competitors")
+    if feature_gaps:
+        labels.append("trust")
+        proof.extend(f"feature_gap={gap}" for gap in feature_gaps)
     if not labels:
         labels.append("trust" if not linked else "intent_mismatch")
         proof.append("fallback classification with available evidence")
 
     ordered = tuple(label for label in FAILURE_TYPES if label in set(labels))
+    next_step = "Inspect the cited source set, owned-page evidence, and query intent before drafting an optimization task."
+    if feature_gaps:
+        next_step += " Address content feature gaps: " + ", ".join(feature_gaps) + "."
     return FailureDiagnosis(
         ordered,
         "; ".join(proof),
-        "Inspect the cited source set, owned-page evidence, and query intent before drafting an optimization task.",
+        next_step,
         tuple(proof),
     )
 
@@ -113,3 +131,29 @@ def _owned_page_hits(pages: tuple[PageInventoryRecord, ...], brand: str, brand_d
         if brand_domain in page.canonical_url or name in text or name in (page.title or "").lower() or name in (page.h1 or "").lower():
             hits.append(page.canonical_url)
     return tuple(hits)
+
+
+def _content_feature_gaps(pages: tuple[PageInventoryRecord, ...], brand: str) -> tuple[str, ...]:
+    if not pages:
+        return ()
+    text = " ".join(
+        item
+        for page in pages
+        for item in ((page.title or ""), (page.h1 or ""), " ".join(page.content_chunks), " ".join(page.schema_types), page.last_modified or "")
+    ).lower()
+    gaps: list[str] = []
+    if not re.search(r"\b\d+(?:[.,]\d+)?\s*(?:%|percent|hours?|days?|mah|gb|km|meters?|users?|reviews?)\b", text):
+        gaps.append("statistics")
+    if '"' not in text and "“" not in text and "quote" not in text and "testimonial" not in text:
+        gaps.append("quotations")
+    if not any(marker in text for marker in ("study", "research", "official", "certified", "source", "citation", "according to")):
+        gaps.append("authoritative_sources")
+    if not any(schema.lower() in text for schema in ("product", "faqpage", "review", "organization", "breadcrumblist")):
+        gaps.append("schema")
+    if brand.lower() not in text:
+        gaps.append("entity_clarity")
+    if "faq" not in text and "question" not in text and "answer" not in text:
+        gaps.append("faq")
+    if not re.search(r"\b20\d{2}\b", text) and "updated" not in text and "latest" not in text:
+        gaps.append("freshness")
+    return tuple(gap for gap in CONTENT_FEATURE_TAXONOMY if gap in set(gaps))
