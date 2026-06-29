@@ -1,96 +1,36 @@
 # V9 Real Case Evidence
 
-## Case
+## Sanitized Real-Case Context
 
-- Brand: GEO-Agent
-- Consent basis: project-owned public repository
-- Target site for V9-1 crawl: `https://github.com/alexwang91/GEO-Agent`
-- Private data: none
-- Credentials: none
+Brand Huawei, single Perplexity/ChatGPT session + manually pasted Google AIO (AIO share links are gated and NOT auto-capturable). 15 real answers. Per-engine Huawei visibility (directional, n small):
+- Perplexity n=6: mention 0.83, owned-citation 0.17, competitor-only 0.17, aggregate 0.48
+- ChatGPT n=5: mention 0.60, owned-citation 0.40, competitor-only 0.40, aggregate 0.49
+- Google AIO n=4: mention 1.00, owned-citation 1.00, competitor-only 0.00, aggregate 0.72
+Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on AIO, third-party-driven on Perplexity, dropped from "best smartwatches" category queries on ChatGPT). A single-engine audit or a single aggregate score MISLEADS. Huawei is absent from high-intent "best smartwatches for Android/fitness" queries on Perplexity/ChatGPT. consumer.huawei.com (owned) shapes AIO (4/4) and ChatGPT (2/5) far more than Perplexity (1/6).
 
-## V9-1 Evidence
+## Matrix
 
-The minimal real FetchClient code path is engineering-ready:
+| Engine | n | Mention | Owned citation | Competitor-only | Aggregate |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| Perplexity | 6 | 0.83 | 0.17 | 0.17 | 0.48 |
+| ChatGPT | 5 | 0.60 | 0.40 | 0.40 | 0.49 |
+| Google AIO | 4 | 1.00 | 1.00 | 0.00 | 0.72 |
 
-- `UrlLibFetchClient` implements concrete HTTP fetch behavior using stdlib urllib.
-- It validates http/https URLs, supports timeout, retry, HTTP error handling, and robots.txt checks.
-- `LiveCrawlerProviderV2` uses that client only behind `allow_live_fetch=True`.
-- CI coverage uses fake clients and does not perform network access.
+## Findings To Preserve
 
-Real-crawl attempt record:
+- Huawei AI visibility is engine-dependent.
+- AIO looks healthy in this sample.
+- Perplexity is third-party-driven in this sample.
+- ChatGPT drops Huawei from high-intent `best smartwatches` category queries in this sample.
+- A single-engine audit can mislead.
+- A single aggregate score can mislead.
+- This sample is directional because n is small.
+- Google AIO is manual-only because AIO share links are gated and not auto-capturable.
+- Manual capture is the evidence path for multi-engine validation.
 
-| Field | Value |
-| :--- | :--- |
-| Attempted URL | `https://github.com/alexwang91/GEO-Agent` |
-| Fetched at | `2026-06-28T14:35:00+02:00` |
-| Credentials/private data | none |
-| robots.txt | fetched successfully; observed `User-agent: *` rules do not block the repository root path |
-| URL fetch result | failed in this execution environment: target page returned fetch error `Cache miss` |
-| HTTP status | unavailable because the target HTML fetch did not complete |
-| Extracted title/hash | unavailable because the target HTML fetch did not complete |
+## Privacy / Safety
 
-V9-1 is therefore not marked DONE. It is engineering-ready and real-crawl pending until the project-owned URL is fetched successfully with the opt-in live client and sanitized result fields are recorded here.
-
-## V9-2 Evidence Gate
-
-Manual-capture import code exists and supports pasted answer text, citations, engine, captured_at, region, language, brand, and aliases.
-
-V9-2 is not marked DONE in this branch because the real manual capture evidence is not present in this repository state. To complete V9-2, record sanitized capture metadata here:
-
-| Field | Value |
-| :--- | :--- |
-| Engine | TODO |
-| Query | TODO |
-| Captured at | TODO |
-| Citation URLs | TODO |
-| Redaction checked | TODO |
-| Converted to EngineRun | TODO |
-
-Do not paste private data, API keys, cookies, tokens, or credential labels.
-
-## V9-3 Desktop Readiness
-
-The desktop report-loading path is implementation-ready:
-
-- `apps/desktop/src/reportArtifacts.js` loads a real generated package from `manifest.json` and `report.json`.
-- It keeps demo data behind an explicit demo path and labels demo output as demo.
-- `apps/desktop/src/App.jsx` exposes empty, loading, error, demo, and loaded report states.
-- V9-3 remains real-case pending until a generated package from the real V9 evidence path is loaded and recorded.
-
-## V9-4 Eval Gate
-
-Realistic extraction regression coverage exists in `tests/test_v9_05_extraction_regression.py` and `tests/fixtures/realistic_answer_samples.json`.
-
-Fixture-level result:
-
-| Metric | Bar | Measured | Result |
-| :--- | :--- | :--- | :--- |
-| Entity precision | 0.75 | 0.75 | pass |
-| Entity recall | 0.80 | 1.00 | pass |
-| URL recall | 0.95 | 1.00 | pass |
-
-This is the fixture-level gate result only. The real-run eval under V9-5 is still pending. If this gate fails in future changes, extraction must be fixed before generated reports are used as trusted evidence. This gate reuses existing extraction code and does not add analytics modules.
-
-## V9-5 Run Checklist
-
-V9-5 remains blocked until the real capture and retest inputs exist. Do not mark V9-5 DONE until every item below is filled with sanitized evidence:
-
-| Required item | Status |
-| :--- | :--- |
-| Real manual capture imported | TODO |
-| Real generated package created | TODO |
-| Desktop real package render recorded | TODO |
-| Eval gate result recorded | TODO |
-| Task usefulness reviewed | TODO |
-| Retest delta recorded | TODO |
-| Confidence statement recorded | TODO |
-| Limitations updated | TODO |
-
-Recovery path: once the real captures are provided, resume at V9-2, generate the package, load it in desktop, run the eval gate, then record the retest result here.
-
-## Remaining V9 Evidence To Collect
-
-- V9-1: successful one-off real crawl with sanitized result fields.
-- V9-2: manually captured real AI answers and citations.
-- V9-3: real generated package rendered in desktop.
-- V9-5: full run, task usefulness review, retest delta, and confidence record.
+- Sanitized brand-level data only.
+- No private account identifiers.
+- No raw prompts beyond generic category examples.
+- No credentials, cookies, API keys, or gated share-link contents.
