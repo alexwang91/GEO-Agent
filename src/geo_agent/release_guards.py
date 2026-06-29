@@ -9,11 +9,11 @@ REQUIRED_FILES = (
     "skills/geo-rewrite-skill/skill.json",
     "skills/geo-rewrite-skill/skill.md",
 )
-FORBIDDEN_COPY = (
-    "google aio automated",
-    "deepseek live provider",
-    "kimi live provider",
-    "qianwen live provider",
+FORBIDDEN_COPY_PARTS = (
+    ("google aio", "automated"),
+    ("deepseek", "live provider"),
+    ("kimi", "live provider"),
+    ("qianwen", "live provider"),
 )
 
 
@@ -36,7 +36,8 @@ def evaluate_release_guards(root: Path) -> ReleaseGuardResult:
     for path in REQUIRED_FILES:
         if not (root / path).exists():
             failures.append(f"missing release file: {path}")
-    for phrase in FORBIDDEN_COPY:
+    for parts in FORBIDDEN_COPY_PARTS:
+        phrase = " ".join(parts)
         if phrase in repo_text:
             failures.append(f"forbidden copy: {phrase}")
     return ReleaseGuardResult(not failures, tuple(failures))
