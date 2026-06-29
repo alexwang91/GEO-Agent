@@ -85,7 +85,7 @@
 
 - Branch: `v10-09-sampling-provider-matrix`
 - Added repeated-sampling probability summaries with n, positive count, interval, collection method, and confidence label.
-- Added `manual_only` registry status for Google AIO, DeepSeek, Kimi, and Qianwen.
+- Added a separate `manual_only` provider matrix for Google AIO, DeepSeek, Kimi, and Qianwen, without treating them as default live providers.
 - Updated provider status documentation and V10 regression coverage.
 
 ## Guardrails
