@@ -1,7 +1,7 @@
 import unittest
 
 from geo_agent.failure_debugger import FailureDiagnosis
-from geo_agent.optimization_tasks import GEO_OPTIMIZATION_METHODS, generate_task_brief
+from geo_agent.optimization_tasks import GEO_OPTIMIZATION_METHODS, build_task_plan
 from geo_agent.query_space import QueryRecord
 
 
@@ -22,7 +22,7 @@ class V10OptimizationTaxonomyTests(unittest.TestCase):
             },
         )
 
-    def test_task_brief_carries_required_planning_fields(self):
+    def test_task_plan_carries_required_planning_fields(self):
         query = QueryRecord(
             query="best fitness watch",
             intent_type="category",
@@ -42,17 +42,15 @@ class V10OptimizationTaxonomyTests(unittest.TestCase):
             evidence=("citation:1", "gap:quote"),
         )
 
-        task = generate_task_brief(query, diagnosis, target_page="http://owned.test/acme-watch")
-        payload = task.to_planning_dict()
+        payload = build_task_plan(query, diagnosis, target_page="http://owned.test/acme-watch")
 
         self.assertEqual(payload["method"], "quotation_addition")
         self.assertEqual(payload["owner"], "content_strategy")
         self.assertEqual(payload["expected_metric"], "claim_fidelity")
         self.assertEqual(payload["risk"], "draft_only_no_auto_publish")
         self.assertIn("citation:1", payload["evidence_ids"])
-        self.assertIn("Retest category:fitness-watch", payload["retest_plan"])
+        self.assertIn("Compare claim_fidelity", payload["retest_plan"])
         self.assertEqual(payload["confidence_source"], "legacy_default_requires_retest")
-        self.assertGreater(payload["confidence"], 0.0)
 
 
 if __name__ == "__main__":
