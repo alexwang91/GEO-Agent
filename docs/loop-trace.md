@@ -6,7 +6,7 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v10-geo-research-integration-plan`
-- First TODO: `V10-03 fix-manual-capture-recommendations-and-mention-dedup`
+- First TODO: `V10-04 capture-to-package-bridge`
 
 ## 2026-06-29 STEP 0 — Re-established Runner State
 
@@ -30,9 +30,19 @@
 ## 2026-06-29 V10-02 — Recommendation Matching
 
 - Branch: `v10-02-recommendation-matching`
+- PR: #116
 - Existing implementation: `_same_entity` delegates to `has_entity`, reusing token-boundary entity matching.
 - Existing historical coverage: `tests/test_v9f_01_recommendation_matching.py` covers Huawei product recommendation matching, Apple Watch matching, and unrelated-token false positives.
 - Added V10-named regression coverage in `tests/test_v10_02_recommendation_matching.py`.
+- CI: GitHub Actions `verify` run 334 passed.
+- Merged to `main`.
+
+## 2026-06-29 V10-03 — Manual Capture Recommendations and Mention Dedup
+
+- Branch: `v10-03-manual-capture-dedup`
+- Existing implementation preserves `recommendations` through manual capture import and `EngineRun` conversion.
+- Existing implementation deduplicates fallback mentions by longest non-overlapping entity spans.
+- Added V10-named regression coverage in `tests/test_v10_03_manual_capture_recommendations_dedup.py`.
 
 ## Guardrails
 
