@@ -6,7 +6,7 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v10-geo-research-integration-plan`
-- First TODO: `V10-08 content-feature-taxonomy-diagnosis`
+- First TODO: `V10-09 repeated-sampling-and-manual-only-provider-matrix`
 
 ## 2026-06-29 STEP 0 — Re-established Runner State
 
@@ -79,9 +79,19 @@
 ## 2026-06-29 V10-07 — Citation-Level Feature Schema
 
 - Branch: `v10-07-citation-feature-schema`
+- PR: #121
 - Extended evidence graph citation records with citation-level selection, absorption, attribution, claim-fidelity, context, and feature-record fields.
 - Added deterministic citation feature extraction for owned-source attribution and answer absorption.
 - Added V10 regression coverage in `tests/test_v10_07_citation_features.py`.
+- CI: GitHub Actions `verify` run 349 passed.
+- Merged to `main`.
+
+## 2026-06-29 V10-08 — Content Feature Taxonomy Diagnosis
+
+- Branch: `v10-08-feature-gap-diagnosis`
+- Added GEO content feature taxonomy constants for statistics, quotations, authoritative sources, schema, entity clarity, FAQ, and freshness.
+- Wired feature-gap evidence into diagnosis explanations and next steps.
+- Added V10 regression coverage in `tests/test_v10_08_feature_gap_diagnosis.py`.
 
 ## Guardrails
 
