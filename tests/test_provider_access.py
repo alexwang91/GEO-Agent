@@ -8,6 +8,7 @@ from geo_agent.provider_access import (
     ProviderDefinition,
     ProviderRegistry,
     default_provider_registry,
+    manual_only_provider_matrix,
     redact_credential_label,
 )
 
@@ -20,11 +21,16 @@ class ProviderAccessTests(unittest.TestCase):
         self.assertIn("openai_compatible", definitions)
         self.assertIn("google_search_console", definitions)
         self.assertIn("manual_import", definitions)
-        self.assertIn("google_aio", definitions)
+        self.assertNotIn("google_aio", definitions)
         self.assertEqual(definitions["openai_compatible"].access_methods, ("api_key", "platform_managed"))
         self.assertEqual(definitions["openai_compatible"].implementation_status, "implemented")
         self.assertEqual(definitions["google_search_console"].access_methods, ("oauth",))
         self.assertEqual(definitions["manual_import"].implementation_status, "implemented")
+
+    def test_manual_only_provider_matrix_is_explicit(self):
+        definitions = {item.provider_id: item for item in manual_only_provider_matrix()}
+
+        self.assertEqual(set(definitions), {"google_aio", "deepseek", "kimi", "qianwen"})
         self.assertEqual(definitions["google_aio"].implementation_status, "manual_only")
         self.assertEqual(definitions["google_aio"].access_methods, ("manual_import",))
 
@@ -44,7 +50,7 @@ class ProviderAccessTests(unittest.TestCase):
         self.assertNotIn("sk-secret-value", str(payload))
 
     def test_manual_only_provider_connects_only_through_manual_import(self):
-        registry = default_provider_registry()
+        registry = ProviderRegistry(manual_only_provider_matrix())
 
         connection = registry.connect("google_aio", "manual_import")
 
