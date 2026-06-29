@@ -23,6 +23,12 @@ const providerStatusCopy = {
     action: 'Import evidence',
     canExecute: true,
   },
+  manual_only: {
+    label: 'Manual only',
+    summary: 'Evidence can be included only through explicit manual capture; automated collection is not available.',
+    action: 'Import manual capture',
+    canExecute: true,
+  },
   simulated: {
     label: 'Simulated',
     summary: 'Fixture or fake-provider path for deterministic tests only.',
@@ -46,6 +52,7 @@ const providerStatusCopy = {
 const providers = [
   { name: 'OpenAI-compatible', capabilities: ['Answer', 'Model'], access: ['API Key', 'Platform'], statusKey: 'implemented', note: 'Implemented API boundary; not ChatGPT Search.' },
   { name: 'Manual Import', capabilities: ['Answer'], access: ['Manual Import'], statusKey: 'manual', note: 'Manual/recorded evidence path; not automated live provider coverage.' },
+  { name: 'Google AIO', capabilities: ['Answer', 'Search'], access: ['Manual Capture'], statusKey: 'manual_only', note: 'AIO share links are gated and not auto-capturable; use manual capture only.' },
   { name: 'Static crawler', capabilities: ['Crawl'], access: ['Local'], statusKey: 'simulated', note: 'Fixture-backed local crawler boundary for deterministic tests.' },
   { name: 'Perplexity', capabilities: ['Answer', 'Search'], access: ['API Key'], statusKey: 'planned', note: 'Planned provider; not available for live audits.' },
   { name: 'Gemini', capabilities: ['Answer', 'Model'], access: ['API Key'], statusKey: 'planned', note: 'Planned provider; not available for live audits.' },
@@ -57,6 +64,7 @@ const providers = [
 const runPaths = [
   { label: 'Fixture package audit', statusKey: 'simulated', command: 'run_fixture_audit(fixture_path, output_dir)' },
   { label: 'Manual import path', statusKey: 'manual', command: 'manual_import(recorded_dataset)' },
+  { label: 'Google AIO manual capture path', statusKey: 'manual_only', command: 'capture-package captures.json --out out/package' },
   { label: 'Configured provider path', statusKey: 'implemented', command: 'run_configured_provider(provider_config)' },
   { label: 'Provider access issue', statusKey: 'unavailable', command: 'resolve_provider_access()' },
 ];
@@ -162,8 +170,8 @@ export function App() {
 
         <section id="providers" className="panel">
           <h3>Providers</h3>
-          <p className="security-note">Provider status uses implemented, manual import, simulated, planned, and unavailable labels. Planned providers are not live or available for audit execution.</p>
-          <p className="security-note">Copy contract: manual import is recorded evidence, simulated fixture or fake-provider data is test evidence, live configured execution requires an implemented provider boundary, and unavailable means evidence was not collected.</p>
+          <p className="security-note">Provider status uses implemented, manual import, manual only, simulated, planned, and unavailable labels. Planned providers are not live or available for audit execution.</p>
+          <p className="security-note">Copy contract: manual import is recorded evidence, manual only means explicit capture only, simulated fixture or fake-provider data is test evidence, live configured execution requires an implemented provider boundary, and unavailable means evidence was not collected.</p>
           <div className="provider-grid">
             {providers.map((provider) => {
               const status = statusFor(provider.statusKey);
@@ -200,9 +208,9 @@ export function App() {
         <section id="audit-run" className="panel">
           <h3>Audit Run</h3>
           <p className="eyebrow">Fixture-only audit path</p>
-          <p className="eyebrow">Fixture, manual-import, configured-provider, and unavailable run states</p>
+          <p className="eyebrow">Fixture, manual-import, manual-only, configured-provider, and unavailable run states</p>
           <p className="security-note">Provider-backed audit execution uses implemented fixture/manual boundaries only unless a provider is explicitly configured and verified. Planned providers remain planned and unavailable for live audits.</p>
-          <p className="security-note">Unavailable run paths collect no evidence; simulated paths are test evidence.</p>
+          <p className="security-note">Google AIO is manual only because AIO share links are gated and not auto-capturable. Unavailable run paths collect no evidence; simulated paths are test evidence.</p>
           <div className="run-path-grid">
             {runPaths.map((path) => {
               const status = statusFor(path.statusKey);
@@ -233,7 +241,7 @@ export function App() {
           <p className="eyebrow">Artifact source: {reportView.sourceLabel}</p>
           <p className="eyebrow">Artifact kind: {reportView.artifactKind}</p>
           <p>Package: {reportView.packageId} generated at {reportView.generatedAt}</p>
-          <p className="security-note">Report provider notes must preserve status: manual import is imported evidence, simulated paths are test evidence, planned providers collect no evidence, and unavailable providers did not run.</p>
+          <p className="security-note">Report provider notes must preserve status: manual import is imported evidence, manual only is explicit capture evidence, simulated paths are test evidence, planned providers collect no evidence, and unavailable providers did not run.</p>
           {reportView.warnings.map((warning) => (
             <p className="security-note" key={warning}>{warning}</p>
           ))}
