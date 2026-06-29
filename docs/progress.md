@@ -10,7 +10,7 @@ Loop V10 integrates GEO measurement research into GEO-Agent's core while preserv
 - Planning branch: `v10-geo-research-integration-plan`
 - Loop: `Loop V10 GEO-research integration`
 - State source: this file plus `docs/loop-v10.md`
-- First TODO: `V10-10 optimization-task-action-taxonomy`
+- First TODO: `V10-11 optimization-execution-plugin-boundary`
 - Runner mode: GitHub-only development; CI verifies; no local repository operations required.
 
 ## Milestone State
@@ -35,7 +35,7 @@ Loop V10 integrates GEO measurement research into GEO-Agent's core while preserv
 | V10-07 | DONE | citation-level-feature-schema |
 | V10-08 | DONE | content-feature-taxonomy-diagnosis |
 | V10-09 | DONE | repeated-sampling-and-manual-only-provider-matrix |
-| V10-10 | TODO | optimization-task-action-taxonomy |
+| V10-10 | DONE | optimization-task-action-taxonomy |
 | V10-11 | TODO | optimization-execution-plugin-boundary |
 | V10-12 | TODO | geoflow-interface |
 | V10-13 | TODO | ui-brand-form-query-preview |
