@@ -6,7 +6,7 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v9f-real-case-fixes`
-- First TODO: `V9F-4 report-per-engine-and-component`
+- First TODO: `V9F-5 desktop-render-multi-engine`
 
 ## 2026-06-29 STEP 0 — Re-established Runner State
 
@@ -37,10 +37,19 @@
 
 - Branch: `v9f-3-capture-to-package-bridge`
 - PR: #107
-- Added `AuditRunner.run_with_captured_runs()` so captured `EngineRun` records can use the existing persist, score, report, task, and evidence graph path without query generation.
-- Added CLI subcommand `capture-package` to write `manifest.json`, `report.json`, `report.md`, and `audit.sqlite` from manual captures.
-- Regression coverage writes a package from two captures across `perplexity` and `chatgpt_search` and verifies the stored runs and query records preserve the captured queries per engine.
-- CI: GitHub Actions `verify` run 281 passed on commit `ee654a09864a7972e2fb87f5698b3a4540fd3d01` before docs status update.
+- Added `AuditRunner.run_with_captured_runs()` for captured `EngineRun` records without query generation.
+- Added CLI subcommand `capture-package` for manual capture packages.
+- CI: GitHub Actions `verify` run 283 passed on final PR head.
+- Merged to `main`.
+
+## 2026-06-29 V9F-4 — Per-Engine Component Report
+
+- Branch: `v9f-4-report-per-engine-component`
+- PR: #108
+- Added report v2 per-engine component summary for mention, owned citation, recommendation, and competitor-only shares.
+- Added a report v2 builder that leads with `Per-Engine Breakdown` and labels aggregate score as `directional_not_verdict`.
+- Regression coverage asserts per-engine report sections, component keys, engine-level directionality, and aggregate directionality labeling.
+- CI: GitHub Actions `verify` run 286 passed on commit `89f4d75c92204c98510dcf195b7bcb796dda1741` before docs status update.
 - Final docs update committed after CI pass; re-run CI on final head before merging.
 
 ## Guardrails

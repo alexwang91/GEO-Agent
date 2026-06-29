@@ -5,6 +5,8 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 
 from .bootstrap_stats import BootstrapSummary, bootstrap_mean_interval
+from .engine_sampling import EngineRun
+from .visibility_scoring import WeightedVisibilityScore, compute_visibility_components
 
 
 @dataclass(frozen=True)
@@ -40,6 +42,21 @@ def summarize_metric_samples(samples: dict[str, tuple[float, ...] | list[float]]
     return summary
 
 
+def build_engine_component_summary(
+    runs: tuple[EngineRun, ...] | list[EngineRun], *, brand: str, brand_domain: str, competitors: tuple[str, ...] = ()
+) -> dict[str, object]:
+    """Summarize visibility by engine before showing aggregate direction."""
+
+    engines = sorted({run.engine for run in runs})
+    return {
+        "summary_type": "per_engine_component_breakdown",
+        "primary_interpretation": "engine_breakdown_first",
+        "aggregate_label": "directional_not_verdict",
+        "aggregate_warning": "A single aggregate score can hide engine-level differences; use it only as directional context.",
+        "engines": [_engine_item(engine, tuple(run for run in runs if run.engine == engine), brand, brand_domain, competitors) for engine in engines],
+    }
+
+
 def build_report_v2(
     metric_summary: dict[str, object], diagnoses: tuple[dict[str, object], ...], tasks: tuple[dict[str, object], ...], retests: tuple[dict[str, object], ...]
 ) -> ReportV2:
@@ -55,6 +72,38 @@ def build_report_v2(
     )
 
 
+def build_report_v2_from_runs(
+    runs: tuple[EngineRun, ...] | list[EngineRun], *, brand: str, brand_domain: str, score: WeightedVisibilityScore, competitors: tuple[str, ...] = (), diagnoses: tuple[dict[str, object], ...] = (), tasks: tuple[dict[str, object], ...] = (), retests: tuple[dict[str, object], ...] = ()
+) -> ReportV2:
+    engine_summary = build_engine_component_summary(runs, brand=brand, brand_domain=brand_domain, competitors=competitors)
+    metric_summary = {
+        "aggregate_score": {
+            "value": score.aggregate_score,
+            "label": "directional_not_verdict",
+            "interpretation": "directional context only; inspect per-engine components first",
+        },
+        "components": score.components.to_dict(),
+        "per_engine": engine_summary,
+    }
+    return ReportV2(
+        "AI Visibility Audit Report",
+        (
+            ReportSectionV2("Per-Engine Breakdown", "Per-engine component metrics lead the report.", (engine_summary,)),
+            ReportSectionV2("Directional Aggregate", "Single aggregate score is directional context, not a verdict.", (metric_summary,)),
+            ReportSectionV2("Diagnoses", "Evidence-backed diagnosis records.", diagnoses),
+            ReportSectionV2("Optimization Tasks", "Prioritized action plan.", tasks),
+            ReportSectionV2("Retest Plan", "Follow-up measurement plan.", retests),
+        ),
+        (
+            "Per-engine component results lead the report.",
+            "A single aggregate score is directional, not a verdict.",
+            "Low-sample results are directional.",
+            "Deltas below the noise floor are inconclusive.",
+            "Planned providers remain planned.",
+        ),
+    )
+
+
 def compare_metric_delta(before: BootstrapSummary, after: BootstrapSummary) -> dict[str, object]:
     delta = round(after.mean - before.mean, 4)
     noise_floor = round(max(before.noise_floor, after.noise_floor), 4)
@@ -64,6 +113,21 @@ def compare_metric_delta(before: BootstrapSummary, after: BootstrapSummary) -> d
         "delta": delta,
         "noise_floor": noise_floor,
         "conclusion": "inconclusive_below_noise_floor" if abs(delta) <= noise_floor else "directional_change",
+    }
+
+
+def _engine_item(engine: str, runs: tuple[EngineRun, ...], brand: str, brand_domain: str, competitors: tuple[str, ...]) -> dict[str, object]:
+    components = compute_visibility_components(list(runs), brand=brand, brand_domain=brand_domain, competitors=competitors)
+    return {
+        "engine": engine,
+        "sample_count": len(runs),
+        "components": {
+            "mention_share": components.mention_share,
+            "owned_citation_share": components.citation_share,
+            "recommendation_share": components.recommendation_share,
+            "competitor_only_share": components.competitor_only_share,
+        },
+        "directionality": "directional_low_sample" if len(runs) < 10 else "directional",
     }
 
 
