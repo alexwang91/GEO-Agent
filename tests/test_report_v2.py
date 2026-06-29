@@ -33,7 +33,7 @@ class ReportV2Tests(unittest.TestCase):
                 "2026-06-29T12:01:00+00:00",
                 "HU",
                 "en",
-                "Apple Watch and Samsung Galaxy Watch are listed without Huawei.",
+                "Apple Watch and Samsung Galaxy Watch are listed as the shortlist.",
                 ("https://example.com/fitness-watch",),
                 ("Apple Watch",),
                 ("Apple Watch",),
