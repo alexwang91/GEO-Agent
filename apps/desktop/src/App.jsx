@@ -170,8 +170,9 @@ export function App() {
 
         <section id="providers" className="panel">
           <h3>Providers</h3>
-          <p className="security-note">Provider status uses implemented, manual import, manual only, simulated, planned, and unavailable labels. Planned providers are not live or available for audit execution.</p>
-          <p className="security-note">Copy contract: manual import is recorded evidence, manual only means explicit capture only, simulated fixture or fake-provider data is test evidence, live configured execution requires an implemented provider boundary, and unavailable means evidence was not collected.</p>
+          <p className="security-note">Provider status uses implemented, manual import, simulated, planned, and unavailable labels. Planned providers are not live or available for audit execution.</p>
+          <p className="security-note">Copy contract: manual import is recorded evidence, simulated fixture or fake-provider data is test evidence, live configured execution requires an implemented provider boundary, and unavailable means evidence was not collected.</p>
+          <p className="security-note">Manual-only evidence such as Google AIO requires explicit capture; AIO share links are gated and not auto-capturable.</p>
           <div className="provider-grid">
             {providers.map((provider) => {
               const status = statusFor(provider.statusKey);
@@ -208,9 +209,10 @@ export function App() {
         <section id="audit-run" className="panel">
           <h3>Audit Run</h3>
           <p className="eyebrow">Fixture-only audit path</p>
-          <p className="eyebrow">Fixture, manual-import, manual-only, configured-provider, and unavailable run states</p>
+          <p className="eyebrow">Fixture, manual-import, configured-provider, and unavailable run states</p>
           <p className="security-note">Provider-backed audit execution uses implemented fixture/manual boundaries only unless a provider is explicitly configured and verified. Planned providers remain planned and unavailable for live audits.</p>
-          <p className="security-note">Google AIO is manual only because AIO share links are gated and not auto-capturable. Unavailable run paths collect no evidence; simulated paths are test evidence.</p>
+          <p className="security-note">Unavailable run paths collect no evidence; simulated paths are test evidence.</p>
+          <p className="security-note">Google AIO manual-only capture is available through the manual capture package path; it is not automated live collection.</p>
           <div className="run-path-grid">
             {runPaths.map((path) => {
               const status = statusFor(path.statusKey);
@@ -241,7 +243,8 @@ export function App() {
           <p className="eyebrow">Artifact source: {reportView.sourceLabel}</p>
           <p className="eyebrow">Artifact kind: {reportView.artifactKind}</p>
           <p>Package: {reportView.packageId} generated at {reportView.generatedAt}</p>
-          <p className="security-note">Report provider notes must preserve status: manual import is imported evidence, manual only is explicit capture evidence, simulated paths are test evidence, planned providers collect no evidence, and unavailable providers did not run.</p>
+          <p className="security-note">Report provider notes must preserve status: manual import is imported evidence, simulated paths are test evidence, planned providers collect no evidence, and unavailable providers did not run.</p>
+          <p className="security-note">Manual-only report evidence means explicit capture evidence, not an automated provider run.</p>
           {reportView.warnings.map((warning) => (
             <p className="security-note" key={warning}>{warning}</p>
           ))}
