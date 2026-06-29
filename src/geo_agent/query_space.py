@@ -92,7 +92,7 @@ def _record_for_intent(profile: EntityProfile, intent: str, language: str, regio
     competitor_text = _competitor_text(profile.competitors)
     query = {
         "brand": f"What is {profile.brand} for {profile.target_customer}?",
-        "category": f"Best {profile.category} options for {profile.target_customer} in {region}",
+        "category": f"Best {profile.category} tools for {profile.target_customer} in {region}",
         "comparison": f"Compare {profile.brand} with {competitor_text}",
         "buying_intent": f"Should {profile.target_customer} choose {profile.brand} for {profile.business_goal}?",
         "problem_solving": f"How can {profile.target_customer} solve {profile.business_goal} with {profile.category}?",
