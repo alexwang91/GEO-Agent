@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from typing import Protocol
 from urllib.parse import urlparse
 
-from .entity_resolution import dedupe_entity_matches, extract_urls, find_entity_matches, normalize_domain
+from .entity_resolution import extract_urls, find_entity_matches, normalize_domain, normalize_text
 
 
 @dataclass(frozen=True)
@@ -85,8 +85,7 @@ def run_from_payload(
     brand = str(payload.get("brand", ""))
     aliases = tuple(str(item) for item in payload.get("brand_aliases", ())) if isinstance(payload.get("brand_aliases", ()), (list, tuple)) else ()
     if not mentions and brand:
-        matches = dedupe_entity_matches(find_entity_matches(raw_answer, brand, aliases))
-        mentions = tuple(match.matched for match in matches)
+        mentions = _unique_mentions(raw_answer, brand, aliases)
     return EngineRun(
         engine=engine,
         query=query,
@@ -99,6 +98,26 @@ def run_from_payload(
         recommendations=_payload_tuple(payload.get("recommendations", ())),
         source_domains=domains,
     )
+
+
+def _unique_mentions(text: str, brand: str, aliases: tuple[str, ...]) -> tuple[str, ...]:
+    output: list[str] = []
+    spans: list[tuple[int, int]] = []
+    seen: set[str] = set()
+    matches = sorted(find_entity_matches(text, brand, aliases), key=lambda item: (item.start, -(item.end - item.start)))
+    for item in matches:
+        normalized = normalize_text(item.matched)
+        if not normalized:
+            continue
+        if normalized in seen:
+            spans.append((item.start, item.end))
+            continue
+        if any(item.start < end and start < item.end for start, end in spans):
+            continue
+        seen.add(normalized)
+        spans.append((item.start, item.end))
+        output.append(item.matched)
+    return tuple(output)
 
 
 def _payload_tuple(value: object) -> tuple[str, ...]:
