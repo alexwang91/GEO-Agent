@@ -93,12 +93,12 @@ def _record_for_intent(profile: EntityProfile, intent: str, language: str, regio
     query = {
         "brand": f"What is {profile.brand} for {profile.target_customer}?",
         "category": f"Best {profile.category} tools for {profile.target_customer} in {region}",
-        "comparison": f"Compare {profile.brand} vs {competitor_text} for {profile.main_product}",
+        "comparison": f"Compare {profile.brand} with {competitor_text}",
         "buying_intent": f"Should {profile.target_customer} choose {profile.brand} for {profile.business_goal}?",
         "problem_solving": f"How can {profile.target_customer} solve {profile.business_goal} with {profile.category}?",
         "scenario": f"When is {profile.brand} a fit for {profile.main_product} in {region}?",
         "negative_risk": f"Limitations of {profile.brand} for {profile.category}",
-        "alternatives": f"Best alternatives to {profile.brand} including {competitor_text}",
+        "alternatives": f"Best alternatives to {profile.brand}: {competitor_text}",
     }[intent]
     return QueryRecord(
         query=query,
@@ -131,6 +131,8 @@ def _priority_score(intent: str, profile: EntityProfile) -> float:
 def _competitor_text(competitors: tuple[str, ...]) -> str:
     if len(competitors) == 1:
         return competitors[0]
+    if len(competitors) == 2:
+        return f"{competitors[0]} and {competitors[1]}"
     return ", ".join(competitors[:-1]) + f", and {competitors[-1]}"
 
 

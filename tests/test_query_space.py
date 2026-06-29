@@ -38,7 +38,7 @@ class QuerySpaceTests(unittest.TestCase):
         self.assertEqual(record.competitor_entities, ("Globex AI", "Initech Search"))
         self.assertEqual(record.priority_score, 0.92)
         self.assertEqual(record.cluster, "comparison:en:US:perplexity")
-        self.assertIn("Compare Acme AI vs Globex AI, and Initech Search", record.query)
+        self.assertEqual(record.query, "Compare Acme AI with Globex AI and Initech Search")
 
     def test_multiple_engines_regions_and_languages_are_deterministic(self):
         payload = dict(PROFILE_PAYLOAD)
@@ -63,6 +63,30 @@ class QuerySpaceTests(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             build_query_space(profile, target_engines=[" "])
+
+    def test_consumer_product_comparison_and_alternatives_queries_read_naturally(self):
+        profile = validate_entity_profile(
+            {
+                "brand": "Huawei Watch Fit 5",
+                "aliases": ["Huawei Watch"],
+                "domain": "consumer.huawei.com",
+                "competitors": ["Apple Watch", "Samsung Galaxy Watch"],
+                "target_regions": ["HU"],
+                "target_languages": ["en"],
+                "target_customer": "Android fitness watch buyers",
+                "main_product": "Huawei Watch Fit 5",
+                "category": "smartwatches",
+                "business_goal": "increase AI visibility",
+            }
+        )
+        records = build_query_space(profile, target_engines=["chatgpt_search"])
+        by_intent = {record.intent_type: record.query for record in records}
+
+        self.assertEqual(by_intent["comparison"], "Compare Huawei Watch Fit 5 with Apple Watch and Samsung Galaxy Watch")
+        self.assertEqual(by_intent["alternatives"], "Best alternatives to Huawei Watch Fit 5: Apple Watch and Samsung Galaxy Watch")
+        self.assertNotIn("vs Apple Watch, and", by_intent["comparison"])
+        self.assertNotIn("for Huawei Watch Fit 5", by_intent["comparison"])
+        self.assertNotIn("including Apple Watch, and", by_intent["alternatives"])
 
 
 if __name__ == "__main__":
