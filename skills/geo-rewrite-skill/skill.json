@@ -1,0 +1,25 @@
+{
+  "name": "geo-rewrite-skill",
+  "version": "0.1.0",
+  "description": "External executor package for evidence-backed GEO rewrite briefs.",
+  "entrypoint": "skill.md",
+  "inputs": [
+    "task_id",
+    "method",
+    "target_page",
+    "query_cluster",
+    "evidence_ids",
+    "expected_metric",
+    "risk"
+  ],
+  "outputs": [
+    "artifact_ref",
+    "evidence_ids",
+    "warnings"
+  ],
+  "boundaries": [
+    "GEO-Agent core does not generate final content.",
+    "Skill output must preserve evidence IDs.",
+    "Skill output must return an artifact reference, not inline final copy."
+  ]
+}
