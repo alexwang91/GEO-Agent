@@ -1,6 +1,6 @@
-# External Runner Prompt — Loop V9F Real-Case Fixes
+# External Runner Prompt — Loop V10 GEO-Research Integration
 
-Use this prompt only after `v9f-real-case-fixes` has been merged into `main`.
+Use this prompt only after `v10-geo-research-integration-plan` has been merged into `main`.
 
 ```text
 You are the autonomous GitHub-only development runner for `alexwang91/GEO-Agent`.
@@ -10,24 +10,26 @@ Use only the GitHub connector for repository work. Verification is delegated to 
 Repository:
 - Repo: `alexwang91/GEO-Agent`
 - Base branch: `main`
-- Current loop: `Loop V9F evidence-driven real-case fixes`
-- First TODO milestone: `V9F-1 fix-recommendation-matching`
+- Current loop: `Loop V10 GEO-research integration`
+- First TODO milestone: `V10-01 evidence-and-integration-map`
 
 State:
 - This is an existing advanced repo.
 - Do not bootstrap from scratch.
-- Do not re-plan V7, V8, or V9.
+- Do not re-plan V1 through V9.
 - V1 through V9 are DONE history.
-- V9F-1 through V9F-7 are TODO.
+- V10-01 through V10-17 are TODO.
 - `docs/progress.md` is the single milestone state source.
-- The real-case context is recorded in `docs/v9-real-case.md`.
-- Use `docs/loop-v9f.md` as the loop directive.
+- The real-case context is recorded in `docs/v10-real-case.md`.
+- Use `docs/loop-v10.md` as the loop directive.
+- Use `docs/geo-research-integration.md` as the research-to-module map.
 
 Read first:
 - `AGENTS.md`
 - `docs/progress.md`
-- `docs/loop-v9f.md`
-- `docs/v9-real-case.md`
+- `docs/loop-v10.md`
+- `docs/v10-real-case.md`
+- `docs/geo-research-integration.md`
 - `docs/handoff-decision.md`
 - `docs/runner-prompt.md`
 - `docs/loop-trace.md`
@@ -36,55 +38,68 @@ Read first:
 - `docs/provider-status-language.md`
 - `docs/limitations.md`
 
+Identity boundary:
+- GEO-Agent is an AI search visibility measurement, diagnosis, experiment, task-planning, and retest workbench.
+- Integrate measurement research into the core.
+- Integrate content-generation resources only as an optimization plugin or downstream executor wired through the task plan.
+- Do not let GEO-Agent become a content writer.
+
 Real-case context:
-Brand Huawei, single Perplexity/ChatGPT session + manually pasted Google AIO (AIO share links are gated and NOT auto-capturable). 15 real answers. Per-engine Huawei visibility (directional, n small):
-- Perplexity n=6: mention 0.83, owned-citation 0.17, competitor-only 0.17, aggregate 0.48
-- ChatGPT n=5: mention 0.60, owned-citation 0.40, competitor-only 0.40, aggregate 0.49
-- Google AIO n=4: mention 1.00, owned-citation 1.00, competitor-only 0.00, aggregate 0.72
-Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on AIO, third-party-driven on Perplexity, dropped from "best smartwatches" category queries on ChatGPT). A single-engine audit or a single aggregate score MISLEADS. Huawei is absent from high-intent "best smartwatches for Android/fitness" queries on Perplexity/ChatGPT. consumer.huawei.com (owned) shapes AIO (4/4) and ChatGPT (2/5) far more than Perplexity (1/6).
+Brand Huawei, directional three-engine run:
+- Perplexity n=6: mention 0.83, owned-citation 0.17, competitor-only 0.17, aggregate 0.48.
+- ChatGPT n=5: mention 0.60, owned-citation 0.40, competitor-only 0.40, aggregate 0.49.
+- Google AIO n=4: mention 1.00, owned-citation 1.00, competitor-only 0.00, aggregate 0.72.
+Key insight: visibility is strongly engine-dependent. A single aggregate score misleads. Huawei is absent from `best smartwatches` category queries on Perplexity and ChatGPT in the supplied run. Google AIO was pasted manually because share links are gated and not auto-capturable.
 
 Current first TODO:
-V9F-1 fix-recommendation-matching
+V10-01 evidence-and-integration-map
 
-V9F-1 bug:
-`src/geo_agent/visibility_scoring.py` `_same_entity` requires exact full-string equality through `len(value) == len(matched)`. Brand `Huawei` never matches recommendation strings like `Huawei Watch GT 6`, so `recommendation_share=0`, while `Apple Watch` can score from exact-string recommendations. Brand-label granularity silently distorts the ranking.
+V10-01 scope:
+- Docs only.
+- Preserve the Huawei three-engine evidence matrix in `docs/v10-real-case.md`.
+- Preserve the resource-to-module mapping and identity boundary in `docs/geo-research-integration.md`.
+- Do not change code.
+- Do not open or implement V10-02 in the same PR.
 
-V9F-1 fix:
-Match recommendations by entity containment and token-boundary logic consistent with `has_entity` and `find_entity_matches` in `entity_resolution.py`, not exact equality.
-
-V9F-1 test:
-Add a deterministic fixture mirroring the real data:
-- brand `Huawei` with recommendation `Huawei Watch GT 6 Pro` yields `recommendation_share > 0`;
-- `Apple Watch` still matches;
-- `Huawei` does not false-match inside an unrelated token.
-
-V9F order:
-1. V9F-1 fix-recommendation-matching
-2. V9F-2 fix-manual-capture-recommendations-and-mention-dedup
-3. V9F-3 capture-to-package-bridge
-4. V9F-4 report-per-engine-and-component
-5. V9F-5 desktop-render-multi-engine
-6. V9F-6 record-evidence-and-honesty
-7. V9F-7 query-template-cleanup
+V10 backlog order:
+1. V10-01 evidence-and-integration-map
+2. V10-02 fix-recommendation-matching
+3. V10-03 fix-manual-capture-recommendations-and-mention-dedup
+4. V10-04 capture-to-package-bridge
+5. V10-05 position-adjusted-visibility
+6. V10-06 report-v2-selection-absorption-attribution
+7. V10-07 citation-level-feature-schema
+8. V10-08 content-feature-taxonomy-diagnosis
+9. V10-09 repeated-sampling-and-manual-only-provider-matrix
+10. V10-10 optimization-task-action-taxonomy
+11. V10-11 optimization-execution-plugin-boundary
+12. V10-12 geoflow-interface
+13. V10-13 ui-brand-form-query-preview
+14. V10-14 ui-reproducible-preview-artifact
+15. V10-15 ui-capture-package-import-wizard
+16. V10-16 yao-skill-packaging
+17. V10-17 yao-governance-evals-release-guards
 
 Rules:
 - Start from current `main`.
-- Create one branch for exactly one V9F milestone.
+- Create one branch for exactly one V10 milestone.
 - Implement only the first TODO milestone from `docs/progress.md`.
 - Open one PR to `main` for that milestone.
 - Wait for GitHub Actions CI.
 - If CI fails, inspect logs and patch the same branch until CI passes.
-- Mark a V9F milestone DONE only after the deterministic test/check passes and CI is green.
+- Mark a V10 milestone DONE only after the deterministic test/check passes and CI is green.
 - Update `docs/progress.md` and `docs/loop-trace.md` after each PR.
 
 Guardrails:
 - CI is VERIFY; never weaken tests.
 - Keep CI network-free.
 - Reuse V7/V8 measurement code and existing modules.
-- Do not add new analytics modules.
 - Never fabricate AI-engine answers or treat model/web-search output as a real engine sample.
-- Keep Google AIO `manual_only`; AIO share links are gated and not auto-capturable.
-- Keep single-sample results labeled directional.
-- Keep aggregate scores labeled directional, not verdicts.
-- No raw credentials in artifacts, logs, manifests, databases, or UI state.
+- Keep per-engine results primary.
+- Label single-sample results as directional.
+- Label aggregate scores as directional, not verdicts.
+- Keep Google AIO manual-only; AIO share links are gated and not auto-capturable.
+- Keep DeepSeek, Kimi, Qianwen, and other Chinese AI engines manual-only unless sanctioned provider paths are added later.
+- Keep rewrite skills and GEOFlow behind plugin/downstream executor boundaries.
+- Do not store secrets in artifacts, logs, manifests, databases, or UI state.
 ```
