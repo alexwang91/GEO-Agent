@@ -14,7 +14,7 @@ Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on 
 - Planning branch: `v9f-real-case-fixes`
 - Loop: `Loop V9F evidence-driven real-case fixes`
 - State source: this file
-- First TODO: `V9F-1 fix-recommendation-matching`
+- First TODO: `V9F-2 fix-manual-capture-recommendations-and-mention-dedup`
 - Runner mode: GitHub-only development; CI verifies; no local repository operations required.
 
 ## Milestone State
@@ -30,7 +30,7 @@ Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on 
 | V7 | DONE | AI visibility workbench history |
 | V8 | DONE | Measurement foundation hardening |
 | V9 | DONE | Historical real vertical-slice loop |
-| V9F-1 | TODO | fix-recommendation-matching |
+| V9F-1 | DONE | fix-recommendation-matching |
 | V9F-2 | TODO | fix-manual-capture-recommendations-and-mention-dedup |
 | V9F-3 | TODO | capture-to-package-bridge |
 | V9F-4 | TODO | report-per-engine-and-component |
