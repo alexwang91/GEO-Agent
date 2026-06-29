@@ -8,14 +8,14 @@ Provider status language controls how README, desktop UI copy, reports, and docs
 | :--- | :--- | :--- | :--- |
 | `implemented` | The provider boundary exists and can run when explicitly configured. | Implemented, configured provider boundary. | ChatGPT Search, guaranteed live coverage. |
 | `manual` | The manual or recorded evidence path is implemented. | Manual import, recorded evidence, imported run. | Automated live provider, crawler-backed live coverage. |
-| `manual_only` | Evidence can be included only through explicit manual capture. Automated collection is unavailable. | Manual only, explicit manual capture, not auto-capturable. | Automated, live connector, share-link capture, available provider. |
+| `manual_only` | Docs/UI label for evidence that can be included only through explicit manual capture. Automated collection is unavailable. | Manual only, explicit manual capture, not auto-capturable. | Automated, live connector, share-link capture, available provider. |
 | `simulated` | Fixture or fake-provider path used for deterministic tests. | Simulated, fixture-backed, test evidence. | Live evidence, production provider result. |
 | `planned` | Roadmap provider not implemented for audit execution. | Planned, coming later. | Available, connected, live, supported. |
 | `unavailable` | Provider cannot run due to missing setup or access failure. | Unavailable, resolve issue, not collected. | Successful, configured, collected. |
 
 ## Registry status vocabulary
 
-`src/geo_agent/provider_access.py` still uses `implemented` and `planned` for structural registry status. The richer statuses above are user-facing runtime and report copy labels from `src/geo_agent/provider_status_copy.py` and desktop copy. A provider can be user-facing `manual_only` while its evidence enters through the implemented manual-import path.
+`src/geo_agent/provider_access.py` still uses `implemented` and `planned` for structural registry status. `src/geo_agent/provider_status_copy.py` currently exposes the runtime status copy used by provider-boundary flows. The `manual_only` label is intentionally documented for README and desktop UI evidence boundaries without changing the runtime provider enum in this docs-only milestone. A provider can be user-facing `manual_only` while its evidence enters through the implemented manual-import path.
 
 ## Current provider matrix
 
