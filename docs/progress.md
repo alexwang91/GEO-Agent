@@ -2,7 +2,7 @@
 
 ## Loop V10 GEO-Research Integration
 
-Loop V10 integrates GEO measurement research into GEO-Agent's core while preserving the product boundary: GEO-Agent measures, diagnoses, plans experiments, and retests AI search visibility. It does not become a content writer.
+Loop V10 integrates GEO measurement research into GEO-Agent core while preserving the workbench boundary.
 
 ## Branch State
 
@@ -10,8 +10,8 @@ Loop V10 integrates GEO measurement research into GEO-Agent's core while preserv
 - Planning branch: `v10-geo-research-integration-plan`
 - Loop: `Loop V10 GEO-research integration`
 - State source: this file plus `docs/loop-v10.md`
-- First TODO: `V10-11 optimization-execution-plugin-boundary`
-- Runner mode: GitHub-only development; CI verifies; no local repository operations required.
+- First TODO: `V10-12 geoflow-interface`
+- Runner mode: GitHub-only development; CI verifies.
 
 ## Milestone State
 
@@ -36,7 +36,7 @@ Loop V10 integrates GEO measurement research into GEO-Agent's core while preserv
 | V10-08 | DONE | content-feature-taxonomy-diagnosis |
 | V10-09 | DONE | repeated-sampling-and-manual-only-provider-matrix |
 | V10-10 | DONE | optimization-task-action-taxonomy |
-| V10-11 | TODO | optimization-execution-plugin-boundary |
+| V10-11 | DONE | optimization-execution-plugin-boundary |
 | V10-12 | TODO | geoflow-interface |
 | V10-13 | TODO | ui-brand-form-query-preview |
 | V10-14 | TODO | ui-reproducible-preview-artifact |
@@ -46,17 +46,13 @@ Loop V10 integrates GEO measurement research into GEO-Agent's core while preserv
 
 ## Done Rule
 
-A milestone is DONE only when its deterministic regression test/check passes, CI is green, and the milestone state plus evidence trail are updated. One milestone equals one branch, one PR, and CI verification before merge.
+A milestone is DONE only when its deterministic test/check passes, CI is green, and docs are updated. One milestone equals one branch, one PR, and CI verification before merge.
 
 ## Guardrails
 
 - Implement V10 milestones in priority order.
-- Keep GEO-Agent as a measurement, diagnosis, experiment, task-planning, and retest workbench.
-- Put content rewriting and distribution behind plugin/downstream executor interfaces only.
-- Reuse existing V7/V8 code and entity-resolution paths before adding new paths.
 - Keep CI network-free.
-- Use only explicit manual captures or sanctioned provider paths as real engine evidence.
-- Keep Google AIO manual-only; AIO share links are gated and not auto-capturable.
-- Keep DeepSeek, Kimi, Qianwen, and other Chinese AI search engines manual-only unless a sanctioned provider path is explicitly added later.
-- Keep per-engine results primary and label single-sample or aggregate results as directional.
+- Use explicit manual captures or sanctioned provider paths as engine evidence.
+- Keep per-engine results primary and label low-sample or aggregate results as directional.
+- Keep rewrite and distribution systems behind plugin or downstream interfaces.
 - Do not store secrets in artifacts, logs, manifests, databases, or UI state.
