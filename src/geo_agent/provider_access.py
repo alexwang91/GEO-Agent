@@ -9,7 +9,7 @@ from typing import Literal
 ProviderType = Literal["answer", "search", "crawl", "model", "analytics"]
 ProviderCapability = Literal["answer", "search", "crawl", "model", "analytics", "manual_import"]
 ProviderAccessMethod = Literal["api_key", "oauth", "platform_managed", "manual_import", "local"]
-ProviderStatus = Literal["implemented", "planned"]
+ProviderStatus = Literal["implemented", "planned", "manual_only"]
 AuthStatus = Literal["connected", "missing_credential", "planned", "disconnected"]
 
 
@@ -143,6 +143,10 @@ def default_provider_registry() -> ProviderRegistry:
         ProviderDefinition("openai_compatible", "OpenAI-compatible", "answer", ("answer", "model"), ("api_key", "platform_managed"), "implemented"),
         ProviderDefinition("perplexity", "Perplexity", "answer", ("answer", "search"), ("api_key",), "planned"),
         ProviderDefinition("gemini", "Gemini", "answer", ("answer", "model"), ("api_key",), "planned"),
+        ProviderDefinition("google_aio", "Google AIO", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
+        ProviderDefinition("deepseek", "DeepSeek", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
+        ProviderDefinition("kimi", "Kimi", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
+        ProviderDefinition("qianwen", "Qianwen", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
         ProviderDefinition("crawl4ai", "Crawl4AI", "crawl", ("crawl",), ("local", "platform_managed"), "planned"),
         ProviderDefinition("firecrawl", "Firecrawl", "crawl", ("crawl",), ("api_key",), "planned"),
         ProviderDefinition("google_search_console", "Google Search Console", "analytics", ("analytics", "search"), ("oauth",), "planned"),
