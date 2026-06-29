@@ -92,6 +92,29 @@ function ListBlock({ title, values }) {
   );
 }
 
+function EngineBreakdown({ engines }) {
+  if (!engines.length) {
+    return <p>No per-engine breakdown found in this report package.</p>;
+  }
+  return (
+    <div className="report-grid">
+      {engines.map((engine) => (
+        <article className="evidence-block" key={engine.engine}>
+          <h4>{engine.engine}</h4>
+          <p>Samples: {engine.sampleCount}</p>
+          <p>Directionality: {engine.directionality}</p>
+          <ul>
+            <li>Mention share: {engine.components.mention_share ?? 'n/a'}</li>
+            <li>Owned citation share: {engine.components.owned_citation_share ?? 'n/a'}</li>
+            <li>Recommendation share: {engine.components.recommendation_share ?? 'n/a'}</li>
+            <li>Competitor-only share: {engine.components.competitor_only_share ?? 'n/a'}</li>
+          </ul>
+        </article>
+      ))}
+    </div>
+  );
+}
+
 export function App() {
   const [reportView, setReportView] = useState(emptyReportArtifactView());
   const [loadState, setLoadState] = useState('empty');
@@ -214,7 +237,11 @@ export function App() {
           {reportView.warnings.map((warning) => (
             <p className="security-note" key={warning}>{warning}</p>
           ))}
+          <h4>Per-engine breakdown</h4>
+          <p className="security-note">Per-engine component metrics lead this view. The aggregate score is directional context, not a verdict.</p>
+          <EngineBreakdown engines={reportView.engineBreakdown} />
           <div className="metric-grid">
+            <MetricCard label="Directional aggregate label" value={reportView.aggregateLabel || 'legacy_or_unlabeled'} />
             <MetricCard label="Visibility score" value={reportView.score.visibility_score} />
             <MetricCard label="Mention share" value={reportView.score.mention_share} />
             <MetricCard label="Citation share" value={reportView.score.citation_share} />
