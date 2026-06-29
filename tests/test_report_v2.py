@@ -43,12 +43,14 @@ class ReportV2Tests(unittest.TestCase):
 
         payload = build_report_v2_from_runs(runs, brand="Huawei", brand_domain="consumer.huawei.com", score=score).to_dict()
 
-        self.assertEqual(["Per-Engine Breakdown", "Selection Absorption Attribution", "Directional Aggregate", "Diagnoses", "Optimization Tasks", "Retest Plan"], [section["title"] for section in payload["sections"]])
+        self.assertEqual(["Per-Engine Breakdown", "Directional Aggregate", "Diagnoses", "Optimization Tasks", "Retest Plan"], [section["title"] for section in payload["sections"]])
         self.assertIn("A single aggregate score is directional, not a verdict.", payload["guardrails"])
-        aggregate = payload["sections"][2]["items"][0]["aggregate_score"]
-        self.assertEqual(aggregate["label"], "directional_not_verdict")
+        aggregate_summary = payload["sections"][1]["items"][0]
+        self.assertEqual(aggregate_summary["aggregate_score"]["label"], "directional_not_verdict")
+        self.assertIn("selection_absorption_attribution", aggregate_summary)
         per_engine = payload["sections"][0]["items"][0]
         self.assertEqual(per_engine["primary_interpretation"], "engine_breakdown_first")
+        self.assertIn("decomposition", per_engine)
         self.assertEqual(len(per_engine["engines"]), 2)
 
 
