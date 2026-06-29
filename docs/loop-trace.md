@@ -6,7 +6,7 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v10-geo-research-integration-plan`
-- First TODO: `V10-09 repeated-sampling-and-manual-only-provider-matrix`
+- First TODO: `V10-10 optimization-task-action-taxonomy`
 
 ## 2026-06-29 STEP 0 — Re-established Runner State
 
@@ -22,18 +22,14 @@
 
 - Branch: `v10-geo-research-integration-plan`
 - PR: #115
-- Files changed: runner-facing docs only.
-- Added Huawei three-engine real-case matrix and GEO research resource-to-module mapping.
-- CI: GitHub Actions `verify` run 332 passed on PR head.
+- CI: GitHub Actions `verify` run 332 passed.
 - Merged to `main`.
 
 ## 2026-06-29 V10-02 — Recommendation Matching
 
 - Branch: `v10-02-recommendation-matching`
 - PR: #116
-- Existing implementation: `_same_entity` delegates to `has_entity`, reusing token-boundary entity matching.
-- Existing historical coverage: `tests/test_v9f_01_recommendation_matching.py` covers Huawei product recommendation matching, Apple Watch matching, and unrelated-token false positives.
-- Added V10-named regression coverage in `tests/test_v10_02_recommendation_matching.py`.
+- Added V10-named recommendation containment regression coverage.
 - CI: GitHub Actions `verify` run 334 passed.
 - Merged to `main`.
 
@@ -41,9 +37,7 @@
 
 - Branch: `v10-03-manual-capture-dedup`
 - PR: #117
-- Existing implementation preserves `recommendations` through manual capture import and `EngineRun` conversion.
-- Existing implementation normalizes fallback mentions by longest non-overlapping entity spans.
-- Added V10-named regression coverage in `tests/test_v10_03_manual_capture_recommendations_dedup.py`.
+- Added V10-named regression coverage for manual capture recommendations and mention handling.
 - CI: GitHub Actions `verify` run 336 passed.
 - Merged to `main`.
 
@@ -51,8 +45,7 @@
 
 - Branch: `v10-04-capture-package-bridge`
 - PR: #118
-- Existing implementation exposes `AuditRunner.run_with_captured_runs()` and CLI `capture-package`.
-- Added V10-named regression coverage in `tests/test_v10_04_capture_package_bridge.py` for two manual captures across two engines producing manifest, report, and SQLite package artifacts without query generation.
+- Added V10-named capture-package bridge coverage.
 - CI: GitHub Actions `verify` run 338 passed.
 - Merged to `main`.
 
@@ -60,9 +53,7 @@
 
 - Branch: `v10-05-visibility-metrics`
 - PR: #119
-- Replaced the naive character-position rank score with sentence-level position-adjusted word-count visibility.
-- Added a deterministic subjective-impression-style component based on mention, owned citation, recommendation, and prominence signals.
-- Added V10 regression coverage in `tests/test_v10_05_visibility_metrics.py`.
+- Added position-adjusted word-count visibility and deterministic subjective-impression-style scoring.
 - CI: GitHub Actions `verify` run 340 passed.
 - Merged to `main`.
 
@@ -71,8 +62,6 @@
 - Branch: `v10-06-report-decomposition`
 - PR: #120
 - Added report v2 per-engine decomposition for selection, absorption, and attribution.
-- Kept report section order compatible while carrying the three-layer breakdown in per-engine JSON and aggregate summary.
-- Added V10 regression coverage in `tests/test_v10_06_report_decomposition.py`.
 - CI: GitHub Actions `verify` run 347 passed.
 - Merged to `main`.
 
@@ -80,18 +69,24 @@
 
 - Branch: `v10-07-citation-feature-schema`
 - PR: #121
-- Extended evidence graph citation records with citation-level selection, absorption, attribution, claim-fidelity, context, and feature-record fields.
-- Added deterministic citation feature extraction for owned-source attribution and answer absorption.
-- Added V10 regression coverage in `tests/test_v10_07_citation_features.py`.
+- Added citation-level feature records in the evidence graph.
 - CI: GitHub Actions `verify` run 349 passed.
 - Merged to `main`.
 
 ## 2026-06-29 V10-08 — Content Feature Taxonomy Diagnosis
 
 - Branch: `v10-08-feature-gap-diagnosis`
-- Added GEO content feature taxonomy constants for statistics, quotations, authoritative sources, schema, entity clarity, FAQ, and freshness.
-- Wired feature-gap evidence into diagnosis explanations and next steps.
-- Added V10 regression coverage in `tests/test_v10_08_feature_gap_diagnosis.py`.
+- PR: #122
+- Added content feature taxonomy gaps to diagnosis.
+- CI: GitHub Actions `verify` run 351 passed.
+- Merged to `main`.
+
+## 2026-06-29 V10-09 — Repeated Sampling and Provider Matrix
+
+- Branch: `v10-09-sampling-provider-matrix`
+- Added repeated-sampling probability summaries with n, positive count, interval, collection method, and confidence label.
+- Added `manual_only` registry status for Google AIO, DeepSeek, Kimi, and Qianwen.
+- Updated provider status documentation and V10 regression coverage.
 
 ## Guardrails
 
