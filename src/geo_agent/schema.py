@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from urllib.parse import urlparse
 
 from .engine_sampling import EngineRun
+from .entity_resolution import domain_matches, has_entity
 from .failure_debugger import FailureDiagnosis
 from .optimization_tasks import OptimizationTaskBrief
 from .page_inventory import PageInventoryRecord
@@ -67,6 +68,14 @@ class CitationRecord:
     url: str
     domain: str
     position: int
+    engine: str
+    query: str
+    selection_status: str
+    absorption_status: str
+    attribution_status: str
+    claim_fidelity: str
+    citation_context: str
+    feature_record: dict[str, object]
 
     def to_dict(self) -> dict[str, object]:
         return _asdict(self)
@@ -249,7 +258,7 @@ def build_evidence_graph(
         prompt_id = prompt_ids[index - 1]
         sample_id = _id("sample", index)
         citations = tuple(
-            CitationRecord(_id("citation", index, position), sample_id, prompt_id, url, _domain(url), position)
+            _citation_record(index, position, sample_id, prompt_id, run, brand, domain, url)
             for position, url in enumerate(run.citations, start=1)
         )
         mentions = tuple(
@@ -322,6 +331,66 @@ def _prompt_record(index: int, query: QueryRecord) -> PromptRecord:
         query.region,
         query.target_engine,
     )
+
+
+def _citation_record(
+    run_index: int, position: int, sample_id: str, prompt_id: str, run: EngineRun, brand: str, brand_domain: str, url: str
+) -> CitationRecord:
+    citation_domain = _domain(url)
+    feature_record = _citation_feature_record(run, brand, brand_domain, url, citation_domain, position)
+    return CitationRecord(
+        _id("citation", run_index, position),
+        sample_id,
+        prompt_id,
+        url,
+        citation_domain,
+        position,
+        run.engine,
+        run.query,
+        str(feature_record["selection_status"]),
+        str(feature_record["absorption_status"]),
+        str(feature_record["attribution_status"]),
+        str(feature_record["claim_fidelity"]),
+        str(feature_record["citation_context"]),
+        feature_record,
+    )
+
+
+def _citation_feature_record(run: EngineRun, brand: str, brand_domain: str, url: str, citation_domain: str, position: int) -> dict[str, object]:
+    owned_source = domain_matches(citation_domain, brand_domain)
+    brand_absorbed = has_entity(run.raw_answer, brand)
+    answer_present = bool(run.raw_answer.strip())
+    return {
+        "source_url": url,
+        "source_domain": citation_domain,
+        "citation_position": position,
+        "engine": run.engine,
+        "query": run.query,
+        "selection_status": "selected",
+        "selection_rank": position,
+        "source_type": "owned" if owned_source else "third_party",
+        "absorption_status": "absorbed" if brand_absorbed else "not_absorbed",
+        "citation_absorption": brand_absorbed,
+        "attribution_status": _attribution_status(owned_source, brand_absorbed),
+        "claim_fidelity": "directional_supported" if answer_present else "unassessed_empty_answer",
+        "claim_fidelity_basis": "deterministic_fixture_heuristic",
+        "citation_context": _answer_context(run.raw_answer),
+    }
+
+
+def _attribution_status(owned_source: bool, brand_absorbed: bool) -> str:
+    if owned_source and brand_absorbed:
+        return "owned_attributed"
+    if owned_source:
+        return "owned_selected_without_brand_absorption"
+    if brand_absorbed:
+        return "third_party_attributed"
+    return "third_party_or_unattributed"
+
+
+def _answer_context(answer: str, limit: int = 160) -> str:
+    clean = " ".join(answer.split())
+    return clean[:limit]
 
 
 def _page_snapshot(index: int, page: PageInventoryRecord) -> PageSnapshot:
