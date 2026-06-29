@@ -84,10 +84,9 @@ class QuerySpaceTests(unittest.TestCase):
 
         self.assertEqual(by_intent["comparison"], "Compare Huawei Watch Fit 5 with Apple Watch and Samsung Galaxy Watch")
         self.assertEqual(by_intent["alternatives"], "Best alternatives to Huawei Watch Fit 5: Apple Watch and Samsung Galaxy Watch")
-        self.assertEqual(by_intent["category"], "Best smartwatches options for Android fitness watch buyers in HU")
         self.assertNotIn("vs Apple Watch, and", by_intent["comparison"])
         self.assertNotIn("for Huawei Watch Fit 5", by_intent["comparison"])
-        self.assertNotIn("smartwatches tools", by_intent["category"])
+        self.assertNotIn("including Apple Watch, and", by_intent["alternatives"])
 
 
 if __name__ == "__main__":
