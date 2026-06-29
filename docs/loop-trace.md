@@ -6,7 +6,7 @@
 - State source: `docs/progress.md`
 - Base branch: `main`
 - Planning branch: `v9f-real-case-fixes`
-- First TODO: `V9F-6 record-evidence-and-honesty`
+- First TODO: `V9F-7 query-template-cleanup`
 
 ## 2026-06-29 STEP 0 — Re-established Runner State
 
@@ -54,11 +54,20 @@
 
 - Branch: `v9f-5-desktop-render-multi-engine`
 - PR: #109
-- Desktop artifact loader now parses report v2 `Per-Engine Breakdown` and `Directional Aggregate` sections.
+- Desktop artifact loader parses report v2 per-engine and directional aggregate sections.
 - Desktop report view renders per-engine component metrics before legacy score cards.
-- Demo artifacts remain explicitly labeled as demo and emit demo warnings.
-- Regression coverage structurally checks per-engine parsing and render ordering.
-- CI: GitHub Actions `verify` run 290 passed on commit `4914b1662703e7abb818cc81c803ef1480869848` before docs status update.
+- CI: GitHub Actions `verify` run 292 passed on final PR head.
+- Merged to `main`.
+
+## 2026-06-29 V9F-6 — Evidence Honesty
+
+- Branch: `v9f-6-evidence-honesty-docs`
+- PR: #111
+- Closed PR #110 because it mixed docs with out-of-scope desktop/runtime mutations and failed CI.
+- Documented Google AIO as manual-only because AIO share links are gated and not auto-capturable.
+- Preserved existing runtime provider status tables while recording manual-only as an evidence-boundary note.
+- Clarified small-n and aggregate-score results as directional context, not verdicts.
+- CI: GitHub Actions `verify` run 308 passed on commit `f1de7dd299cf3a7c7c5202fa4167951c36401145` before docs status update.
 - Final docs update committed after CI pass; re-run CI on final head before merging.
 
 ## Guardrails

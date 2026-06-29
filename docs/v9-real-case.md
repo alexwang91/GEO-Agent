@@ -28,6 +28,15 @@ Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on 
 - Google AIO is manual-only because AIO share links are gated and not auto-capturable.
 - Manual capture is the evidence path for multi-engine validation.
 
+## Evidence Boundaries
+
+- This is a sanitized, project-owned validation record, not an independent customer validation.
+- The sample size is small; conclusions are directional only.
+- The aggregate score is directional context, not a verdict.
+- Per-engine and per-component findings lead interpretation.
+- Google AIO evidence must be explicit manual capture until automated capture is implemented and deterministically verified.
+- Manual capture can include pasted or recorded ChatGPT Search, Perplexity, Gemini, Google AIO, and comparable answer evidence; it must not be described as automated live provider coverage.
+
 ## Privacy / Safety
 
 - Sanitized brand-level data only.

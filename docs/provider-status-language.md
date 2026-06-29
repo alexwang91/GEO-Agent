@@ -28,6 +28,12 @@ Provider status language controls how README, desktop UI copy, reports, and docs
 | `firecrawl` | Firecrawl | `planned` | Planned crawler provider. |
 | `google_search_console` | Google Search Console | `planned` | Planned analytics/search provider. |
 
+## Google AIO evidence boundary
+
+- `google_aio` is a manual-only evidence source in V9F because AIO share links are gated and not auto-capturable.
+- Google AIO evidence enters through explicit manual capture and the implemented manual-import path.
+- Do not describe Google AIO as an automated live provider, connected provider, or share-link capture flow.
+
 ## Copy rules
 
 - Use registry literals only for machine-readable registry status.
@@ -35,4 +41,5 @@ Provider status language controls how README, desktop UI copy, reports, and docs
 - Never call OpenAI-compatible output ChatGPT Search.
 - Never imply that a planned provider can run a live audit.
 - Manual import is implemented only as a manual or recorded evidence path.
+- Manual capture is the multi-engine evidence path for ChatGPT Search, Perplexity, Gemini, Google AIO, and comparable pasted answers until provider-specific connectors are implemented and verified.
 - Simulated or fixture-backed paths support validation and tests, not live market conclusions.
