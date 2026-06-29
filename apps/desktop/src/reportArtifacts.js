@@ -45,8 +45,13 @@ export function buildReportArtifactView(manifest, report, options = {}) {
   const files = manifest && manifest.files ? manifest.files : {};
   const state = options.state || 'loaded';
   const kind = manifest?.artifact_kind || safeReport.artifact_kind || state;
+  const perEngine = extractPerEngineBreakdown(safeReport);
+  const aggregate = extractDirectionalAggregate(safeReport);
   if (kind === 'demo') {
     warnings.push('Demo fixture artifact: do not represent this as generated live audit output.');
+  }
+  if (state === 'loaded' && !perEngine.engines.length) {
+    warnings.push('No per-engine breakdown found in report.json; render legacy score fields only.');
   }
   return {
     state,
@@ -56,7 +61,11 @@ export function buildReportArtifactView(manifest, report, options = {}) {
     generatedAt: manifest?.generated_at || 'unknown-time',
     source: files.report_json || 'report.json',
     warnings,
-    score: safeReport.score || {},
+    score: safeReport.score || aggregate.score || {},
+    aggregateLabel: aggregate.label,
+    aggregateInterpretation: aggregate.interpretation,
+    engineBreakdown: perEngine.engines,
+    engineBreakdownSummary: perEngine.summary,
     missingQueries: safeReport.missing_queries || [],
     competitorMap: mapEntries(safeReport.competitor_map || {}),
     citedSources: safeReport.cited_sources || [],
@@ -77,6 +86,37 @@ export async function loadReportArtifactViewFromFiles(files) {
   const manifest = await readJsonFile(manifestFile);
   const report = await readJsonFile(reportFile);
   return buildReportArtifactView(manifest, report, { state: 'loaded', sourceLabel: 'Generated audit package' });
+}
+
+function extractPerEngineBreakdown(report) {
+  const section = findSection(report, 'Per-Engine Breakdown');
+  const summary = section?.items?.[0] || report?.per_engine || {};
+  const engines = Array.isArray(summary.engines) ? summary.engines : [];
+  return {
+    summary,
+    engines: engines.map((item) => ({
+      engine: item.engine || 'unknown-engine',
+      sampleCount: item.sample_count ?? item.sampleCount ?? 0,
+      directionality: item.directionality || 'directional',
+      components: item.components || {},
+    })),
+  };
+}
+
+function extractDirectionalAggregate(report) {
+  const section = findSection(report, 'Directional Aggregate');
+  const item = section?.items?.[0] || {};
+  const aggregateScore = item.aggregate_score || {};
+  return {
+    score: item.components || report?.score || {},
+    label: aggregateScore.label || report?.aggregate_label || '',
+    interpretation: aggregateScore.interpretation || '',
+  };
+}
+
+function findSection(report, title) {
+  const sections = Array.isArray(report?.sections) ? report.sections : [];
+  return sections.find((section) => section.title === title);
 }
 
 function readJsonFile(file) {
