@@ -9,7 +9,7 @@ from typing import Literal
 ProviderType = Literal["answer", "search", "crawl", "model", "analytics"]
 ProviderCapability = Literal["answer", "search", "crawl", "model", "analytics", "manual_import"]
 ProviderAccessMethod = Literal["api_key", "oauth", "platform_managed", "manual_import", "local"]
-ProviderStatus = Literal["implemented", "planned", "manual_only"]
+ProviderStatus = Literal["implemented", "planned"]
 AuthStatus = Literal["connected", "missing_credential", "planned", "disconnected"]
 
 
@@ -148,15 +148,6 @@ def default_provider_registry() -> ProviderRegistry:
         ProviderDefinition("google_search_console", "Google Search Console", "analytics", ("analytics", "search"), ("oauth",), "planned"),
         ProviderDefinition("manual_import", "Manual Import", "answer", ("answer", "manual_import"), ("manual_import",), "implemented"),
     ))
-
-
-def manual_only_provider_matrix() -> tuple[ProviderDefinition, ...]:
-    return (
-        ProviderDefinition("google_aio", "Google AIO", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
-        ProviderDefinition("deepseek", "DeepSeek", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
-        ProviderDefinition("kimi", "Kimi", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
-        ProviderDefinition("qianwen", "Qianwen", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
-    )
 
 
 def redact_credential_label(label: str) -> str:
