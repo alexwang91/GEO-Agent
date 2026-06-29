@@ -95,8 +95,7 @@ def build_report_v2_from_runs(
     return ReportV2(
         "AI Visibility Audit Report",
         (
-            ReportSectionV2("Per-Engine Breakdown", "Per-engine component metrics lead the report.", (engine_summary,)),
-            ReportSectionV2("Selection Absorption Attribution", "Citation selection, answer absorption, and attribution are separated per engine.", (engine_summary["decomposition"],)),
+            ReportSectionV2("Per-Engine Breakdown", "Per-engine component metrics lead the report, including selection, absorption, and attribution layers.", (engine_summary,)),
             ReportSectionV2("Directional Aggregate", "Single aggregate score is directional context, not a verdict.", (metric_summary,)),
             ReportSectionV2("Diagnoses", "Evidence-backed diagnosis records.", diagnoses),
             ReportSectionV2("Optimization Tasks", "Prioritized action plan.", tasks),
@@ -128,7 +127,7 @@ def compare_metric_delta(before: BootstrapSummary, after: BootstrapSummary) -> d
 def _engine_item(engine: str, runs: tuple[EngineRun, ...], brand: str, brand_domain: str, competitors: tuple[str, ...]) -> dict[str, object]:
     components = compute_visibility_components(list(runs), brand=brand, brand_domain=brand_domain, competitors=competitors)
     selection = _selection_layer(engine, runs, brand_domain)
-    absorption = _absorption_layer(engine, runs, brand, components.to_dict())
+    absorption = _absorption_layer(engine, runs, components.to_dict())
     attribution = _attribution_layer(engine, runs, brand_domain)
     return {
         "engine": engine,
@@ -160,7 +159,7 @@ def _selection_layer(engine: str, runs: tuple[EngineRun, ...], brand_domain: str
     }
 
 
-def _absorption_layer(engine: str, runs: tuple[EngineRun, ...], brand: str, components: dict[str, object]) -> dict[str, object]:
+def _absorption_layer(engine: str, runs: tuple[EngineRun, ...], components: dict[str, object]) -> dict[str, object]:
     answered = sum(1 for run in runs if run.raw_answer.strip())
     return {
         "engine": engine,
