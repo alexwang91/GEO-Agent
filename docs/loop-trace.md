@@ -3,21 +3,18 @@
 ## Current Loop
 
 - Loop: V10 GEO-research integration
-- State source: `docs/progress.md`
 - Base branch: `main`
-- First TODO: `V10-13 ui-brand-form-query-preview`
+- First TODO: `V10-14 ui-reproducible-preview-artifact`
 
 ## Completed
 
-- V10-01 through V10-11 are merged to `main`.
+- V10-01 through V10-12 are merged to `main`.
 
-## V10-12
+## V10-13
 
-- Branch: `v10-12-interface`
-- Added `src/geo_agent/geoflow_interface.py`.
-- Added `tests/test_v10_12_interface.py`.
+- Branch: `v10-13-ui-brand-preview`
+- Added `tests/test_v10_13_ui_brand_preview.py`.
 
 ## Guardrails
 
 - CI remains network-free.
-- External tools are fixture-only in CI.
