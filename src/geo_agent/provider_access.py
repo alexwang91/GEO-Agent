@@ -143,15 +143,20 @@ def default_provider_registry() -> ProviderRegistry:
         ProviderDefinition("openai_compatible", "OpenAI-compatible", "answer", ("answer", "model"), ("api_key", "platform_managed"), "implemented"),
         ProviderDefinition("perplexity", "Perplexity", "answer", ("answer", "search"), ("api_key",), "planned"),
         ProviderDefinition("gemini", "Gemini", "answer", ("answer", "model"), ("api_key",), "planned"),
-        ProviderDefinition("google_aio", "Google AIO", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
-        ProviderDefinition("deepseek", "DeepSeek", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
-        ProviderDefinition("kimi", "Kimi", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
-        ProviderDefinition("qianwen", "Qianwen", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
         ProviderDefinition("crawl4ai", "Crawl4AI", "crawl", ("crawl",), ("local", "platform_managed"), "planned"),
         ProviderDefinition("firecrawl", "Firecrawl", "crawl", ("crawl",), ("api_key",), "planned"),
         ProviderDefinition("google_search_console", "Google Search Console", "analytics", ("analytics", "search"), ("oauth",), "planned"),
         ProviderDefinition("manual_import", "Manual Import", "answer", ("answer", "manual_import"), ("manual_import",), "implemented"),
     ))
+
+
+def manual_only_provider_matrix() -> tuple[ProviderDefinition, ...]:
+    return (
+        ProviderDefinition("google_aio", "Google AIO", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
+        ProviderDefinition("deepseek", "DeepSeek", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
+        ProviderDefinition("kimi", "Kimi", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
+        ProviderDefinition("qianwen", "Qianwen", "answer", ("answer", "manual_import"), ("manual_import",), "manual_only"),
+    )
 
 
 def redact_credential_label(label: str) -> str:
