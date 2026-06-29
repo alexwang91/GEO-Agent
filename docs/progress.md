@@ -1,20 +1,16 @@
 # Autonomous Progress
 
-## Loop V9F Real-Case Fix Loop
+## Loop V10 GEO-Research Integration
 
-Brand Huawei, single Perplexity/ChatGPT session + manually pasted Google AIO (AIO share links are gated and NOT auto-capturable). 15 real answers. Per-engine Huawei visibility (directional, n small):
-- Perplexity n=6: mention 0.83, owned-citation 0.17, competitor-only 0.17, aggregate 0.48
-- ChatGPT n=5: mention 0.60, owned-citation 0.40, competitor-only 0.40, aggregate 0.49
-- Google AIO n=4: mention 1.00, owned-citation 1.00, competitor-only 0.00, aggregate 0.72
-Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on AIO, third-party-driven on Perplexity, dropped from "best smartwatches" category queries on ChatGPT). A single-engine audit or a single aggregate score MISLEADS. Huawei is absent from high-intent "best smartwatches for Android/fitness" queries on Perplexity/ChatGPT. consumer.huawei.com (owned) shapes AIO (4/4) and ChatGPT (2/5) far more than Perplexity (1/6).
+Loop V10 integrates GEO measurement research into GEO-Agent's core while preserving the product boundary: GEO-Agent measures, diagnoses, plans experiments, and retests AI search visibility. It does not become a content writer.
 
 ## Branch State
 
 - Base branch: `main`
-- Planning branch: `v9f-real-case-fixes`
-- Loop: `UI productization after V9F`
-- State source: this file plus `docs/ui-product-plan.md`
-- First TODO: `UI-P3 reproducible-ui-preview-artifact`
+- Planning branch: `v10-geo-research-integration-plan`
+- Loop: `Loop V10 GEO-research integration`
+- State source: this file plus `docs/loop-v10.md`
+- First TODO: `V10-01 evidence-and-integration-map`
 - Runner mode: GitHub-only development; CI verifies; no local repository operations required.
 
 ## Milestone State
@@ -29,17 +25,24 @@ Key real insight: Huawei AI visibility is strongly ENGINE-DEPENDENT (healthy on 
 | V6 | DONE | Historical provider-backed agent |
 | V7 | DONE | AI visibility workbench history |
 | V8 | DONE | Measurement foundation hardening |
-| V9 | DONE | Historical real vertical-slice loop |
-| V9F-1 | DONE | fix-recommendation-matching |
-| V9F-2 | DONE | fix-manual-capture-recommendations-and-mention-dedup |
-| V9F-3 | DONE | capture-to-package-bridge |
-| V9F-4 | DONE | report-per-engine-and-component |
-| V9F-5 | DONE | desktop-render-multi-engine |
-| V9F-6 | DONE | record-evidence-and-honesty |
-| V9F-7 | DONE | query-template-cleanup |
-| UI-P1 | DONE | brand-profile-query-preview |
-| UI-P2 | DONE | manual-capture-package-import-workflow |
-| UI-P3 | TODO | reproducible-ui-preview-artifact |
+| V9 | DONE | Historical real vertical-slice loop and V9F/UI follow-up history |
+| V10-01 | TODO | evidence-and-integration-map |
+| V10-02 | TODO | fix-recommendation-matching |
+| V10-03 | TODO | fix-manual-capture-recommendations-and-mention-dedup |
+| V10-04 | TODO | capture-to-package-bridge |
+| V10-05 | TODO | position-adjusted-visibility |
+| V10-06 | TODO | report-v2-selection-absorption-attribution |
+| V10-07 | TODO | citation-level-feature-schema |
+| V10-08 | TODO | content-feature-taxonomy-diagnosis |
+| V10-09 | TODO | repeated-sampling-and-manual-only-provider-matrix |
+| V10-10 | TODO | optimization-task-action-taxonomy |
+| V10-11 | TODO | optimization-execution-plugin-boundary |
+| V10-12 | TODO | geoflow-interface |
+| V10-13 | TODO | ui-brand-form-query-preview |
+| V10-14 | TODO | ui-reproducible-preview-artifact |
+| V10-15 | TODO | ui-capture-package-import-wizard |
+| V10-16 | TODO | yao-skill-packaging |
+| V10-17 | TODO | yao-governance-evals-release-guards |
 
 ## Done Rule
 
@@ -47,11 +50,13 @@ A milestone is DONE only when its deterministic regression test/check passes, CI
 
 ## Guardrails
 
-- Fix backlog priority order is mandatory.
-- Do not add new analytics modules.
-- Reuse existing V7/V8 code and `entity_resolution` paths.
+- Implement V10 milestones in priority order.
+- Keep GEO-Agent as a measurement, diagnosis, experiment, task-planning, and retest workbench.
+- Put content rewriting and distribution behind plugin/downstream executor interfaces only.
+- Reuse existing V7/V8 code and entity-resolution paths before adding new paths.
 - Keep CI network-free.
-- Never fabricate AI-engine answers or treat model/web-search output as a real engine sample.
-- Keep Google AIO `manual_only`; AIO share links are gated and not auto-capturable.
-- Keep single-sample and aggregate results labeled directional.
-- No raw credentials in artifacts, logs, manifests, databases, or UI state.
+- Use only explicit manual captures or sanctioned provider paths as real engine evidence.
+- Keep Google AIO manual-only; AIO share links are gated and not auto-capturable.
+- Keep DeepSeek, Kimi, Qianwen, and other Chinese AI search engines manual-only unless a sanctioned provider path is explicitly added later.
+- Keep per-engine results primary and label single-sample or aggregate results as directional.
+- Do not store secrets in artifacts, logs, manifests, databases, or UI state.
