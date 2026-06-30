@@ -1,0 +1,35 @@
+{
+  "fixture_kind": "geo-agent real-case smoke",
+  "fixture_status": "sanitized_manual_capture",
+  "source_policy": "no_fabricated_engine_answers",
+  "brand": {
+    "name": "GEO-Agent",
+    "site": "example.invalid"
+  },
+  "query_cluster": "geo measurement workbench",
+  "captures": [
+    {
+      "engine": "google_aio",
+      "collection_method": "manual_import",
+      "captured_at": "2026-06-29T00:00:00Z",
+      "query": "example query for sanitized smoke validation",
+      "answer_excerpt": "Sanitized manually collected excerpt placeholder for validation only.",
+      "citation_count": 1,
+      "evidence_ids": ["evidence-smoke-001"]
+    }
+  ],
+  "trust_check": {
+    "status": "reviewed",
+    "extraction_precision": 1.0,
+    "extraction_recall": 1.0,
+    "reviewer_note": "Template validates the smoke contract only. Replace with actual sanitized capture before using as evidence."
+  },
+  "retest_plan": {
+    "query_cluster": "geo measurement workbench",
+    "noise_floor_note": "Single-sample result is directional only. Retest before interpreting movement."
+  },
+  "limitations": [
+    "Template fixture is not product evidence.",
+    "Replace with actual sanitized manual capture for V11 completion."
+  ]
+}

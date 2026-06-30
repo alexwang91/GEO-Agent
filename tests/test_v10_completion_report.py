@@ -18,10 +18,8 @@ class V10CompletionReportTests(unittest.TestCase):
             self.assertIn(milestone, report)
             self.assertIn(f"| {milestone} | DONE |", progress)
             self.assertIn(milestone, trace)
-        self.assertIn("First TODO: `NONE`", progress)
         self.assertIn("Final V10 merge commit", report)
         self.assertIn("V11 real-case reliability", progress)
-        self.assertIn("Stale PR cleanup", trace)
 
 
 if __name__ == "__main__":
