@@ -2,11 +2,11 @@
 
 ## Current Loop
 
-- Loop: V10 GEO-research integration
+- Loop: V11 real-case reliability
 - Base branch: `main`
-- First TODO: `NONE`
+- First TODO: `V11-02 collect-sanitized-manual-capture`
 - Final V10 merge commit: `90b57fca7c423ad2f209ee009c6ac2f34c39778a`
-- Status: complete; ready for next planning loop.
+- Post-merge audit commit: `0372b61a9487de67f054d93b0a87020503749309`
 
 ## V10 merged milestone ledger
 
@@ -30,11 +30,14 @@
 | V10-16 | #130 | `v10-16-skill-packaging` | verify 386 | merged |
 | V10-17 | #131 | `v10-17-release-guards` | verify 389 | merged |
 
-## Post-merge audit
+## V11-01
 
-- Branch: `v10-post-merge-audit`
-- Purpose: restore readable trace, add a V10 completion report, and prevent stale V9 PR #98 from confusing runner state.
-- Stale PR cleanup: #98 was commented and closed as superseded.
+- Branch: `v11-01-smoke-harness`
+- Added `src/geo_agent/real_case_smoke.py`.
+- Added `fixtures/smoke/template.json`.
+- Added `docs/v11-real-case-smoke-report.md`.
+- Added `tests/test_v11_real_case_smoke.py`.
+- Boundary: template data is not product evidence.
 
 ## Guardrails retained
 
@@ -46,6 +49,6 @@
 - Skill packages preserve evidence IDs and return artifact references only.
 - No secrets in docs, manifests, reports, logs, databases, or UI state.
 
-## Recommended next loop
+## Next
 
-Open V11 only after this audit PR merges. V11 should be a real-case reliability loop: sanitized capture package, full CLI/package/UI smoke run, extraction trust check, and retest/noise-floor interpretation.
+V11-02 must collect or import actual sanitized manual capture data before any reliability claim.
