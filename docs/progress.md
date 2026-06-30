@@ -3,10 +3,10 @@
 ## Branch State
 
 - Base branch: `main`
-- Current loop: `post-V10 audit`
-- First TODO: `NONE`
+- Current loop: `V11 real-case reliability`
+- First TODO: `V11-02 collect-sanitized-manual-capture`
 - V10 completion report: `docs/v10-completion-report.md`
-- Recommended next loop: V11 real-case reliability smoke run.
+- V11 plan: `docs/v11-reliability-loop-plan.md`
 
 ## Milestone State
 
@@ -38,9 +38,11 @@
 | V10-15 | DONE | ui-capture-package-import-wizard |
 | V10-16 | DONE | yao-skill-packaging |
 | V10-17 | DONE | yao-governance-evals-release-guards |
+| V11-01 | DONE | real-case-smoke-harness |
+| V11-02 | TODO | collect-sanitized-manual-capture |
 
-## Post-V10 Audit Notes
+## V11 Notes
 
-- Stale V9 notes PR #98 was closed as superseded.
-- V10 is complete, but production confidence still depends on a real-case smoke run with sanitized manual capture evidence.
-- Do not open V11 feature work until the V10 completion report and trace audit are merged.
+- V11-01 adds the validation harness and report template only.
+- Template data is not product evidence.
+- V11-02 must replace the template with actual sanitized manual capture data before any reliability claim.
