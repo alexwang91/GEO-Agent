@@ -3,10 +3,12 @@
 ## Branch State
 
 - Base branch: `main`
-- Current loop: `V11 real-case reliability`
-- First TODO: `V11-02 collect-sanitized-manual-capture`
+- Current loop: `V12 seo-geo-subject-classifier`
+- First TODO: `V12-00 state-source`
 - V10 completion report: `docs/v10-completion-report.md`
 - V11 plan: `docs/v11-reliability-loop-plan.md`
+- V11 human-only pending TODO: `V11-02 collect-sanitized-manual-capture`
+- V12 plan: `docs/loop-v12.md`
 
 ## Milestone State
 
@@ -40,9 +42,24 @@
 | V10-17 | DONE | yao-governance-evals-release-guards |
 | V11-01 | DONE | real-case-smoke-harness |
 | V11-02 | TODO | collect-sanitized-manual-capture |
+| V12-00 | TODO | state-source |
+| V12-01 | TODO | skill-scaffold |
+| V12-02 | TODO | generalize-packaging-validator |
+| V12-03 | TODO | classifier-function |
+| V12-04 | TODO | diagnosis-pre-check |
+| V12-05 | TODO | seo-action-taxonomy-out-of-core |
+| V12-06 | TODO | docs |
 
 ## V11 Notes
 
 - V11-01 adds the validation harness and report template only.
 - Template data is not product evidence.
 - V11-02 must replace the template with actual sanitized manual capture data before any reliability claim.
+- V11-02 remains a human-only real-data task. Loop V12 work only touches V10-shipped planning, skill, classifier, and diagnosis boundaries and does not depend on V11-02 data collection.
+
+## Loop V12 Notes
+
+- V12 formalizes the SEO/GEO subject boundary for incoming asks.
+- GEO-Agent routes only the GEO half into existing measurement, diagnosis, task-planning, and retest paths.
+- Plain Google/Bing organic ranking providers remain absent from the provider matrix by design.
+- SEO actions are named as out-of-core references only; GEO-Agent must not execute or measure them.
